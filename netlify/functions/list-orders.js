@@ -6,7 +6,18 @@ exports.handler = async (event) => {
   }
 
   const key = event.headers && (event.headers['x-dashboard-key'] || event.headers['X-Dashboard-Key']);
-  if (!process.env.ORDERS_DASHBOARD_KEY || key !== process.env.ORDERS_DASHBOARD_KEY) {
+  const expected = process.env.ORDERS_DASHBOARD_KEY;
+
+  // TEMPORARY DIAGNOSTIC — logs only lengths/presence, never the actual secret values.
+  console.log('DEBUG auth check:', {
+    envVarIsSet: !!expected,
+    envVarLength: expected ? expected.length : 0,
+    receivedKeyPresent: !!key,
+    receivedKeyLength: key ? key.length : 0,
+    match: key === expected
+  });
+
+  if (!expected || key !== expected) {
     return { statusCode: 401, body: JSON.stringify({ error: 'Невалиден или липсващ ключ.' }) };
   }
 
