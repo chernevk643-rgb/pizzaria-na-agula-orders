@@ -43,4 +43,11 @@ async function updateOrderStatus(id, status) {
   return order;
 }
 
-module.exports = { saveOrder, listOrders, updateOrderStatus, getOrder };
+async function clearAllOrders() {
+  const s = store();
+  const { blobs } = await s.list();
+  await Promise.all(blobs.map(b => s.delete(b.key)));
+  return blobs.length;
+}
+
+module.exports = { saveOrder, listOrders, updateOrderStatus, getOrder, clearAllOrders };
