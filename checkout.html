@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Плащане — Пицария "На Ъгъла"</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header scrolled" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo.png" alt="Пицария На Ъгъла" class="brand-logo">
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html#menu">Меню</a>
+      <a href="index.html#contact">Контакти</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-order" href="index.html">← Обратно към менюто</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Плащане</h1>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="checkout-grid">
+
+      <div class="checkout-form-card">
+        <h2>Данни за доставка</h2>
+        <div class="checkout-error" id="checkoutError"></div>
+        <form id="checkoutForm" novalidate>
+          <div class="form-row">
+            <label for="name">Име и фамилия *</label>
+            <input type="text" id="name" name="name" required maxlength="100" autocomplete="name">
+          </div>
+          <div class="form-row-2">
+            <div class="form-row">
+              <label for="phone">Телефон *</label>
+              <input type="tel" id="phone" name="phone" required maxlength="30" autocomplete="tel" placeholder="08XX XXX XXX">
+            </div>
+            <div class="form-row">
+              <label for="email">Имейл *</label>
+              <input type="email" id="email" name="email" required maxlength="254" autocomplete="email">
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="address">Адрес за доставка *</label>
+            <input type="text" id="address" name="address" required maxlength="250" autocomplete="street-address" placeholder="Улица, номер, вход, етаж, апартамент">
+          </div>
+          <div class="form-row">
+            <label for="notes">Забележки към поръчката (незадължително)</label>
+            <textarea id="notes" name="notes" rows="3" maxlength="400" placeholder="Без лук, звънец не работи и т.н."></textarea>
+          </div>
+
+          <h2 class="section-gap-top">Начин на плащане</h2>
+          <div class="payment-options">
+            <label class="payment-option">
+              <input type="radio" name="payment" value="card" checked>
+              <div>
+                <strong>Плащане с карта</strong>
+                <small>Сигурно плащане през Stripe — не съхраняваме данни за картата ви</small>
+              </div>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cash">
+              <div>
+                <strong>В брой при доставка</strong>
+                <small>Плащате на куриера в момента на получаване</small>
+              </div>
+            </label>
+          </div>
+
+          <label class="consent-row">
+            <input type="checkbox" id="consentTerms" required>
+            <span>Съгласен/на съм с <a href="terms.html" target="_blank">Общите условия</a> и <a href="privacy.html" target="_blank">Политиката за поверителност</a>. Разбирам, че предоставените лични данни се обработват единствено за целите на изпълнение на поръчката. *</span>
+          </label>
+          <label class="consent-row">
+            <input type="checkbox" id="consentMarketing">
+            <span>Искам да получавам новини и промоции по имейл (незадължително).</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary checkout-submit" id="submitBtn">Завърши поръчката</button>
+          <div class="secure-note">
+            <svg class="ico-svg" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            Връзката е криптирана. Картовите плащания се обработват изцяло от Stripe — ние никога не виждаме и не съхраняваме номера на картата ви.
+          </div>
+        </form>
+      </div>
+
+      <div class="order-summary-card">
+        <h2>Вашата поръчка</h2>
+        <div class="summary-items" id="summaryItems"></div>
+        <div class="summary-totals">
+          <div class="row"><span>Междинна сума</span><span id="sumSubtotal">0.00€</span></div>
+          <div class="row"><span>Доставка</span><span>По договаряне с куриера</span></div>
+          <div class="row grand"><span>Общо</span><span id="sumTotal">0.00€</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Hidden static form so Netlify's build-time bot can detect and provision it. Actual submission happens via fetch in checkout.js -->
+<form name="cash-order" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name">
+  <input type="tel" name="phone">
+  <input type="email" name="email">
+  <input type="text" name="address">
+  <textarea name="notes"></textarea>
+  <textarea name="order_items"></textarea>
+  <input type="text" name="total">
+  <input type="text" name="bot-field">
+</form>
+
+<footer class="site-footer">
+  <p class="footer-copy footer-copy-standalone">© <span id="year"></span> Пицария "На Ъгъла". Всички права запазени.</p>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/year.js"></script>
+</body>
+</html>

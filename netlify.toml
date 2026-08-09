@@ -1,0 +1,39 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Force HTTPS (Netlify already redirects http->https by default, this is explicit belt-and-braces)
+[[redirects]]
+  from = "http://*"
+  to = "https://:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), payment=(self \"https://checkout.stripe.com\")"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://checkout.stripe.com; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'"
+
+# Checkout/success/cancel pages hold transient order info in the URL/session — keep them out of caches and search indexes.
+[[headers]]
+  for = "/checkout.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/success.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-store"
