@@ -24,19 +24,36 @@ function payLabel(p) {
 
 /* ===== Sound ===== */
 let audioCtx = null;
+let keepAliveNode = null;
+
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
 
+// Chrome/Safari auto-suspend an AudioContext after ~30s of silence to save
+// battery, and iOS Safari in particular often refuses ctx.resume() unless
+// it's called synchronously inside a real tap/click — a timer-driven alert
+// (our poll loop) doesn't qualify, so resume() can silently never resolve.
+// The reliable fix is to never let the context go idle in the first place:
+// keep an inaudible (gain ~0) oscillator running continuously from the
+// moment the dashboard is unlocked (a real click) until the tab is closed.
+function startAudioKeepAlive() {
+  if (keepAliveNode) return;
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    gain.gain.value = 0.00001; // inaudible, but keeps the audio graph "active"
+    osc.frequency.value = 20; // sub-bass, effectively silent even if it leaked
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    keepAliveNode = osc;
+  } catch (e) { /* ignore */ }
+}
+
 // Loud, alarm-like pattern (square wave cuts through kitchen noise far better
 // than a soft sine chime) plus a vibration pulse for phones/tablets.
-//
-// Chrome/Safari auto-suspend an AudioContext after ~30s of silence to save
-// battery. ctx.resume() is async — scheduling oscillators against
-// ctx.currentTime *before* resume() finishes silently drops the sound with
-// no error. That was the actual bug: the poll-triggered alert ran into a
-// suspended context and resume() was fired without being awaited.
 async function beep() {
   if (localStorage.getItem(SOUND_PREF_STORAGE) === 'off') return;
   try {
@@ -181,6 +198,13 @@ function unlock(key) {
   poll();
   if (pollTimer) clearInterval(pollTimer);
   pollTimer = setInterval(poll, POLL_MS);
+
+  // If we got here via the auto-login path (saved password, page just
+  // reloaded) there was no click involved, so audio was never unlocked —
+  // show a banner asking for one tap. If unlock() ran from the actual login
+  // click, keepAliveNode is already running and this stays hidden.
+  const unlockBtn = document.getElementById('soundUnlockBtn');
+  if (unlockBtn) unlockBtn.hidden = !!keepAliveNode || localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
 }
 
 function lock() {
@@ -213,8 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
     tryKey(savedKey);
   }
 
+  document.getElementById('soundUnlockBtn').addEventListener('click', () => {
+    startAudioKeepAlive();
+    document.getElementById('soundUnlockBtn').hidden = true;
+  });
+
   document.getElementById('gateSubmitBtn').addEventListener('click', () => {
-    getAudioCtx(); // prime audio inside a real click so later auto-alerts aren't blocked by autoplay rules
+    startAudioKeepAlive(); // prime audio inside a real click so later auto-alerts aren't blocked by autoplay rules
     const val = document.getElementById('gateKeyInput').value.trim();
     if (val) tryKey(val);
   });
@@ -245,7 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('soundTestBtn').addEventListener('click', () => {
-    getAudioCtx();
+    startAudioKeepAlive();
+    document.getElementById('soundUnlockBtn').hidden = true;
     const wasOff = localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
     if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'on'); // test should play even if muted
     beep();

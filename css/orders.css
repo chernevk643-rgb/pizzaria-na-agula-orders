@@ -175,3 +175,19 @@
   .orders-header h1{font-size:.92rem;}
   .order-actions button{min-width:100%;}
 }
+
+.sound-unlock-banner{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:3000;
+  background:var(--red);
+  color:var(--white);
+  border:none;
+  padding:14px 20px;
+  font-family:var(--ff-body);
+  font-weight:700;
+  font-size:.95rem;
+  cursor:pointer;
+  animation:pulseNew 1.4s ease infinite;
+}
+.sound-unlock-banner[hidden]{display:none;}
