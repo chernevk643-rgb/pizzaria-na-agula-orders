@@ -123,8 +123,8 @@
 .order-badge.status-new{background:#fdecea; color:var(--red-dark);}
 .order-badge.status-seen{background:#fff4d6; color:#8a6400;}
 .order-badge.status-preparing{background:#e3f2ff; color:#0a5aa8;}
-.order-badge.status-baking{background:#ffe8d6; color:#a8500a;}
-.order-badge.status-done{background:#e6f7ea; color:#1c7a34;}
+.order-badge.status-ready{background:#e6f7ea; color:#1c7a34;}
+.order-badge.status-picked_up{background:#ece6fa; color:#5b3aa8;}
 .order-pay{font-size:.78rem; color:var(--gray); font-weight:600;}
 .order-time{font-size:.78rem; color:var(--gray);}
 .order-card-body{padding:18px 20px;}

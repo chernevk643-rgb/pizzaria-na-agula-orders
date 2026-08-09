@@ -419,6 +419,8 @@ ul{list-style:none;}
 .combo-body p{font-size:.85rem; color:var(--gray-light); margin-bottom:14px; min-height:44px;}
 .combo-body .price{color:var(--white); font-size:1.1rem;}
 .combo-body .price em{color:var(--gray-light); display:inline; margin-left:6px;}
+.combo-body .btn-cart{border-color:var(--white); color:var(--white);}
+.combo-body .btn-cart:hover{background:var(--white); color:var(--black);}
 
 .promo-banner{
   background:linear-gradient(120deg, var(--red), var(--red-dark));

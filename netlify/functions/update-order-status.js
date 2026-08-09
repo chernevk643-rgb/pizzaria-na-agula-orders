@@ -1,6 +1,6 @@
 const { updateOrderStatus } = require('./_orders-store.js');
 
-const ALLOWED_STATUSES = ['new', 'seen', 'preparing', 'baking', 'done'];
+const ALLOWED_STATUSES = ['new', 'seen', 'preparing', 'ready', 'picked_up'];
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {

@@ -16,7 +16,7 @@ function fmtTime(iso) {
 }
 
 function statusLabel(s) {
-  return { new: 'Нова', seen: 'Видяна', preparing: 'Приготвя се', baking: 'Пече се', done: 'Готова' }[s] || s;
+  return { new: 'Нова', seen: 'Видяна', preparing: 'Приготвя се', ready: 'Готова', picked_up: 'Взета от доставчик' }[s] || s;
 }
 function payLabel(p) {
   return p === 'card' ? '💳 Карта' : '💵 В брой';
@@ -105,8 +105,8 @@ async function setStatus(id, status) {
 function renderOrders(orders) {
   const listEl = document.getElementById('ordersList');
   const filtered = orders.filter(o => {
-    if (currentFilter === 'active') return o.status !== 'done';
-    if (currentFilter === 'done') return o.status === 'done';
+    if (currentFilter === 'active') return o.status !== 'picked_up';
+    if (currentFilter === 'done') return o.status === 'picked_up';
     return true;
   });
 
@@ -125,16 +125,14 @@ function renderOrders(orders) {
       : '';
 
     let actions;
-    if (o.status === 'done') {
+    if (o.status === 'picked_up') {
       actions = `<button data-id="${o.id}" data-status="preparing">Отвори отново</button>`;
     } else if (o.status === 'new' || o.status === 'seen') {
       actions = `<button data-id="${o.id}" data-status="preparing" class="primary">Приемам поръчката</button>`;
     } else if (o.status === 'preparing') {
-      actions = `<button data-id="${o.id}" data-status="baking" class="primary">Слагам да се пече</button>`;
-    } else if (o.status === 'baking') {
-      actions = `<button data-id="${o.id}" data-status="done" class="primary">Готова е</button>`;
+      actions = `<button data-id="${o.id}" data-status="ready" class="primary">Готова е</button>`;
     } else {
-      actions = `<button data-id="${o.id}" data-status="done" class="primary">Готова е</button>`;
+      actions = `<button data-id="${o.id}" data-status="picked_up" class="primary">Взета от доставчик</button>`;
     }
 
     return `

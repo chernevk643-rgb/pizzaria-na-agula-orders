@@ -2,8 +2,8 @@ const TRACK_POLL_MS = 10000;
 const ORDER_STAGES = [
   { key: 'new', label: 'Приета' },
   { key: 'preparing', label: 'Приготвя се' },
-  { key: 'baking', label: 'Пече се' },
-  { key: 'done', label: 'Готова' }
+  { key: 'ready', label: 'Готова' },
+  { key: 'picked_up', label: 'Взета от доставчик' }
 ];
 
 function stageIndex(status) {
@@ -39,7 +39,7 @@ function startTracking(id, container, onUpdate) {
       const data = await res.json();
       renderTracker(container, data.status);
       if (onUpdate) onUpdate(data);
-      if (data.status === 'done' && trackTimer) {
+      if (data.status === 'picked_up' && trackTimer) {
         clearInterval(trackTimer);
         trackTimer = null;
       }
