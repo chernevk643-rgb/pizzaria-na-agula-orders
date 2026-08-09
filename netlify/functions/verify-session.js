@@ -57,6 +57,7 @@ exports.handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         paid: true,
+        id: session.id,
         amount_total: session.amount_total,
         currency: session.currency,
         customer_email: session.customer_email

@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(() => {});
 
         clearCart();
-        window.location.href = 'success.html?method=cash';
+        window.location.href = 'success.html?method=cash&id=' + encodeURIComponent(data.id);
       }
     } catch (err) {
       showError('Възникна мрежова грешка. Проверете връзката си и опитайте отново.');

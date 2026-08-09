@@ -2,8 +2,10 @@ async function initSuccessPage() {
   const params = new URLSearchParams(window.location.search);
   const method = params.get('method');
   const sessionId = params.get('session_id');
+  const cashId = params.get('id');
   const titleEl = document.getElementById('statusTitle');
   const bodyEl = document.getElementById('statusBody');
+  const trackerEl = document.getElementById('trackerContainer');
 
   if (method === 'cash') {
     titleEl.textContent = 'Поръчката е приета!';
@@ -12,6 +14,7 @@ async function initSuccessPage() {
       <p>Ще се свържем с вас на посочения телефон, ако е необходимо да уточним детайли по доставката.</p>
       <p><a href="index.html" class="btn btn-primary">Обратно към сайта</a></p>
     `;
+    if (cashId && trackerEl) startTracking(cashId, trackerEl);
     return;
   }
 
@@ -29,6 +32,7 @@ async function initSuccessPage() {
           <p>Потвърждение е изпратено на вашия имейл. Пицарията вече подготвя поръчката ви.</p>
           <p><a href="index.html" class="btn btn-primary">Обратно към сайта</a></p>
         `;
+        if (data.id && trackerEl) startTracking(data.id, trackerEl);
       } else {
         titleEl.textContent = 'Плащането не е потвърдено';
         bodyEl.innerHTML = `

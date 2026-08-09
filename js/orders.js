@@ -16,7 +16,7 @@ function fmtTime(iso) {
 }
 
 function statusLabel(s) {
-  return { new: 'Нова', seen: 'Видяна', preparing: 'Приготвя се', done: 'Готова' }[s] || s;
+  return { new: 'Нова', seen: 'Видяна', preparing: 'Приготвя се', baking: 'Пече се', done: 'Готова' }[s] || s;
 }
 function payLabel(p) {
   return p === 'card' ? '💳 Карта' : '💵 В брой';
@@ -127,8 +127,12 @@ function renderOrders(orders) {
     let actions;
     if (o.status === 'done') {
       actions = `<button data-id="${o.id}" data-status="preparing">Отвори отново</button>`;
-    } else if (o.status === 'new') {
+    } else if (o.status === 'new' || o.status === 'seen') {
       actions = `<button data-id="${o.id}" data-status="preparing" class="primary">Приемам поръчката</button>`;
+    } else if (o.status === 'preparing') {
+      actions = `<button data-id="${o.id}" data-status="baking" class="primary">Слагам да се пече</button>`;
+    } else if (o.status === 'baking') {
+      actions = `<button data-id="${o.id}" data-status="done" class="primary">Готова е</button>`;
     } else {
       actions = `<button data-id="${o.id}" data-status="done" class="primary">Готова е</button>`;
     }
