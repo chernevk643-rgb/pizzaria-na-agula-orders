@@ -26,16 +26,24 @@ function payLabel(p) {
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
 }
 
 // Loud, alarm-like pattern (square wave cuts through kitchen noise far better
 // than a soft sine chime) plus a vibration pulse for phones/tablets.
-function beep() {
+//
+// Chrome/Safari auto-suspend an AudioContext after ~30s of silence to save
+// battery. ctx.resume() is async — scheduling oscillators against
+// ctx.currentTime *before* resume() finishes silently drops the sound with
+// no error. That was the actual bug: the poll-triggered alert ran into a
+// suspended context and resume() was fired without being awaited.
+async function beep() {
   if (localStorage.getItem(SOUND_PREF_STORAGE) === 'off') return;
   try {
     const ctx = getAudioCtx();
+    if (ctx.state !== 'running') {
+      await ctx.resume();
+    }
     const pattern = [988, 740, 988, 740, 988, 740];
     pattern.forEach((freq, i) => {
       const osc = ctx.createOscillator();
