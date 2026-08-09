@@ -99,8 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
         // Cart is cleared on the success page once Stripe confirms redirect back.
         window.location.href = data.url;
       } else {
+        const res = await fetch('/.netlify/functions/submit-cash-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: cart.map(i => ({ id: i.id, qty: i.qty })),
+            customer: { name, phone, email, address, notes }
+          })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.ok) {
+          showError(data.error || 'Възникна грешка при записване на поръчката.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Завърши поръчката';
+          return;
+        }
+
+        // Best-effort: also submit to Netlify Forms so an email notification
+        // can be enabled later with zero extra code. Never blocks the order.
         const orderItems = cart.map(i => `${i.name} × ${i.qty} — ${fmt(i.price * i.qty)}`).join('\n');
-        await fetch('/', {
+        fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: encodeFormData({
@@ -109,7 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
             order_items: orderItems,
             total: fmt(cartTotal())
           })
-        });
+        }).catch(() => {});
+
         clearCart();
         window.location.href = 'success.html?method=cash';
       }

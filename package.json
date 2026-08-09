@@ -3,6 +3,7 @@
   "private": true,
   "description": "Пицария На Ъгъла — сайт с количка и плащания",
   "dependencies": {
+    "@netlify/blobs": "^10.7.12",
     "stripe": "^16.0.0"
   }
 }

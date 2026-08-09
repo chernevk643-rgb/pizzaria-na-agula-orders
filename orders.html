@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Поръчки — Пицария "На Ъгъла"</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/orders.css">
+</head>
+<body class="orders-body">
+
+<header class="orders-header">
+  <img src="assets/img/logo.png" alt="На Ъгъла" class="orders-logo">
+  <h1>Поръчки на живо</h1>
+  <div class="orders-header-actions">
+    <span class="orders-status" id="connStatus">●</span>
+    <button class="btn btn-ghost" id="lockBtn">Заключи</button>
+  </div>
+</header>
+
+<!-- Password gate -->
+<div class="orders-gate" id="ordersGate">
+  <div class="orders-gate-card">
+    <img src="assets/img/logo.png" alt="На Ъгъла" class="orders-gate-logo">
+    <h2>Табло за поръчки</h2>
+    <p>Въведете паролата за достъп на персонала.</p>
+    <input type="password" id="gateKeyInput" placeholder="Парола" autocomplete="off">
+    <button class="btn btn-primary" id="gateSubmitBtn">Вход</button>
+    <p class="orders-gate-error" id="gateError" hidden>Грешна парола.</p>
+  </div>
+</div>
+
+<main class="orders-main" id="ordersMain" hidden>
+  <div class="orders-toolbar">
+    <div class="orders-tabs">
+      <button class="orders-tab active" data-filter="active">Активни</button>
+      <button class="orders-tab" data-filter="done">Приготвени</button>
+      <button class="orders-tab" data-filter="all">Всички</button>
+    </div>
+    <button class="btn btn-ghost" id="soundToggle">🔔 Звук: включен</button>
+  </div>
+  <div class="orders-list" id="ordersList">
+    <p class="orders-empty">Зареждане...</p>
+  </div>
+</main>
+
+<script src="js/orders.js"></script>
+</body>
+</html>
