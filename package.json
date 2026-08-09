@@ -1,0 +1,8 @@
+{
+  "name": "pizzaria-na-agula-orders",
+  "private": true,
+  "description": "Пицария На Ъгъла — сайт с количка и плащания",
+  "dependencies": {
+    "stripe": "^16.0.0"
+  }
+}
