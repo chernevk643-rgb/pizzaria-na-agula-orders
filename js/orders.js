@@ -23,22 +23,37 @@ function payLabel(p) {
 }
 
 /* ===== Sound ===== */
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// Loud, alarm-like pattern (square wave cuts through kitchen noise far better
+// than a soft sine chime) plus a vibration pulse for phones/tablets.
 function beep() {
   if (localStorage.getItem(SOUND_PREF_STORAGE) === 'off') return;
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    [880, 1046.5].forEach((freq, i) => {
+    const ctx = getAudioCtx();
+    const pattern = [988, 740, 988, 740, 988, 740];
+    pattern.forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sine';
+      osc.type = 'square';
       osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.18);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.35);
+      const t = ctx.currentTime + i * 0.24;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.9, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
       osc.connect(gain).connect(ctx.destination);
-      osc.start(ctx.currentTime + i * 0.18);
-      osc.stop(ctx.currentTime + i * 0.18 + 0.35);
+      osc.start(t);
+      osc.stop(t + 0.22);
     });
   } catch (e) { /* audio not available, ignore */ }
+  if (navigator.vibrate) {
+    try { navigator.vibrate([350, 120, 350, 120, 350]); } catch (e) { /* ignore */ }
+  }
 }
 
 /* ===== API ===== */
@@ -129,9 +144,11 @@ async function poll() {
     const orders = await fetchOrders();
     statusEl.classList.remove('offline');
 
-    if (!firstLoad) {
-      const newOnes = orders.filter(o => o.status === 'new' && !knownIds.has(o.id));
-      if (newOnes.length > 0) beep();
+    const hasUnacknowledged = orders.some(o => o.status === 'new');
+    if (!firstLoad && hasUnacknowledged) {
+      // Keep alerting every poll cycle (not just once) until someone presses
+      // "Приемам поръчката" — a kitchen can easily miss a single chime.
+      beep();
     }
     firstLoad = false;
     knownIds = new Set(orders.map(o => o.id));
@@ -189,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   document.getElementById('gateSubmitBtn').addEventListener('click', () => {
+    getAudioCtx(); // prime audio inside a real click so later auto-alerts aren't blocked by autoplay rules
     const val = document.getElementById('gateKeyInput').value.trim();
     if (val) tryKey(val);
   });
@@ -216,6 +234,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const off = localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
     localStorage.setItem(SOUND_PREF_STORAGE, off ? 'on' : 'off');
     refreshSoundLabel();
+  });
+
+  document.getElementById('soundTestBtn').addEventListener('click', () => {
+    getAudioCtx();
+    const wasOff = localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
+    if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'on'); // test should play even if muted
+    beep();
+    if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'off');
   });
 
   document.getElementById('ordersList').addEventListener('click', (e) => {

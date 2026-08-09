@@ -820,6 +820,8 @@ ul{list-style:none;}
 .legal-doc p, .legal-doc li{color:#333; margin-bottom:12px; font-size:.95rem;}
 .legal-doc ul{list-style:disc; padding-left:22px;}
 .legal-doc a{color:var(--red); text-decoration:underline;}
+.legal-doc a.btn{color:var(--white); text-decoration:none;}
+.legal-doc a.btn-ghost{color:var(--black);}
 .legal-note{
   background:#fff3cd;
   border:1px solid #ffe08a;
