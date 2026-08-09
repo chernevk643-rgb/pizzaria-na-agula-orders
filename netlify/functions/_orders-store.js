@@ -2,7 +2,14 @@
 const { getStore } = require('@netlify/blobs');
 
 function store() {
-  return getStore({ name: 'orders', consistency: 'strong' });
+  // Zero-config auto-detection doesn't work reliably on every Netlify account/plan,
+  // so fall back to explicit siteID + token when provided via env vars.
+  const opts = { name: 'orders', consistency: 'strong' };
+  if (process.env.NETLIFY_BLOBS_TOKEN) {
+    opts.siteID = process.env.SITE_ID;
+    opts.token = process.env.NETLIFY_BLOBS_TOKEN;
+  }
+  return getStore(opts);
 }
 
 async function getOrder(id) {
