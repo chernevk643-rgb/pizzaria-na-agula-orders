@@ -29,6 +29,7 @@
   z-index:2000;
   padding:20px;
 }
+.orders-gate[hidden]{display:none;}
 .orders-gate-card{
   background:var(--white);
   border-radius:var(--radius);
