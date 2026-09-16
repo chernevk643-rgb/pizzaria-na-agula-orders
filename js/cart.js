@@ -15,13 +15,26 @@ function saveCart(cart) {
   renderCart();
 }
 
+// Two cart lines are the same product only if they also have the same
+// addons — a Маргарита with bacon must stay a separate line from a plain
+// Маргарита so the kitchen can see exactly what each one needs.
+function itemKey(item) {
+  const addonKey = (item.addons || []).map(a => a.key).sort().join(',');
+  return item.id + '::' + addonKey;
+}
+
+function lineUnitPrice(item) {
+  return item.price + (item.addons || []).reduce((s, a) => s + a.price, 0);
+}
+
 function addToCart(item) {
   const cart = getCart();
-  const existing = cart.find(i => i.id === item.id);
+  const key = itemKey(item);
+  const existing = cart.find(i => itemKey(i) === key);
   if (existing) {
-    existing.qty += 1;
+    existing.qty += item.qty || 1;
   } else {
-    cart.push({ ...item, qty: 1 });
+    cart.push({ ...item, qty: item.qty || 1 });
   }
   saveCart(cart);
   openCart();
@@ -29,15 +42,15 @@ function addToCart(item) {
 
 function updateQty(id, delta) {
   const cart = getCart();
-  const item = cart.find(i => i.id === id);
+  const item = cart.find(i => itemKey(i) === id);
   if (!item) return;
   item.qty += delta;
-  const next = item.qty <= 0 ? cart.filter(i => i.id !== id) : cart;
+  const next = item.qty <= 0 ? cart.filter(i => itemKey(i) !== id) : cart;
   saveCart(next);
 }
 
 function removeFromCart(id) {
-  saveCart(getCart().filter(i => i.id !== id));
+  saveCart(getCart().filter(i => itemKey(i) !== id));
 }
 
 function clearCart() {
@@ -45,7 +58,7 @@ function clearCart() {
 }
 
 function cartTotal() {
-  return getCart().reduce((sum, i) => sum + i.price * i.qty, 0);
+  return getCart().reduce((sum, i) => sum + lineUnitPrice(i) * i.qty, 0);
 }
 
 function cartCount() {
@@ -78,21 +91,28 @@ function renderCart() {
   }
   if (checkoutBtn) checkoutBtn.classList.remove('disabled');
 
-  itemsEl.innerHTML = cart.map(i => `
-    <div class="cart-item" data-id="${i.id}">
+  itemsEl.innerHTML = cart.map(i => {
+    const key = itemKey(i);
+    const addonsHtml = (i.addons || []).length
+      ? `<div class="cart-item-addons">${i.addons.map(a => `+ ${a.name}`).join(', ')}</div>`
+      : '';
+    return `
+    <div class="cart-item" data-id="${key}">
       <img src="${i.img || 'assets/img/logo.png'}" alt="${i.name}">
       <div class="cart-item-info">
         <strong>${i.name}</strong>
-        <span class="cart-item-price">${fmtEUR(i.price)}</span>
+        ${addonsHtml}
+        <span class="cart-item-price">${fmtEUR(lineUnitPrice(i))}</span>
         <div class="qty-stepper">
-          <button type="button" class="qty-btn" data-action="dec" data-id="${i.id}" aria-label="Намали">&minus;</button>
+          <button type="button" class="qty-btn" data-action="dec" data-id="${key}" aria-label="Намали">&minus;</button>
           <span>${i.qty}</span>
-          <button type="button" class="qty-btn" data-action="inc" data-id="${i.id}" aria-label="Увеличи">&plus;</button>
+          <button type="button" class="qty-btn" data-action="inc" data-id="${key}" aria-label="Увеличи">&plus;</button>
         </div>
       </div>
-      <button type="button" class="cart-item-remove" data-id="${i.id}" aria-label="Премахни">&times;</button>
+      <button type="button" class="cart-item-remove" data-id="${key}" aria-label="Премахни">&times;</button>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   if (totalEl) totalEl.textContent = fmtEUR(cartTotal());
 }
@@ -118,14 +138,83 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 
+/* ===================== ADDON MODAL ===================== */
+// Pizzas, hot dogs and sandwiches prompt for extras (same flow as the
+// restaurant's Bolt Food listing) before the item is added to the cart.
+let addonState = null;
+
+function openAddonModal(btn) {
+  const group = btn.dataset.addonGroup;
+  const list = (typeof ADDON_GROUPS !== 'undefined' && ADDON_GROUPS[group]) || [];
+  addonState = {
+    id: btn.dataset.id,
+    name: btn.dataset.name,
+    price: parseFloat(btn.dataset.price),
+    img: btn.dataset.img || '',
+    group,
+    selected: new Set()
+  };
+
+  document.getElementById('addonModalTitle').textContent = addonState.name;
+  const listEl = document.getElementById('addonModalList');
+  if (list.length === 0) {
+    listEl.innerHTML = '<p class="addon-modal-empty">Няма налични добавки за този артикул.</p>';
+  } else {
+    listEl.innerHTML = list.map(a => `
+      <label class="addon-row">
+        <input type="checkbox" value="${a.key}">
+        <span>${a.name}</span>
+        <span class="addon-row-price">${a.price > 0 ? '+' + a.price.toFixed(2) + ' €' : 'безплатно'}</span>
+      </label>
+    `).join('');
+  }
+  document.getElementById('addonQtyVal').textContent = '1';
+  addonState.qty = 1;
+  updateAddonTotal();
+
+  const overlay = document.getElementById('addonOverlay');
+  const modal = document.getElementById('addonModal');
+  overlay.classList.add('open');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAddonModal() {
+  const overlay = document.getElementById('addonOverlay');
+  const modal = document.getElementById('addonModal');
+  overlay.classList.remove('open');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  addonState = null;
+}
+
+function updateAddonTotal() {
+  if (!addonState) return;
+  const list = (typeof ADDON_GROUPS !== 'undefined' && ADDON_GROUPS[addonState.group]) || [];
+  const addonsSum = [...addonState.selected].reduce((sum, key) => {
+    const a = list.find(x => x.key === key);
+    return sum + (a ? a.price : 0);
+  }, 0);
+  const unit = addonState.price + addonsSum;
+  document.getElementById('addonTotalPrice').textContent = fmtEUR(unit * addonState.qty);
+}
+
 /* ===================== EVENTS ===================== */
 document.addEventListener('DOMContentLoaded', () => {
   renderCart();
 
-  // Add-to-cart buttons (event delegation, works for all injected buttons)
+  // Add-to-cart buttons (event delegation, works for all injected buttons).
+  // Items with an addon group open the customization modal instead of
+  // adding straight away.
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-cart');
     if (btn) {
+      if (btn.dataset.addonGroup) {
+        openAddonModal(btn);
+        return;
+      }
       const item = {
         id: btn.dataset.id,
         name: btn.dataset.name,
@@ -139,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const qtyBtn = e.target.closest('.qty-btn');
-    if (qtyBtn) {
+    if (qtyBtn && qtyBtn.closest('.cart-item')) {
       updateQty(qtyBtn.dataset.id, qtyBtn.dataset.action === 'inc' ? 1 : -1);
       return;
     }
@@ -166,6 +255,59 @@ document.addEventListener('DOMContentLoaded', () => {
       if (getCart().length === 0) e.preventDefault();
     });
   }
+
+  /* ===== Addon modal wiring ===== */
+  const addonOverlay = document.getElementById('addonOverlay');
+  const addonModalClose = document.getElementById('addonModalClose');
+  const addonModalList = document.getElementById('addonModalList');
+  const addonQtyDec = document.getElementById('addonQtyDec');
+  const addonQtyInc = document.getElementById('addonQtyInc');
+  const addonAddBtn = document.getElementById('addonAddBtn');
+
+  if (addonOverlay) addonOverlay.addEventListener('click', closeAddonModal);
+  if (addonModalClose) addonModalClose.addEventListener('click', closeAddonModal);
+
+  if (addonModalList) {
+    addonModalList.addEventListener('change', (e) => {
+      const cb = e.target.closest('input[type="checkbox"]');
+      if (!cb || !addonState) return;
+      if (cb.checked) addonState.selected.add(cb.value);
+      else addonState.selected.delete(cb.value);
+      updateAddonTotal();
+    });
+  }
+
+  if (addonQtyDec) addonQtyDec.addEventListener('click', () => {
+    if (!addonState) return;
+    addonState.qty = Math.max(1, addonState.qty - 1);
+    document.getElementById('addonQtyVal').textContent = addonState.qty;
+    updateAddonTotal();
+  });
+  if (addonQtyInc) addonQtyInc.addEventListener('click', () => {
+    if (!addonState) return;
+    addonState.qty = Math.min(20, addonState.qty + 1);
+    document.getElementById('addonQtyVal').textContent = addonState.qty;
+    updateAddonTotal();
+  });
+
+  if (addonAddBtn) addonAddBtn.addEventListener('click', () => {
+    if (!addonState) return;
+    const list = (typeof ADDON_GROUPS !== 'undefined' && ADDON_GROUPS[addonState.group]) || [];
+    const addons = [...addonState.selected]
+      .map(key => list.find(a => a.key === key))
+      .filter(Boolean)
+      .map(a => ({ key: a.key, name: a.name, price: a.price }));
+
+    addToCart({
+      id: addonState.id,
+      name: addonState.name,
+      price: addonState.price,
+      img: addonState.img,
+      addons,
+      qty: addonState.qty
+    });
+    closeAddonModal();
+  });
 
   /* ===== Cookie consent ===== */
   const cookieBanner = document.getElementById('cookieBanner');

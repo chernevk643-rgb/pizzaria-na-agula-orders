@@ -3,6 +3,7 @@
 // is looked up server-side from products.json, keyed by product id only.
 const Stripe = require('stripe');
 const products = require('./products.json');
+const addonGroups = require('./addons.json');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -69,11 +70,28 @@ exports.handler = async (event) => {
     if (!product || qty < 1 || qty > MAX_QTY_PER_ITEM) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Артикул от количката вече не е наличен. Презаредете страницата.' }) };
     }
+
+    // Add-ons are only valid if the product declares a matching group, and
+    // every requested add-on key must exist in that group — prices always
+    // come from our own catalog, never from the client.
+    const group = product.addonGroup ? addonGroups[product.addonGroup] : null;
+    const requestedAddons = Array.isArray(it.addons) ? it.addons : [];
+    const addons = [];
+    for (const key of requestedAddons) {
+      const addon = group && typeof key === 'string' ? group[key] : null;
+      if (!addon) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна добавка. Презаредете страницата.' }) };
+      }
+      addons.push(addon);
+    }
+
+    const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);
+    const name = addons.length ? `${product.name} (${addons.map(a => a.name).join(', ')})` : product.name;
     line_items.push({
       price_data: {
         currency: 'eur',
-        product_data: { name: product.name },
-        unit_amount: Math.round(product.price * 100)
+        product_data: { name },
+        unit_amount: Math.round(unitPrice * 100)
       },
       quantity: qty
     });

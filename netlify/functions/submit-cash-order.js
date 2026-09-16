@@ -3,6 +3,7 @@
 // dashboard (list-orders.js / orders.html).
 const crypto = require('crypto');
 const products = require('./products.json');
+const addonGroups = require('./addons.json');
 const { saveOrder } = require('./_orders-store.js');
 
 const MAX_QTY_PER_ITEM = 20;
@@ -60,8 +61,24 @@ exports.handler = async (event) => {
     if (!product || qty < 1 || qty > MAX_QTY_PER_ITEM) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Артикул от количката вече не е наличен. Презаредете страницата.' }) };
     }
-    total += product.price * qty;
-    lineItems.push({ name: product.name, price: product.price, qty });
+
+    // Add-ons are only valid if the product declares a matching group, and
+    // every requested add-on key must exist in that group — prices always
+    // come from our own catalog, never from the client.
+    const group = product.addonGroup ? addonGroups[product.addonGroup] : null;
+    const requestedAddons = Array.isArray(it.addons) ? it.addons : [];
+    const addons = [];
+    for (const key of requestedAddons) {
+      const addon = group && typeof key === 'string' ? group[key] : null;
+      if (!addon) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна добавка. Презаредете страницата.' }) };
+      }
+      addons.push({ name: addon.name, price: addon.price });
+    }
+
+    const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);
+    total += unitPrice * qty;
+    lineItems.push({ name: product.name, price: product.price, addons, qty });
   }
 
   const order = {

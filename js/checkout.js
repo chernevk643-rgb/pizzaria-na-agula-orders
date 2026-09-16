@@ -11,12 +11,17 @@ function renderSummary() {
     return;
   }
 
-  itemsEl.innerHTML = cart.map(i => `
+  itemsEl.innerHTML = cart.map(i => {
+    const addonsLine = (i.addons || []).length
+      ? `<small>${i.addons.map(a => '+ ' + a.name).join(', ')} · × ${i.qty}</small>`
+      : `<small>× ${i.qty}</small>`;
+    return `
     <div class="summary-item">
-      <span>${i.name}<small>× ${i.qty}</small></span>
-      <span>${fmt(i.price * i.qty)}</span>
+      <span>${i.name}${addonsLine}</span>
+      <span>${fmt(lineUnitPrice(i) * i.qty)}</span>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   const total = cartTotal();
   subtotalEl.textContent = fmt(total);
@@ -85,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(i => ({ id: i.id, qty: i.qty })),
+            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key) })),
             customer: { name, phone, email, address, notes }
           })
         });
@@ -103,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(i => ({ id: i.id, qty: i.qty })),
+            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key) })),
             customer: { name, phone, email, address, notes }
           })
         });
@@ -117,7 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Best-effort: also submit to Netlify Forms so an email notification
         // can be enabled later with zero extra code. Never blocks the order.
-        const orderItems = cart.map(i => `${i.name} × ${i.qty} — ${fmt(i.price * i.qty)}`).join('\n');
+        const orderItems = cart.map(i => {
+          const addonsTxt = (i.addons || []).length ? ` (${i.addons.map(a => a.name).join(', ')})` : '';
+          return `${i.name}${addonsTxt} × ${i.qty} — ${fmt(lineUnitPrice(i) * i.qty)}`;
+        }).join('\n');
         fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

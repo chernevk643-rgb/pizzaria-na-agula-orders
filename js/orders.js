@@ -116,9 +116,18 @@ function renderOrders(orders) {
   }
 
   listEl.innerHTML = filtered.map(o => {
-    const itemsHtml = o.items.map(i => `
-      <div class="row"><span>${i.name} × ${i.qty}</span><span>${fmtEUR(i.price * i.qty)}</span></div>
-    `).join('');
+    const itemsHtml = o.items.map(i => {
+      const unitPrice = i.price + (i.addons || []).reduce((s, a) => s + a.price, 0);
+      const addonsHtml = (i.addons || []).length
+        ? `<div class="row-addons">${i.addons.map(a => '+ ' + escapeHtml(a.name)).join(', ')}</div>`
+        : '';
+      return `
+      <div class="row-wrap">
+        <div class="row"><span>${escapeHtml(i.name)} × ${i.qty}</span><span>${fmtEUR(unitPrice * i.qty)}</span></div>
+        ${addonsHtml}
+      </div>
+    `;
+    }).join('');
 
     const notesHtml = o.customer.notes
       ? `<div class="order-notes">📝 ${escapeHtml(o.customer.notes)}</div>`
