@@ -15,7 +15,7 @@
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; scroll-snap-type:y proximity;}
 body{
   font-family:var(--ff-body);
   color:var(--black);
@@ -110,13 +110,13 @@ ul{list-style:none;}
   align-items:center;
 }
 .brand-logo{
-  height:72px;
+  height:84px;
   width:auto;
   display:block;
   transition:height .3s ease;
 }
-.site-header.scrolled .brand-logo{height:56px;}
-.footer-logo{height:74px; margin-bottom:10px;}
+.site-header.scrolled .brand-logo{height:64px;}
+.footer-logo{height:96px; margin-bottom:10px;}
 .main-nav{
   display:flex;
   gap:32px;
@@ -281,13 +281,18 @@ ul{list-style:none;}
 .section-sub.light{color:var(--gray-light);}
 
 /* ===================== MENU ===================== */
-.menu-section{padding:100px 0 80px;}
+.menu-section{padding:100px 0 40px;}
 .tabs{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   justify-content:center;
   margin-bottom:48px;
+  position:sticky;
+  top:84px;
+  z-index:80;
+  background:var(--off-white);
+  padding:14px 0;
 }
 .tab{
   padding:11px 22px;
@@ -304,10 +309,15 @@ ul{list-style:none;}
 .tab:hover{border-color:var(--red); color:var(--red);}
 .tab.active{background:var(--black); border-color:var(--black); color:var(--white);}
 
-.menu-panel{display:none; animation:fadeIn .4s ease;}
-.menu-panel.active{display:block;}
-@keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+.menu-panels{display:flex; flex-direction:column; gap:70px;}
+.menu-panel{scroll-snap-align:start; scroll-margin-top:150px;}
 
+.panel-heading{
+  font-family:var(--ff-display);
+  font-size:clamp(1.4rem, 3vw, 1.9rem);
+  text-align:center;
+  margin-bottom:18px;
+}
 .panel-note{
   text-align:center;
   color:var(--gray);
@@ -363,14 +373,6 @@ ul{list-style:none;}
   font-size:.95rem;
   white-space:nowrap;
 }
-.price em{
-  display:block;
-  font-style:normal;
-  font-weight:500;
-  font-size:.78rem;
-  color:var(--gray);
-  text-align:right;
-}
 .weight{color:var(--gray); font-size:.8rem; margin-top:4px;}
 .desc{margin-top:10px; font-size:.88rem; color:#444;}
 
@@ -394,11 +396,6 @@ ul{list-style:none;}
 .list-row .price{font-size:.85rem;}
 
 /* ===================== COMBO ===================== */
-.combo-section{
-  background:var(--black);
-  padding:100px 0;
-  color:var(--white);
-}
 .combo-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
@@ -418,7 +415,6 @@ ul{list-style:none;}
 .combo-body h3{font-family:var(--ff-display); color:var(--red); font-size:1.1rem; margin-bottom:8px;}
 .combo-body p{font-size:.85rem; color:var(--gray-light); margin-bottom:14px; min-height:44px;}
 .combo-body .price{color:var(--white); font-size:1.1rem;}
-.combo-body .price em{color:var(--gray-light); display:inline; margin-left:6px;}
 .combo-body .btn-cart{border-color:var(--white); color:var(--white);}
 .combo-body .btn-cart:hover{background:var(--white); color:var(--black);}
 
@@ -601,6 +597,17 @@ ul{list-style:none;}
   .usp-grid{grid-template-columns:1fr;}
   .tabs{gap:8px;}
   .tab{padding:9px 16px; font-size:.8rem;}
+}
+
+@media (max-width: 600px){
+  .card-grid, .combo-grid{grid-template-columns:repeat(2, 1fr); gap:12px;}
+  .card-body{padding:12px 12px 16px;}
+  .card-top h3, .combo-body h3{font-size:.85rem;}
+  .price{font-size:.8rem;}
+  .weight, .desc{font-size:.72rem;}
+  .combo-body p{font-size:.72rem; min-height:0;}
+  .combo-body img{aspect-ratio:1/1;}
+  .btn-cart{font-size:.72rem; padding:8px 10px;}
 }
 
 /* ===================== CART BUTTONS (in menu cards) ===================== */

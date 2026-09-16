@@ -1,298 +1,115 @@
 {
-  "margarita-1": {
-    "name": "Маргарита",
-    "price": 5.2
-  },
-  "kaprichoza-2": {
-    "name": "Капричоза",
-    "price": 6.2
-  },
-  "kremoza-3": {
-    "name": "Кремоза",
-    "price": 6.2
-  },
-  "peperoni-4": {
-    "name": "Пеперони",
-    "price": 6.7
-  },
-  "polo-5": {
-    "name": "Поло",
-    "price": 6.7
-  },
-  "retro-6": {
-    "name": "Ретро",
-    "price": 6.2
-  },
-  "4-sirena-7": {
-    "name": "4 Сирена",
-    "price": 6.7
-  },
-  "spetsialna-8": {
-    "name": "Специална",
-    "price": 6.2
-  },
-  "margarita-9": {
-    "name": "Маргарита",
-    "price": 24
-  },
-  "kaprichoza-10": {
-    "name": "Капричоза",
-    "price": 24
-  },
-  "kremoza-11": {
-    "name": "Кремоза",
-    "price": 24
-  },
-  "peperoni-12": {
-    "name": "Пеперони",
-    "price": 24
-  },
-  "polo-13": {
-    "name": "Поло",
-    "price": 24
-  },
-  "retro-14": {
-    "name": "Ретро",
-    "price": 24
-  },
-  "4-sirena-15": {
-    "name": "4 Сирена",
-    "price": 24
-  },
-  "spetsialna-16": {
-    "name": "Специална",
-    "price": 24
-  },
-  "addon-svinska-shunka-1": {
-    "name": "Свинска шунка",
-    "price": 1.5
-  },
-  "addon-bekon-2": {
-    "name": "Бекон",
-    "price": 1.5
-  },
-  "addon-pueshko-file-3": {
-    "name": "Пуешко филе",
-    "price": 1.5
-  },
-  "addon-peperoni-4": {
-    "name": "Пеперони",
-    "price": 1.5
-  },
-  "addon-halapeno-5": {
-    "name": "Халапеньо",
-    "price": 1.5
-  },
-  "addon-topeno-sirene-6": {
-    "name": "Топено сирене",
-    "price": 1
-  },
-  "addon-sino-sirene-7": {
-    "name": "Синьо сирене",
-    "price": 1
-  },
-  "addon-krave-sirene-8": {
-    "name": "Краве сирене",
-    "price": 1
-  },
-  "addon-chedar-9": {
-    "name": "Чедър",
-    "price": 1
-  },
-  "addon-motsarela-10": {
-    "name": "Моцарела",
-    "price": 1
-  },
-  "addon-kiseli-krastavitsi-11": {
-    "name": "Кисели краставици",
-    "price": 1
-  },
-  "addon-tsarevitsa-12": {
-    "name": "Царевица",
-    "price": 1
-  },
-  "addon-pryasna-chushka-13": {
-    "name": "Прясна чушка",
-    "price": 1
-  },
-  "addon-gabi-14": {
-    "name": "Гъби",
-    "price": 1
-  },
-  "addon-maslini-15": {
-    "name": "Маслини",
-    "price": 1
-  },
-  "addon-luk-16": {
-    "name": "Лук",
-    "price": 1
-  },
-  "klasicheski-17": {
-    "name": "Класически",
-    "price": 2.3
-  },
-  "s-nadenichka-18": {
-    "name": "С наденичка",
-    "price": 2.9
-  },
-  "dvoen-s-nadenichka-19": {
-    "name": "Двоен с наденичка",
-    "price": 3.5
-  },
-  "addon-chedar-17": {
-    "name": "Чедър",
-    "price": 0.8
-  },
-  "addon-kashkaval-18": {
-    "name": "Кашкавал",
-    "price": 0.8
-  },
-  "addon-kiseli-krastavitsi-19": {
-    "name": "Кисели краставици",
-    "price": 0.8
-  },
-  "addon-salata-po-izbor-20": {
-    "name": "Салата по избор",
-    "price": 0.8
-  },
-  "shunka-i-kashkaval-20": {
-    "name": "Шунка и кашкавал",
-    "price": 4.6
-  },
-  "pueshko-file-i-kashkaval-21": {
-    "name": "Пуешко филе и кашкавал",
-    "price": 4.6
-  },
-  "peperoni-i-kashkaval-22": {
-    "name": "Пеперони и кашкавал",
-    "price": 4.6
-  },
-  "vegetarianski-23": {
-    "name": "Вегетариански",
-    "price": 4.6
-  },
-  "snezhanka-24": {
-    "name": "Снежанка",
-    "price": 2.99
-  },
-  "tiro-kafteri-domashno-25": {
-    "name": "Тиро кафтери домашно",
-    "price": 2.99
-  },
-  "donat-shokolad-26": {
-    "name": "Донът Шоколад",
-    "price": 2.5
-  },
-  "donat-bavarski-krem-27": {
-    "name": "Донът Баварски крем",
-    "price": 2.5
-  },
-  "magnum-vaniliya-28": {
-    "name": "Магнум Ванилия",
-    "price": 3.99
-  },
-  "magnum-shokolad-29": {
-    "name": "Магнум Шоколад",
-    "price": 3.99
-  },
-  "nirvana-malina-30": {
-    "name": "Нирвана Малина",
-    "price": 3.99
-  },
-  "sandvich-magnum-31": {
-    "name": "Сандвич Магнум",
-    "price": 2.99
-  },
-  "galaksi-vaniliya-32": {
-    "name": "Галакси Ванилия",
-    "price": 2.49
-  },
-  "galaksi-shokolad-33": {
-    "name": "Галакси Шоколад",
-    "price": 2.49
-  },
-  "beer-330": {
-    "name": "Бира Хайникен 330мл",
-    "price": 1.99
-  },
-  "beer-500": {
-    "name": "Бира Хайникен 500мл",
-    "price": 2.49
-  },
-  "cola-330": {
-    "name": "Кока Кола 330мл",
-    "price": 1.49
-  },
-  "cola-500": {
-    "name": "Кока Кола 500мл",
-    "price": 1.99
-  },
-  "ayran-250": {
-    "name": "Айран 250мл",
-    "price": 1.49
-  },
-  "ayran-500": {
-    "name": "Айран 500мл",
-    "price": 1.99
-  },
-  "bankya-500": {
-    "name": "Минерална вода Банкя 500мл",
-    "price": 1.19
-  },
-  "bankya-1500": {
-    "name": "Минерална вода Банкя 1.5л",
-    "price": 1.79
-  },
-  "rosa-500": {
-    "name": "Изворна вода Роса 500мл",
-    "price": 1.19
-  },
-  "rosa-1500": {
-    "name": "Изворна вода Роса 1.5л",
-    "price": 1.79
-  },
-  "fyuzeti-praskova-34": {
-    "name": "Фюзети Праскова",
-    "price": 1.69
-  },
-  "fyuzeti-limon-35": {
-    "name": "Фюзети Лимон",
-    "price": 1.69
-  },
-  "shveps-soda-36": {
-    "name": "Швепс Сода",
-    "price": 1.49
-  },
-  "ketchup-37": {
-    "name": "Кетчуп",
-    "price": 1
-  },
-  "mayoneza-38": {
-    "name": "Майонеза",
-    "price": 1
-  },
-  "domashen-chesnov-sos-39": {
-    "name": "Домашен чеснов сос",
-    "price": 1
-  },
-  "lyut-sos-40": {
-    "name": "Лют сос",
-    "price": 1
-  },
-  "2-pitsi-donati-kola-41": {
-    "name": "2 ПИЦИ + ДОНЪТИ + КОЛА",
-    "price": 23.99
-  },
-  "2-pitsi-ayryan-42": {
-    "name": "2 ПИЦИ + АЙРЯН",
-    "price": 19.99
-  },
-  "2-pitsi-kola-43": {
-    "name": "2 ПИЦИ + КОЛА",
-    "price": 19.99
-  },
-  "promo-boks-donati-44": {
-    "name": "ПРОМО БОКС ДОНЪТИ",
-    "price": 13.99
-  }
+  "margarita-1": { "name": "Маргарита", "price": 7.00 },
+  "peperoni-4": { "name": "Пеперони", "price": 9.00 },
+  "kaprichoza-2": { "name": "Капричоза", "price": 8.00 },
+  "kremperoni-std": { "name": "Кремперони", "price": 9.00 },
+  "kornichoza-std": { "name": "Корничоза", "price": 8.00 },
+  "diablo-std": { "name": "Диабло", "price": 9.00 },
+  "kremoza-3": { "name": "Кремоза", "price": 8.00 },
+  "belisima-std": { "name": "Белисима", "price": 10.00 },
+  "bianka-std": { "name": "Бианка", "price": 8.00 },
+  "polo-5": { "name": "Поло", "price": 9.00 },
+  "avtorska-std": { "name": "Авторска", "price": 9.00 },
+  "spetsialna-8": { "name": "Специална", "price": 9.00 },
+  "retro-6": { "name": "Ретро", "price": 9.00 },
+  "4-sirena-7": { "name": "4 Сирена", "price": 9.00 },
+  "vegetariana-std": { "name": "Вегетариана", "price": 8.00 },
+  "mega-std": { "name": "Мега", "price": 12.00 },
+
+  "margarita-9": { "name": "Маргарита", "price": 24.00 },
+  "peperoni-12": { "name": "Пеперони", "price": 24.00 },
+  "kaprichoza-10": { "name": "Капричоза", "price": 24.00 },
+  "kremperoni-fam": { "name": "Кремперони", "price": 24.00 },
+  "kornichoza-fam": { "name": "Корничоза", "price": 24.00 },
+  "diablo-fam": { "name": "Диабло", "price": 26.00 },
+  "kremoza-11": { "name": "Кремоза", "price": 24.00 },
+  "belisima-fam": { "name": "Белисима", "price": 26.00 },
+  "bianka-fam": { "name": "Бианка", "price": 24.00 },
+  "polo-13": { "name": "Поло", "price": 26.00 },
+  "avtorska-fam": { "name": "Авторска", "price": 24.00 },
+  "spetsialna-16": { "name": "Специална", "price": 24.00 },
+  "retro-14": { "name": "Ретро", "price": 24.00 },
+  "4-sirena-15": { "name": "4 Сирена", "price": 26.00 },
+  "vegetariana-fam": { "name": "Вегетариана", "price": 24.00 },
+  "mega-fam": { "name": "Мега", "price": 29.00 },
+
+  "addon-svinska-shunka-1": { "name": "Свинска шунка", "price": 1.50 },
+  "addon-bekon-2": { "name": "Бекон", "price": 1.50 },
+  "addon-pueshko-file-3": { "name": "Пуешко филе", "price": 1.50 },
+  "addon-peperoni-4": { "name": "Пеперони", "price": 1.50 },
+  "addon-halapeno-5": { "name": "Халапеньо", "price": 1.50 },
+  "addon-topeno-sirene-6": { "name": "Топено сирене", "price": 1.00 },
+  "addon-sino-sirene-7": { "name": "Синьо сирене", "price": 1.00 },
+  "addon-krave-sirene-8": { "name": "Краве сирене", "price": 1.00 },
+  "addon-chedar-9": { "name": "Чедър", "price": 1.00 },
+  "addon-motsarela-10": { "name": "Моцарела", "price": 1.00 },
+  "addon-kiseli-krastavitsi-11": { "name": "Кисели краставици", "price": 1.00 },
+  "addon-tsarevitsa-12": { "name": "Царевица", "price": 1.00 },
+  "addon-pryasna-chushka-13": { "name": "Прясна чушка", "price": 1.00 },
+  "addon-gabi-14": { "name": "Гъби", "price": 1.00 },
+  "addon-maslini-15": { "name": "Маслини", "price": 1.00 },
+  "addon-luk-16": { "name": "Лук", "price": 1.00 },
+
+  "korner-dog": { "name": "Корнер Дог", "price": 6.00 },
+  "chili-dog": { "name": "Чили Дог", "price": 5.50 },
+  "chiizi-dog": { "name": "Чийзи Дог", "price": 6.00 },
+  "royal-dog": { "name": "Роял Дог", "price": 5.00 },
+  "klasicheski-dog": { "name": "Класически", "price": 3.00 },
+
+  "addon-chedar-17": { "name": "Чедър", "price": 0.80 },
+  "addon-kashkaval-18": { "name": "Кашкавал", "price": 0.80 },
+  "addon-kiseli-krastavitsi-19": { "name": "Кисели краставици", "price": 0.80 },
+  "addon-salata-po-izbor-20": { "name": "Салата по избор", "price": 0.80 },
+  "addon-nemska-nadenichka": { "name": "Немска наденичка", "price": 1.50 },
+  "addon-parzhen-luk": { "name": "Пържен лук", "price": 0.60 },
+
+  "delikat": { "name": "Деликат", "price": 6.00 },
+  "klasiko": { "name": "Класико", "price": 6.00 },
+  "milano": { "name": "Милано", "price": 6.00 },
+  "tripal": { "name": "Трипъл", "price": 7.50 },
+  "vegi": { "name": "Веги", "price": 5.00 },
+
+  "addon-bekon-sandwich": { "name": "Бекон", "price": 1.50 },
+  "addon-pueshko-file-sandwich": { "name": "Пуешко филе", "price": 1.50 },
+  "addon-peperoni-sandwich": { "name": "Пеперони", "price": 1.50 },
+  "addon-shunka-sandwich": { "name": "Шунка", "price": 1.50 },
+  "addon-kashkaval-dop": { "name": "Допълнителен кашкавал", "price": 0.80 },
+  "addon-halapeno-sandwich": { "name": "Халапеньо", "price": 0.80 },
+
+  "snezhanka-24": { "name": "Снежанка", "price": 2.99 },
+  "tiro-kafteri-domashno-25": { "name": "Тиро кафтери домашно", "price": 2.99 },
+
+  "donat-shokolad-26": { "name": "Донът Шоколад", "price": 2.50 },
+  "donat-bavarski-krem-27": { "name": "Донът Баварски крем", "price": 2.50 },
+
+  "magnum-vaniliya-28": { "name": "Магнум Ванилия", "price": 3.99 },
+  "magnum-shokolad-29": { "name": "Магнум Шоколад", "price": 3.99 },
+  "nirvana-malina-30": { "name": "Нирвана Малина", "price": 3.99 },
+  "sandvich-magnum-31": { "name": "Сандвич Магнум", "price": 2.99 },
+  "galaksi-vaniliya-32": { "name": "Галакси Ванилия", "price": 2.49 },
+  "galaksi-shokolad-33": { "name": "Галакси Шоколад", "price": 2.49 },
+
+  "beer-330": { "name": "Бира Хайникен 330мл", "price": 1.99 },
+  "beer-500": { "name": "Бира Хайникен 500мл", "price": 2.49 },
+  "cola-330": { "name": "Кока Кола 330мл", "price": 1.49 },
+  "cola-500": { "name": "Кока Кола 500мл", "price": 1.99 },
+  "ayran-250": { "name": "Айран 250мл", "price": 1.49 },
+  "ayran-500": { "name": "Айран 500мл", "price": 1.99 },
+  "bankya-500": { "name": "Минерална вода Банкя 500мл", "price": 1.19 },
+  "bankya-1500": { "name": "Минерална вода Банкя 1.5л", "price": 1.79 },
+  "rosa-500": { "name": "Изворна вода Роса 500мл", "price": 1.19 },
+  "rosa-1500": { "name": "Изворна вода Роса 1.5л", "price": 1.79 },
+  "fyuzeti-praskova-34": { "name": "Фюзети Праскова", "price": 1.69 },
+  "fyuzeti-limon-35": { "name": "Фюзети Лимон", "price": 1.69 },
+  "shveps-soda-36": { "name": "Швепс Сода", "price": 1.49 },
+
+  "ketchup-37": { "name": "Кетчуп", "price": 1.00 },
+  "mayoneza-38": { "name": "Майонеза", "price": 1.00 },
+  "domashen-chesnov-sos-39": { "name": "Домашен чеснов сос", "price": 1.00 },
+  "lyut-sos-40": { "name": "Лют сос", "price": 1.00 },
+
+  "2-pitsi-donati-kola-41": { "name": "2 ПИЦИ + ДОНЪТИ + КОЛА", "price": 23.99 },
+  "2-pitsi-ayryan-42": { "name": "2 ПИЦИ + АЙРЯН", "price": 19.99 },
+  "2-pitsi-kola-43": { "name": "2 ПИЦИ + КОЛА", "price": 19.99 },
+  "promo-boks-donati-44": { "name": "ПРОМО БОКС ДОНЪТИ", "price": 13.99 }
 }

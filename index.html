@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Пицария "На Ъгъла" — Най-добрата улична пица в София</title>
-<meta name="description" content="Пицария На Ъгъла — прясно домашно тесто, щедри съставки, пици на парче и семейни пици. Хладилника, ул. Козяк 21, София. Поръчай сега!">
+<meta name="description" content="Пицария На Ъгъла — прясно домашно тесто, щедри съставки, пици на парче и семейни пици. Ул. „Козяк“ 21, София. Поръчай сега!">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,7 +32,6 @@
         <svg class="ico-svg" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M2.5 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 8H6"/></svg>
         <span class="cart-count" id="cartCount" hidden>0</span>
       </button>
-      <a class="btn btn-order" href="https://glovoapp.com/en/bg/sofia/stores/na-ugula-sof" target="_blank" rel="noopener">Поръчай в Glovo</a>
       <button class="burger" id="burgerBtn" aria-label="Отвори меню">
         <span></span><span></span><span></span>
       </button>
@@ -63,15 +62,15 @@
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
-    <p class="eyebrow">Хладилника · Южен парк · София</p>
+    <p class="eyebrow">Улична пица · София</p>
     <h1>ПИЦАРИЯ <span class="text-red">НА ЪГЪЛА</span></h1>
     <p class="hero-sub">The Best Street Pizza in Sofia</p>
     <div class="stars" aria-label="4.7 от 5 звезди">★★★★★ <span>4.7 / 5 · 232 отзива в Google</span></div>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="https://glovoapp.com/en/bg/sofia/stores/na-ugula-sof" target="_blank" rel="noopener">Поръчай през Glovo</a>
+      <a class="btn btn-primary" href="#menu">Поръчай сега</a>
       <a class="btn btn-ghost" href="tel:+359895069669"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a>
     </div>
-    <p class="hero-note">При поръчка по телефона над 39.09&nbsp;лв (19.99&nbsp;€) — Кока Кола 1л. подарък</p>
+    <p class="hero-note">При поръчка по телефона над 19.99&nbsp;€ — Кока Кола 1л. подарък</p>
   </div>
   <a href="#menu" class="scroll-cue" aria-hidden="true">↓</a>
 </section>
@@ -89,7 +88,7 @@
     </div>
     <div class="usp-item">
       <span class="usp-ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
-      <div><strong>Бърза доставка</strong><small>Директно през Glovo</small></div>
+      <div><strong>Поръчка онлайн</strong><small>Количка, плащане с карта или в брой</small></div>
     </div>
     <div class="usp-item">
       <span class="usp-ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg></span>
@@ -102,11 +101,12 @@
 <section class="menu-section" id="menu">
   <div class="container">
     <h2 class="section-title">Нашето <span class="text-red">Меню</span></h2>
-    <p class="section-sub">Всичко прясно, всеки ден. Изберете категория.</p>
+    <p class="section-sub">Всичко прясно, всеки ден. Изберете категория или превъртете надолу.</p>
 
     <div class="tabs" id="menuTabs">
       <button class="tab active" data-target="standard">Стандартни пици 30см</button>
       <button class="tab" data-target="family">Семейни пици 60см</button>
+      <button class="tab" data-target="combo">Комбо</button>
       <button class="tab" data-target="addons">Добавки</button>
       <button class="tab" data-target="hotdog">Хот-Дог</button>
       <button class="tab" data-target="sandwich">Сандвич-Тост</button>
@@ -117,87 +117,170 @@
       <button class="tab" data-target="sauces">Сосове</button>
     </div>
 
+    <div class="menu-panels">
+
     <!-- STANDARD PIZZA -->
     <div class="menu-panel active" id="standard">
+      <h3 class="panel-heading">Стандартни пици <span class="text-red">30см</span></h3>
       <div class="card-grid">
 
         <article class="card">
           <div class="card-img"><img src="assets/img/margarita.jpg" alt="Пица Маргарита" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Маргарита</h3><span class="price">10.17 лв <em>5.20€</em></span></div>
-            <button type="button" class="btn-cart" data-id="margarita-1" data-name="Маргарита" data-price="5.20" data-img="assets/img/margarita.jpg">Добави в количката</button>
-            <p class="weight">550 гр</p>
-            <p class="desc">Доматен сос, краве сирене, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/kaprichoza.jpg" alt="Пица Капричоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Капричоза</h3><span class="price">12.13 лв <em>6.20€</em></span></div>
-            <button type="button" class="btn-cart" data-id="kaprichoza-2" data-name="Капричоза" data-price="6.20" data-img="assets/img/kaprichoza.jpg">Добави в количката</button>
-            <p class="weight">600 гр</p>
-            <p class="desc">Доматен сос, шунка, гъби, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/kremoza.jpg" alt="Пица Кремоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Кремоза</h3><span class="price">12.13 лв <em>6.20€</em></span></div>
-            <button type="button" class="btn-cart" data-id="kremoza-3" data-name="Кремоза" data-price="6.20" data-img="assets/img/kremoza.jpg">Добави в количката</button>
-            <p class="weight">600 гр</p>
-            <p class="desc">Сметана, бекон, гъби, моцарела</p>
+            <div class="card-top"><h3>Маргарита</h3><span class="price">7.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="margarita-1" data-name="Маргарита 30см" data-price="7.00" data-img="assets/img/margarita.jpg">Добави в количката</button>
+            <p class="weight">500 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, краве сирене, моцарела, пресен домат и риган</p>
           </div>
         </article>
 
         <article class="card">
           <div class="card-img"><img src="assets/img/peperoni.jpg" alt="Пица Пеперони" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Пеперони</h3><span class="price">13.10 лв <em>6.70€</em></span></div>
-            <button type="button" class="btn-cart" data-id="peperoni-4" data-name="Пеперони" data-price="6.70" data-img="assets/img/peperoni.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Пеперони</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="peperoni-4" data-name="Пеперони 30см" data-price="9.00" data-img="assets/img/peperoni.jpg">Добави в количката</button>
             <p class="weight">550 гр</p>
-            <p class="desc">Доматен сос, италиански колбас пеперони, моцарела</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, италиански колбас пеперони, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kaprichoza.jpg" alt="Пица Капричоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Капричоза</h3><span class="price">8.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kaprichoza-2" data-name="Капричоза 30см" data-price="8.00" data-img="assets/img/kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">600 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, гъби печурки, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kremoza.jpg" alt="Пица Кремперони" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Кремперони</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kremperoni-std" data-name="Кремперони 30см" data-price="9.00" data-img="assets/img/kremoza.jpg">Добави в количката</button>
+            <p class="weight">550 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, пеперони, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kaprichoza.jpg" alt="Пица Корничоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Корничоза</h3><span class="price">8.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kornichoza-std" data-name="Корничоза 30см" data-price="8.00" data-img="assets/img/kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">600 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/peperoni.jpg" alt="Пица Диабло" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Диабло</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="diablo-std" data-name="Диабло 30см" data-price="9.00" data-img="assets/img/peperoni.jpg">Добави в количката</button>
+            <p class="weight">550 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, лют италиански колбас чоризо, халапеньо, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kremoza.jpg" alt="Пица Кремоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Кремоза</h3><span class="price">8.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kremoza-3" data-name="Кремоза 30см" data-price="8.00" data-img="assets/img/kremoza.jpg">Добави в количката</button>
+            <p class="weight">600 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, бекон, гъби печурки, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kremoza.jpg" alt="Пица Белисима" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Белисима</h3><span class="price">10.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="belisima-std" data-name="Белисима 30см" data-price="10.00" data-img="assets/img/kremoza.jpg">Добави в количката</button>
+            <p class="weight">700 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, шунка, топено сирене, кисели краставички, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kremoza.jpg" alt="Пица Бианка" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Бианка</h3><span class="price">8.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="bianka-std" data-name="Бианка 30см" data-price="8.00" data-img="assets/img/kremoza.jpg">Добави в количката</button>
+            <p class="weight">600 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, бекон, царевица, моцарела</p>
           </div>
         </article>
 
         <article class="card">
           <div class="card-img"><img src="assets/img/polo.jpg" alt="Пица Поло" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Поло</h3><span class="price">13.10 лв <em>6.70€</em></span></div>
-            <button type="button" class="btn-cart" data-id="polo-5" data-name="Поло" data-price="6.70" data-img="assets/img/polo.jpg">Добави в количката</button>
-            <p class="weight">600 гр</p>
-            <p class="desc">Доматен сос, пуешко филе, царевица, кисели краставички, моцарела</p>
+            <div class="card-top"><h3>Поло</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="polo-5" data-name="Поло 30см" data-price="9.00" data-img="assets/img/polo.jpg">Добави в количката</button>
+            <p class="weight">650 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, пуешко филе, царевица, кисели краставички, моцарела</p>
           </div>
         </article>
 
         <article class="card">
-          <div class="card-img"><img src="assets/img/retro.jpg" alt="Пица Ретро" loading="lazy"></div>
+          <div class="card-img"><img src="assets/img/specialna.jpg" alt="Авторска пица" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Ретро</h3><span class="price">12.13 лв <em>6.20€</em></span></div>
-            <button type="button" class="btn-cart" data-id="retro-6" data-name="Ретро" data-price="6.20" data-img="assets/img/retro.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Авторска</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="avtorska-std" data-name="Авторска 30см" data-price="9.00" data-img="assets/img/specialna.jpg">Добави в количката</button>
             <p class="weight">650 гр</p>
-            <p class="desc">Доматен сос, кренвирши, топено сирене, краве сирене, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/4sirena.jpg" alt="Пица 4 Сирена" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>4 Сирена</h3><span class="price">13.10 лв <em>6.70€</em></span></div>
-            <button type="button" class="btn-cart" data-id="4-sirena-7" data-name="4 Сирена" data-price="6.70" data-img="assets/img/4sirena.jpg">Добави в количката</button>
-            <p class="weight">650 гр</p>
-            <p class="desc">Краве сирене, моцарела, топено сирене, синьо сирене</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, бекон, лук, маслини, моцарела</p>
           </div>
         </article>
 
         <article class="card">
           <div class="card-img"><img src="assets/img/specialna.jpg" alt="Специална пица" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Специална</h3><span class="price">12.13 лв <em>6.20€</em></span></div>
-            <button type="button" class="btn-cart" data-id="spetsialna-8" data-name="Специална" data-price="6.20" data-img="assets/img/specialna.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Специална</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="spetsialna-8" data-name="Специална 30см" data-price="9.00" data-img="assets/img/specialna.jpg">Добави в количката</button>
+            <p class="weight">650 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, прясна зелена чушка, червен лук, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/retro.jpg" alt="Пица Ретро" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Ретро</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="retro-6" data-name="Ретро 30см" data-price="9.00" data-img="assets/img/retro.jpg">Добави в количката</button>
+            <p class="weight">650 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, пилешки кренвирш, топено сирене, българско краве сирене, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/4sirena.jpg" alt="Пица 4 Сирена" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>4 Сирена</h3><span class="price">9.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="4-sirena-7" data-name="4 Сирена 30см" data-price="9.00" data-img="assets/img/4sirena.jpg">Добави в количката</button>
             <p class="weight">600 гр</p>
-            <p class="desc">Доматен сос, шунка, чушки, червен лук, моцарела</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, българско краве сирене, моцарела, топено сирене, френско синьо сирене</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/kaprichoza.jpg" alt="Пица Вегетариана" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Вегетариана</h3><span class="price">8.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="vegetariana-std" data-name="Вегетариана 30см" data-price="8.00" data-img="assets/img/kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">650 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, гъби, лук, чушка, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/mega_pizza.jpg" alt="Пица Мега" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Мега</h3><span class="price">12.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="mega-std" data-name="Мега 30см" data-price="12.00" data-img="assets/img/mega_pizza.jpg">Добави в количката</button>
+            <p class="weight">900 гр</p>
+            <p class="desc">Домашно тесто, доматен сос, шунка, бекон, пуешко филе, топено сирене, царевица, гъби, моцарела</p>
           </div>
         </article>
 
@@ -206,207 +289,386 @@
 
     <!-- FAMILY PIZZA -->
     <div class="menu-panel" id="family">
+      <h3 class="panel-heading">Семейни пици <span class="text-red">60см</span></h3>
       <p class="panel-note">Семейните пици се доставят нарязани на парчета в кутии за стандартни пици.</p>
       <div class="card-grid">
 
         <article class="card">
           <div class="card-img"><img src="assets/img/family_margarita.jpg" alt="Семейна пица Маргарита" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Маргарита</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="margarita-9" data-name="Маргарита" data-price="24.00" data-img="assets/img/family_margarita.jpg">Добави в количката</button>
-            <p class="weight">2200 гр</p>
-            <p class="desc">Доматен сос, краве сирене, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_kaprichoza.jpg" alt="Семейна пица Капричоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Капричоза</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="kaprichoza-10" data-name="Капричоза" data-price="24.00" data-img="assets/img/family_kaprichoza.jpg">Добави в количката</button>
-            <p class="weight">2600 гр</p>
-            <p class="desc">Доматен сос, шунка, гъби, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Кремоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Кремоза</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="kremoza-11" data-name="Кремоза" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
-            <p class="weight">2700 гр</p>
-            <p class="desc">Сметана, бекон, гъби, моцарела</p>
+            <div class="card-top"><h3>Маргарита</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="margarita-9" data-name="Маргарита 60см" data-price="24.00" data-img="assets/img/family_margarita.jpg">Добави в количката</button>
+            <p class="weight">2500 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, краве сирене, моцарела, пресен домат</p>
           </div>
         </article>
 
         <article class="card">
           <div class="card-img"><img src="assets/img/family_peperoni.jpg" alt="Семейна пица Пеперони" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Пеперони</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="peperoni-12" data-name="Пеперони" data-price="24.00" data-img="assets/img/family_peperoni.jpg">Добави в количката</button>
-            <p class="weight">2500 гр</p>
-            <p class="desc">Доматен сос, италиански колбас пеперони, кашкавал</p>
+            <div class="card-top"><h3>Пеперони</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="peperoni-12" data-name="Пеперони 60см" data-price="24.00" data-img="assets/img/family_peperoni.jpg">Добави в количката</button>
+            <p class="weight">2600 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, италиански колбас пеперони, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kaprichoza.jpg" alt="Семейна пица Капричоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Капричоза</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kaprichoza-10" data-name="Капричоза 60см" data-price="24.00" data-img="assets/img/family_kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, гъби печурки, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Кремперони" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Кремперони</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kremperoni-fam" data-name="Кремперони 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
+            <p class="weight">2600 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, пеперони, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kaprichoza.jpg" alt="Семейна пица Корничоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Корничоза</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kornichoza-fam" data-name="Корничоза 60см" data-price="24.00" data-img="assets/img/family_kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_peperoni.jpg" alt="Семейна пица Диабло" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Диабло</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="diablo-fam" data-name="Диабло 60см" data-price="26.00" data-img="assets/img/family_peperoni.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, лют италиански колбас чоризо, халапеньо, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Кремоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Кремоза</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kremoza-11" data-name="Кремоза 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
+            <p class="weight">2900 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, бекон, гъби печурки, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Белисима" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Белисима</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="belisima-fam" data-name="Белисима 60см" data-price="26.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, шунка, топено сирене, кисели краставички, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Бианка" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Бианка</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="bianka-fam" data-name="Бианка 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, бекон, царевица, моцарела</p>
           </div>
         </article>
 
         <article class="card">
           <div class="card-img"><img src="assets/img/family_polo.jpg" alt="Семейна пица Поло" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Поло</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="polo-13" data-name="Поло" data-price="24.00" data-img="assets/img/family_polo.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Доматен сос, пуешко филе, царевица, кисели краставички, моцарела</p>
+            <div class="card-top"><h3>Поло</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="polo-13" data-name="Поло 60см" data-price="26.00" data-img="assets/img/family_polo.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, пуешко филе, царевица, кисели краставички, моцарела</p>
           </div>
         </article>
 
         <article class="card">
-          <div class="card-img"><img src="assets/img/family_retro.jpg" alt="Семейна пица Ретро" loading="lazy"></div>
+          <div class="card-img"><img src="assets/img/family_specialna.jpg" alt="Семейна Авторска пица" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Ретро</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="retro-14" data-name="Ретро" data-price="24.00" data-img="assets/img/family_retro.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Кренвирши, топено сирене, краве сирене, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_4sirena.jpg" alt="Семейна пица 4 Сирена" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>4 Сирена</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="4-sirena-15" data-name="4 Сирена" data-price="24.00" data-img="assets/img/family_4sirena.jpg">Добави в количката</button>
-            <p class="weight">2600 гр</p>
-            <p class="desc">Краве сирене, моцарела, топено сирене, синьо сирене</p>
+            <div class="card-top"><h3>Авторска</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="avtorska-fam" data-name="Авторска 60см" data-price="24.00" data-img="assets/img/family_specialna.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, бекон, лук, маслини, моцарела</p>
           </div>
         </article>
 
         <article class="card">
           <div class="card-img"><img src="assets/img/family_specialna.jpg" alt="Семейна специална пица" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Специална</h3><span class="price">46.94 лв <em>24.00€</em></span></div>
-            <button type="button" class="btn-cart" data-id="spetsialna-16" data-name="Специална" data-price="24.00" data-img="assets/img/family_specialna.jpg">Добави в количката</button>
-            <p class="weight">2600 гр</p>
-            <p class="desc">Доматен сос, шунка, чушки, червен лук, моцарела</p>
+            <div class="card-top"><h3>Специална</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="spetsialna-16" data-name="Специална 60см" data-price="24.00" data-img="assets/img/family_specialna.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, прясна зелена чушка, червен лук, моцарела</p>
           </div>
         </article>
 
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_retro.jpg" alt="Семейна пица Ретро" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Ретро</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="retro-14" data-name="Ретро 60см" data-price="24.00" data-img="assets/img/family_retro.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, пилешки кренвирш, топено сирене, българско краве сирене, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_4sirena.jpg" alt="Семейна пица 4 Сирена" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>4 Сирена</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="4-sirena-15" data-name="4 Сирена 60см" data-price="26.00" data-img="assets/img/family_4sirena.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, българско краве сирене, моцарела, топено сирене, френско синьо сирене</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kaprichoza.jpg" alt="Семейна пица Вегетариана" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Вегетариана</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="vegetariana-fam" data-name="Вегетариана 60см" data-price="24.00" data-img="assets/img/family_kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">2600 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, гъби, лук, чушка, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_polo.jpg" alt="Семейна пица Мега" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Мега</h3><span class="price">29.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="mega-fam" data-name="Мега 60см" data-price="29.00" data-img="assets/img/family_polo.jpg">Добави в количката</button>
+            <p class="weight">3500 гр</p>
+            <p class="desc">Домашно тесто, доматен сос, шунка, бекон, пуешко филе, топено сирене, царевица, гъби, моцарела</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- COMBO (merged into menu) -->
+    <div class="menu-panel" id="combo">
+      <h3 class="panel-heading">Комбо <span class="text-red">Менюта</span></h3>
+      <p class="panel-note">Пиците в комбо менютата са напълно по ваш избор — комбинирайте ги както искате.</p>
+      <div class="combo-grid">
+        <article class="combo-card">
+          <img src="assets/img/combo_2pizza_donuts_cola.jpg" alt="Комбо 2 пици + донъти + кола">
+          <div class="combo-body">
+            <h3>2 ПИЦИ + ДОНЪТИ + КОЛА</h3>
+            <p>2 стандартни пици по избор + 2 донъта с шоколад + Кока Кола 1л</p>
+            <span class="price">23.99 €</span>
+            <button type="button" class="btn-cart" data-id="2-pitsi-donati-kola-41" data-name="2 ПИЦИ + ДОНЪТИ + КОЛА" data-price="23.99" data-img="assets/img/combo_2pizza_donuts_cola.jpg">Добави в количката</button>
+          </div>
+        </article>
+        <article class="combo-card">
+          <img src="assets/img/combo_2pizza_ayran.jpg" alt="Комбо 2 пици + айрян">
+          <div class="combo-body">
+            <h3>2 ПИЦИ + АЙРЯН</h3>
+            <p>2 стандартни пици по избор + 2 малки айряна</p>
+            <span class="price">19.99 €</span>
+            <button type="button" class="btn-cart" data-id="2-pitsi-ayryan-42" data-name="2 ПИЦИ + АЙРЯН" data-price="19.99" data-img="assets/img/combo_2pizza_ayran.jpg">Добави в количката</button>
+          </div>
+        </article>
+        <article class="combo-card">
+          <img src="assets/img/combo_2pizza_cola.jpg" alt="Комбо 2 пици + кола">
+          <div class="combo-body">
+            <h3>2 ПИЦИ + КОЛА</h3>
+            <p>2 стандартни пици по избор + Кока Кола 1л</p>
+            <span class="price">19.99 €</span>
+            <button type="button" class="btn-cart" data-id="2-pitsi-kola-43" data-name="2 ПИЦИ + КОЛА" data-price="19.99" data-img="assets/img/combo_2pizza_cola.jpg">Добави в количката</button>
+          </div>
+        </article>
+        <article class="combo-card">
+          <img src="assets/img/donutbox.jpg" alt="Промо бокс донъти">
+          <div class="combo-body">
+            <h3>ПРОМО БОКС ДОНЪТИ</h3>
+            <p>Кутия с 6 донята с богат пълнеж</p>
+            <span class="price">13.99 €</span>
+            <button type="button" class="btn-cart" data-id="promo-boks-donati-44" data-name="ПРОМО БОКС ДОНЪТИ" data-price="13.99" data-img="assets/img/donutbox.jpg">Добави в количката</button>
+          </div>
+        </article>
+      </div>
+
+      <div class="promo-banner">
+        <p>При поръчка направена по телефона над <strong>19.99€</strong> получавате <strong>Кока Кола 1л. ПОДАРЪК</strong></p>
+        <a class="btn btn-primary" href="tel:+359895069669"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a>
       </div>
     </div>
 
     <!-- ADDONS -->
     <div class="menu-panel" id="addons">
+      <h3 class="panel-heading">Добавки за <span class="text-red">пица</span></h3>
       <p class="panel-note">За семейните пици добавките се маркират х2.</p>
       <div class="list-grid">
-        <div class="list-row"><span>Свинска шунка <small>100гр</small></span><span class="price">2.93 лв / 1.50€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-svinska-shunka-1" data-name="Свинска шунка" data-price="1.50" data-img="">+</button></div>
-        <div class="list-row"><span>Бекон <small>100гр</small></span><span class="price">2.93 лв / 1.50€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-bekon-2" data-name="Бекон" data-price="1.50" data-img="">+</button></div>
-        <div class="list-row"><span>Пуешко филе <small>100гр</small></span><span class="price">2.93 лв / 1.50€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-pueshko-file-3" data-name="Пуешко филе" data-price="1.50" data-img="">+</button></div>
-        <div class="list-row"><span>Пеперони <small>100гр</small></span><span class="price">2.93 лв / 1.50€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-peperoni-4" data-name="Пеперони" data-price="1.50" data-img="">+</button></div>
-        <div class="list-row"><span>Халапеньо <small>50гр</small></span><span class="price">2.93 лв / 1.50€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-halapeno-5" data-name="Халапеньо" data-price="1.50" data-img="">+</button></div>
-        <div class="list-row"><span>Топено сирене <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-topeno-sirene-6" data-name="Топено сирене" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Синьо сирене <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-sino-sirene-7" data-name="Синьо сирене" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Краве сирене <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-krave-sirene-8" data-name="Краве сирене" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Чедър <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-chedar-9" data-name="Чедър" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Моцарела <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-motsarela-10" data-name="Моцарела" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Кисели краставици <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kiseli-krastavitsi-11" data-name="Кисели краставици" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Царевица <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-tsarevitsa-12" data-name="Царевица" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Прясна чушка <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-pryasna-chushka-13" data-name="Прясна чушка" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Гъби <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-gabi-14" data-name="Гъби" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Маслини <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-maslini-15" data-name="Маслини" data-price="1.00" data-img="">+</button></div>
-        <div class="list-row"><span>Лук <small>50гр</small></span><span class="price">1.96 лв / 1.00€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-luk-16" data-name="Лук" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Свинска шунка <small>100гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-svinska-shunka-1" data-name="Свинска шунка" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Бекон <small>100гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-bekon-2" data-name="Бекон" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Пуешко филе <small>100гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-pueshko-file-3" data-name="Пуешко филе" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Пеперони <small>100гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-peperoni-4" data-name="Пеперони" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Халапеньо <small>50гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-halapeno-5" data-name="Халапеньо" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Топено сирене <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-topeno-sirene-6" data-name="Топено сирене" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Синьо сирене <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-sino-sirene-7" data-name="Синьо сирене" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Краве сирене <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-krave-sirene-8" data-name="Краве сирене" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Чедър <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-chedar-9" data-name="Чедър" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Моцарела <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-motsarela-10" data-name="Моцарела" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Кисели краставици <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kiseli-krastavitsi-11" data-name="Кисели краставици" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Царевица <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-tsarevitsa-12" data-name="Царевица" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Прясна чушка <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-pryasna-chushka-13" data-name="Прясна чушка" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Гъби <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-gabi-14" data-name="Гъби" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Маслини <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-maslini-15" data-name="Маслини" data-price="1.00" data-img="">+</button></div>
+        <div class="list-row"><span>Лук <small>50гр</small></span><span class="price">1.00 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-luk-16" data-name="Лук" data-price="1.00" data-img="">+</button></div>
       </div>
     </div>
 
     <!-- HOT DOG -->
     <div class="menu-panel" id="hotdog">
+      <h3 class="panel-heading">Хот <span class="text-red">Дог</span></h3>
       <div class="card-grid">
+        <article class="card">
+          <div class="card-img"><img src="assets/img/hotdog_double.jpg" alt="Корнер Дог" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Корнер Дог</h3><span class="price">6.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="korner-dog" data-name="Корнер Дог" data-price="6.00" data-img="assets/img/hotdog_double.jpg">Добави в количката</button>
+            <p class="weight">400 гр</p>
+            <p class="desc">Меко хлебче, 2 броя немски наденички, тиро кафтери, кисели краставички, пресен домат, сосове</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-img"><img src="assets/img/hotdog_brutal.jpg" alt="Чили Дог" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Чили Дог</h3><span class="price">5.50 €</span></div>
+            <button type="button" class="btn-cart" data-id="chili-dog" data-name="Чили Дог" data-price="5.50" data-img="assets/img/hotdog_brutal.jpg">Добави в количката</button>
+            <p class="weight">350 гр</p>
+            <p class="desc">Меко хлебче, 2 броя немски наденички, кисели краставички, халапеньо, пържен лук, сосове</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-img"><img src="assets/img/hotdog_mega.jpg" alt="Чийзи Дог" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Чийзи Дог</h3><span class="price">6.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="chiizi-dog" data-name="Чийзи Дог" data-price="6.00" data-img="assets/img/hotdog_mega.jpg">Добави в количката</button>
+            <p class="weight">400 гр</p>
+            <p class="desc">Меко хлебче, 2 броя немски наденички, чедър, кашкавал, пържен лук, сосове</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-img"><img src="assets/img/hotdog_classic.jpg" alt="Роял Дог" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Роял Дог</h3><span class="price">5.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="royal-dog" data-name="Роял Дог" data-price="5.00" data-img="assets/img/hotdog_classic.jpg">Добави в количката</button>
+            <p class="weight">400 гр</p>
+            <p class="desc">Меко хлебче, кренвирш, чедър, пържен лук, сосове</p>
+          </div>
+        </article>
         <article class="card">
           <div class="card-img"><img src="assets/img/hotdog_classic.jpg" alt="Класически хот-дог" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Класически</h3><span class="price">4.49 лв <em>2.30€</em></span></div>
-            <button type="button" class="btn-cart" data-id="klasicheski-17" data-name="Класически" data-price="2.30" data-img="assets/img/hotdog_classic.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Класически</h3><span class="price">3.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="klasicheski-dog" data-name="Класически хот-дог" data-price="3.00" data-img="assets/img/hotdog_classic.jpg">Добави в количката</button>
             <p class="weight">300 гр</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/hotdog_mega.jpg" alt="Хот-дог с наденичка" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>С наденичка</h3><span class="price">5.67 лв <em>2.90€</em></span></div>
-            <button type="button" class="btn-cart" data-id="s-nadenichka-18" data-name="С наденичка" data-price="2.90" data-img="assets/img/hotdog_mega.jpg">Добави в количката</button>
-            <p class="weight">280 гр</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/hotdog_double.jpg" alt="Двоен хот-дог с наденичка" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Двоен с наденичка</h3><span class="price">6.85 лв <em>3.50€</em></span></div>
-            <button type="button" class="btn-cart" data-id="dvoen-s-nadenichka-19" data-name="Двоен с наденичка" data-price="3.50" data-img="assets/img/hotdog_double.jpg">Добави в количката</button>
-            <p class="weight">320 гр</p>
+            <p class="desc">Меко хлебче, кренвирш, сосове</p>
           </div>
         </article>
       </div>
       <h4 class="mini-title">Добавки</h4>
       <div class="list-grid">
-        <div class="list-row"><span>Чедър <small>50гр</small></span><span class="price">1.56 лв / 0.80€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-chedar-17" data-name="Чедър" data-price="0.80" data-img="">+</button></div>
-        <div class="list-row"><span>Кашкавал <small>50гр</small></span><span class="price">1.56 лв / 0.80€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kashkaval-18" data-name="Кашкавал" data-price="0.80" data-img="">+</button></div>
-        <div class="list-row"><span>Кисели краставици <small>50гр</small></span><span class="price">1.56 лв / 0.80€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kiseli-krastavitsi-19" data-name="Кисели краставици" data-price="0.80" data-img="">+</button></div>
-        <div class="list-row"><span>Салата по избор <small>50гр</small></span><span class="price">1.56 лв / 0.80€</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-salata-po-izbor-20" data-name="Салата по избор" data-price="0.80" data-img="">+</button></div>
+        <div class="list-row"><span>Чедър <small>50гр</small></span><span class="price">0.80 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-chedar-17" data-name="Чедър" data-price="0.80" data-img="">+</button></div>
+        <div class="list-row"><span>Кашкавал <small>50гр</small></span><span class="price">0.80 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kashkaval-18" data-name="Кашкавал" data-price="0.80" data-img="">+</button></div>
+        <div class="list-row"><span>Кисели краставици <small>50гр</small></span><span class="price">0.80 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kiseli-krastavitsi-19" data-name="Кисели краставици" data-price="0.80" data-img="">+</button></div>
+        <div class="list-row"><span>Салата по избор <small>50гр</small></span><span class="price">0.80 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-salata-po-izbor-20" data-name="Салата по избор" data-price="0.80" data-img="">+</button></div>
+        <div class="list-row"><span>Немска наденичка <small>1бр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-nemska-nadenichka" data-name="Немска наденичка" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Пържен лук <small>30гр</small></span><span class="price">0.60 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-parzhen-luk" data-name="Пържен лук" data-price="0.60" data-img="">+</button></div>
       </div>
     </div>
 
     <!-- SANDWICH -->
     <div class="menu-panel" id="sandwich">
+      <h3 class="panel-heading">Сандвич <span class="text-red">Тост</span></h3>
       <div class="card-grid">
         <article class="card">
-          <div class="card-img"><img src="assets/img/sandwich_ham.jpg" alt="Сандвич с шунка и кашкавал" loading="lazy"></div>
+          <div class="card-img"><img src="assets/img/sandwich_turkey.jpg" alt="Сандвич Деликат" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Шунка и кашкавал</h3><span class="price">8.99 лв <em>4.60€</em></span></div>
-            <button type="button" class="btn-cart" data-id="shunka-i-kashkaval-20" data-name="Шунка и кашкавал" data-price="4.60" data-img="assets/img/sandwich_ham.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Деликат</h3><span class="price">6.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="delikat" data-name="Сандвич Деликат" data-price="6.00" data-img="assets/img/sandwich_turkey.jpg">Добави в количката</button>
             <p class="weight">400 гр</p>
+            <p class="desc">Меко хлебче, пуешко филе, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
           </div>
         </article>
         <article class="card">
-          <div class="card-img"><img src="assets/img/sandwich_turkey.jpg" alt="Сандвич с пуешко филе и кашкавал" loading="lazy"></div>
+          <div class="card-img"><img src="assets/img/sandwich_ham.jpg" alt="Сандвич Класико" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Пуешко филе и кашкавал</h3><span class="price">8.99 лв <em>4.60€</em></span></div>
-            <button type="button" class="btn-cart" data-id="pueshko-file-i-kashkaval-21" data-name="Пуешко филе и кашкавал" data-price="4.60" data-img="assets/img/sandwich_turkey.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Класико</h3><span class="price">6.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="klasiko" data-name="Сандвич Класико" data-price="6.00" data-img="assets/img/sandwich_ham.jpg">Добави в количката</button>
             <p class="weight">400 гр</p>
+            <p class="desc">Меко хлебче, шунка, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
           </div>
         </article>
         <article class="card">
-          <div class="card-img"><img src="assets/img/sandwich_peperoni.jpg" alt="Сандвич с пеперони и кашкавал" loading="lazy"></div>
+          <div class="card-img"><img src="assets/img/sandwich_peperoni.jpg" alt="Сандвич Милано" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Пеперони и кашкавал</h3><span class="price">8.99 лв <em>4.60€</em></span></div>
-            <button type="button" class="btn-cart" data-id="peperoni-i-kashkaval-22" data-name="Пеперони и кашкавал" data-price="4.60" data-img="assets/img/sandwich_peperoni.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Милано</h3><span class="price">6.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="milano" data-name="Сандвич Милано" data-price="6.00" data-img="assets/img/sandwich_peperoni.jpg">Добави в количката</button>
             <p class="weight">400 гр</p>
+            <p class="desc">Меко хлебче, пеперони, кашкавал, салата по избор, айсберг, домати, маслини</p>
           </div>
         </article>
         <article class="card">
-          <div class="card-img"><img src="assets/img/sandwich_veg.jpg" alt="Вегетариански сандвич" loading="lazy"></div>
+          <div class="card-img"><img src="assets/img/sandwich_ham.jpg" alt="Сандвич Трипъл" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Вегетариански</h3><span class="price">8.99 лв <em>4.60€</em></span></div>
-            <button type="button" class="btn-cart" data-id="vegetarianski-23" data-name="Вегетариански" data-price="4.60" data-img="assets/img/sandwich_veg.jpg">Добави в количката</button>
+            <div class="card-top"><h3>Трипъл</h3><span class="price">7.50 €</span></div>
+            <button type="button" class="btn-cart" data-id="tripal" data-name="Сандвич Трипъл" data-price="7.50" data-img="assets/img/sandwich_ham.jpg">Добави в количката</button>
+            <p class="weight">500 гр</p>
+            <p class="desc">Меко хлебче, шунка, пеперони, пуешко филе, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-img"><img src="assets/img/sandwich_veg.jpg" alt="Вегетариански сандвич Веги" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Веги</h3><span class="price">5.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="vegi" data-name="Сандвич Веги" data-price="5.00" data-img="assets/img/sandwich_veg.jpg">Добави в количката</button>
             <p class="weight">350 гр</p>
+            <p class="desc">Меко хлебче, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
           </div>
         </article>
       </div>
-      <p class="panel-note">Добави безплатно: домати, краставици, маслини, салата по избор</p>
+      <p class="panel-note">Салата по избор, айсберг, домати, краставици и маслини — безплатни във всеки сандвич.</p>
+      <h4 class="mini-title">Добавки</h4>
+      <div class="list-grid">
+        <div class="list-row"><span>Бекон <small>50гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-bekon-sandwich" data-name="Бекон (сандвич)" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Пуешко филе <small>50гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-pueshko-file-sandwich" data-name="Пуешко филе (сандвич)" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Пеперони <small>50гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-peperoni-sandwich" data-name="Пеперони (сандвич)" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Шунка <small>50гр</small></span><span class="price">1.50 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-shunka-sandwich" data-name="Шунка (сандвич)" data-price="1.50" data-img="">+</button></div>
+        <div class="list-row"><span>Допълнителен кашкавал <small>50гр</small></span><span class="price">0.80 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-kashkaval-dop" data-name="Допълнителен кашкавал" data-price="0.80" data-img="">+</button></div>
+        <div class="list-row"><span>Халапеньо <small>30гр</small></span><span class="price">0.80 €</span><button type="button" class="btn-cart btn-cart-row" data-id="addon-halapeno-sandwich" data-name="Халапеньо (сандвич)" data-price="0.80" data-img="">+</button></div>
+      </div>
     </div>
 
     <!-- SALADS & SNACKS -->
     <div class="menu-panel" id="salads">
+      <h3 class="panel-heading">Салати и <span class="text-red">разядки</span></h3>
       <div class="card-grid">
         <article class="card">
           <div class="card-img"><img src="assets/img/salad_snezhanka.jpg" alt="Салата Снежанка" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Снежанка</h3><span class="price">5.85 лв <em>2.99€</em></span></div>
+            <div class="card-top"><h3>Снежанка</h3><span class="price">2.99 €</span></div>
             <button type="button" class="btn-cart" data-id="snezhanka-24" data-name="Снежанка" data-price="2.99" data-img="assets/img/salad_snezhanka.jpg">Добави в количката</button>
             <p class="weight">200 гр</p>
-            <p class="desc">Класическа салата Снежанка с цедено кисело мляко, свежи краставици, копър и чесън</p>
+            <p class="desc">Класическа салата с цедено кисело мляко, свежи краставици, копър и чесън</p>
           </div>
         </article>
         <article class="card">
           <div class="card-img"><img src="assets/img/salad_tirokafteri.jpg" alt="Тиро кафтери домашно" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Тиро кафтери домашно</h3><span class="price">5.85 лв <em>2.99€</em></span></div>
+            <div class="card-top"><h3>Тиро кафтери домашно</h3><span class="price">2.99 €</span></div>
             <button type="button" class="btn-cart" data-id="tiro-kafteri-domashno-25" data-name="Тиро кафтери домашно" data-price="2.99" data-img="assets/img/salad_tirokafteri.jpg">Добави в количката</button>
             <p class="weight">200 гр</p>
             <p class="desc">Уникален микс от краве сирене, зелена чушка сиврия и зехтин</p>
@@ -417,11 +679,12 @@
 
     <!-- DONUTS -->
     <div class="menu-panel" id="donuts">
+      <h3 class="panel-heading">Пухкави <span class="text-red">Донъти</span></h3>
       <div class="card-grid">
         <article class="card">
           <div class="card-img"><img src="assets/img/donut_choco.jpg" alt="Донът шоколад" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Донът Шоколад</h3><span class="price">4.89 лв <em>2.50€</em></span></div>
+            <div class="card-top"><h3>Донът Шоколад</h3><span class="price">2.50 €</span></div>
             <button type="button" class="btn-cart" data-id="donat-shokolad-26" data-name="Донът Шоколад" data-price="2.50" data-img="assets/img/donut_choco.jpg">Добави в количката</button>
             <p class="desc">Пухкав донът с шоколадов пълнеж</p>
           </div>
@@ -429,7 +692,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/donut_bavarian.jpg" alt="Донът баварски крем" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Донът Баварски крем</h3><span class="price">4.89 лв <em>2.50€</em></span></div>
+            <div class="card-top"><h3>Донът Баварски крем</h3><span class="price">2.50 €</span></div>
             <button type="button" class="btn-cart" data-id="donat-bavarski-krem-27" data-name="Донът Баварски крем" data-price="2.50" data-img="assets/img/donut_bavarian.jpg">Добави в количката</button>
             <p class="desc">Пухкав донът с пълнеж баварски крем</p>
           </div>
@@ -439,32 +702,33 @@
 
     <!-- ICE CREAM -->
     <div class="menu-panel" id="icecream">
+      <h3 class="panel-heading">Сладолед</h3>
       <div class="card-grid">
         <article class="card">
           <div class="card-img"><img src="assets/img/icecream_magnum_vanilla.jpg" alt="Магнум ванилия" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Магнум Ванилия</h3><span class="price">7.80 лв <em>3.99€</em></span></div>
+            <div class="card-top"><h3>Магнум Ванилия</h3><span class="price">3.99 €</span></div>
             <button type="button" class="btn-cart" data-id="magnum-vaniliya-28" data-name="Магнум Ванилия" data-price="3.99" data-img="assets/img/icecream_magnum_vanilla.jpg">Добави в количката</button>
           </div>
         </article>
         <article class="card">
           <div class="card-img"><img src="assets/img/icecream_magnum_choco.jpg" alt="Магнум шоколад" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Магнум Шоколад</h3><span class="price">7.80 лв <em>3.99€</em></span></div>
+            <div class="card-top"><h3>Магнум Шоколад</h3><span class="price">3.99 €</span></div>
             <button type="button" class="btn-cart" data-id="magnum-shokolad-29" data-name="Магнум Шоколад" data-price="3.99" data-img="assets/img/icecream_magnum_choco.jpg">Добави в количката</button>
           </div>
         </article>
         <article class="card">
           <div class="card-img"><img src="assets/img/icecream_nirvana.jpg" alt="Нирвана малина" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Нирвана Малина</h3><span class="price">7.80 лв <em>3.99€</em></span></div>
+            <div class="card-top"><h3>Нирвана Малина</h3><span class="price">3.99 €</span></div>
             <button type="button" class="btn-cart" data-id="nirvana-malina-30" data-name="Нирвана Малина" data-price="3.99" data-img="assets/img/icecream_nirvana.jpg">Добави в количката</button>
           </div>
         </article>
         <article class="card">
           <div class="card-img"><img src="assets/img/icecream_sandwich_magnum.jpg" alt="Сандвич Магнум" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Сандвич Магнум</h3><span class="price">5.85 лв <em>2.99€</em></span></div>
+            <div class="card-top"><h3>Сандвич Магнум</h3><span class="price">2.99 €</span></div>
             <button type="button" class="btn-cart" data-id="sandvich-magnum-31" data-name="Сандвич Магнум" data-price="2.99" data-img="assets/img/icecream_sandwich_magnum.jpg">Добави в количката</button>
             <p class="desc">Сандвич с пълнеж ванилия и шоколадови топченца</p>
           </div>
@@ -472,7 +736,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/icecream_galaxy_vanilla.jpg" alt="Галакси ванилия" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Галакси Ванилия</h3><span class="price">4.87 лв <em>2.49€</em></span></div>
+            <div class="card-top"><h3>Галакси Ванилия</h3><span class="price">2.49 €</span></div>
             <button type="button" class="btn-cart" data-id="galaksi-vaniliya-32" data-name="Галакси Ванилия" data-price="2.49" data-img="assets/img/icecream_galaxy_vanilla.jpg">Добави в количката</button>
             <p class="desc">Шоколадова фунийка с ванилов сладолед</p>
           </div>
@@ -480,7 +744,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/icecream_galaxy_choco.jpg" alt="Галакси шоколад" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Галакси Шоколад</h3><span class="price">4.87 лв <em>2.49€</em></span></div>
+            <div class="card-top"><h3>Галакси Шоколад</h3><span class="price">2.49 €</span></div>
             <button type="button" class="btn-cart" data-id="galaksi-shokolad-33" data-name="Галакси Шоколад" data-price="2.49" data-img="assets/img/icecream_galaxy_choco.jpg">Добави в количката</button>
             <p class="desc">Шоколадова фунийка с шоколадов сладолед</p>
           </div>
@@ -490,12 +754,13 @@
 
     <!-- DRINKS -->
     <div class="menu-panel" id="drinks">
+      <h3 class="panel-heading">Напитки</h3>
       <div class="card-grid">
         <article class="card">
           <div class="card-img"><img src="assets/img/drink_beer.jpg" alt="Бира Хайникен" loading="lazy"></div>
           <div class="card-body">
             <div class="card-top"><h3>Бира Хайникен</h3></div>
-            <p class="desc">330мл — 3.89 лв / 1.99€<br>500мл — 4.87 лв / 2.49€</p>
+            <p class="desc">330мл — 1.99 € · 500мл — 2.49 €</p>
             <div class="btn-cart-row">
               <button type="button" class="btn-cart btn-cart-sm" data-id="beer-330" data-name="Бира Хайникен 330мл" data-price="1.99" data-img="assets/img/drink_beer.jpg">330мл</button>
               <button type="button" class="btn-cart btn-cart-sm" data-id="beer-500" data-name="Бира Хайникен 500мл" data-price="2.49" data-img="assets/img/drink_beer.jpg">500мл</button>
@@ -506,7 +771,7 @@
           <div class="card-img"><img src="assets/img/drink_cola.jpg" alt="Кока Кола" loading="lazy"></div>
           <div class="card-body">
             <div class="card-top"><h3>Кока Кола / Zero</h3></div>
-            <p class="desc">330мл — 2.91 лв / 1.49€<br>500мл — 3.89 лв / 1.99€</p>
+            <p class="desc">330мл — 1.49 € · 500мл — 1.99 €</p>
             <div class="btn-cart-row">
               <button type="button" class="btn-cart btn-cart-sm" data-id="cola-330" data-name="Кока Кола 330мл" data-price="1.49" data-img="assets/img/drink_cola.jpg">330мл</button>
               <button type="button" class="btn-cart btn-cart-sm" data-id="cola-500" data-name="Кока Кола 500мл" data-price="1.99" data-img="assets/img/drink_cola.jpg">500мл</button>
@@ -517,7 +782,7 @@
           <div class="card-img"><img src="assets/img/drink_ayran.jpg" alt="Айран" loading="lazy"></div>
           <div class="card-body">
             <div class="card-top"><h3>Айран</h3></div>
-            <p class="desc">250мл — 2.91 лв / 1.49€<br>500мл — 3.89 лв / 1.99€</p>
+            <p class="desc">250мл — 1.49 € · 500мл — 1.99 €</p>
             <div class="btn-cart-row">
               <button type="button" class="btn-cart btn-cart-sm" data-id="ayran-250" data-name="Айран 250мл" data-price="1.49" data-img="assets/img/drink_ayran.jpg">250мл</button>
               <button type="button" class="btn-cart btn-cart-sm" data-id="ayran-500" data-name="Айран 500мл" data-price="1.99" data-img="assets/img/drink_ayran.jpg">500мл</button>
@@ -528,7 +793,7 @@
           <div class="card-img"><img src="assets/img/drink_bankya.jpg" alt="Минерална вода Банкя" loading="lazy"></div>
           <div class="card-body">
             <div class="card-top"><h3>Минерална вода Банкя</h3></div>
-            <p class="desc">500мл — 2.33 лв / 1.19€<br>1.5л — 3.50 лв / 1.79€</p>
+            <p class="desc">500мл — 1.19 € · 1.5л — 1.79 €</p>
             <div class="btn-cart-row">
               <button type="button" class="btn-cart btn-cart-sm" data-id="bankya-500" data-name="Минерална вода Банкя 500мл" data-price="1.19" data-img="assets/img/drink_bankya.jpg">500мл</button>
               <button type="button" class="btn-cart btn-cart-sm" data-id="bankya-1500" data-name="Минерална вода Банкя 1.5л" data-price="1.79" data-img="assets/img/drink_bankya.jpg">1.5л</button>
@@ -539,7 +804,7 @@
           <div class="card-img"><img src="assets/img/drink_rosa.jpg" alt="Изворна вода Роса" loading="lazy"></div>
           <div class="card-body">
             <div class="card-top"><h3>Изворна вода Роса</h3></div>
-            <p class="desc">500мл — 2.33 лв / 1.19€<br>1.5л — 3.50 лв / 1.79€</p>
+            <p class="desc">500мл — 1.19 € · 1.5л — 1.79 €</p>
             <div class="btn-cart-row">
               <button type="button" class="btn-cart btn-cart-sm" data-id="rosa-500" data-name="Изворна вода Роса 500мл" data-price="1.19" data-img="assets/img/drink_rosa.jpg">500мл</button>
               <button type="button" class="btn-cart btn-cart-sm" data-id="rosa-1500" data-name="Изворна вода Роса 1.5л" data-price="1.79" data-img="assets/img/drink_rosa.jpg">1.5л</button>
@@ -549,7 +814,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/drink_fuzetea_peach.jpg" alt="Фюзтий праскова" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Фюзети Праскова</h3><span class="price">3.31 лв <em>1.69€</em></span></div>
+            <div class="card-top"><h3>Фюзети Праскова</h3><span class="price">1.69 €</span></div>
             <button type="button" class="btn-cart" data-id="fyuzeti-praskova-34" data-name="Фюзети Праскова" data-price="1.69" data-img="assets/img/drink_fuzetea_peach.jpg">Добави в количката</button>
             <p class="weight">500мл</p>
           </div>
@@ -557,7 +822,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/drink_fuzetea_lemon.jpg" alt="Фюзтий лимон" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Фюзети Лимон</h3><span class="price">3.31 лв <em>1.69€</em></span></div>
+            <div class="card-top"><h3>Фюзети Лимон</h3><span class="price">1.69 €</span></div>
             <button type="button" class="btn-cart" data-id="fyuzeti-limon-35" data-name="Фюзети Лимон" data-price="1.69" data-img="assets/img/drink_fuzetea_lemon.jpg">Добави в количката</button>
             <p class="weight">500мл</p>
           </div>
@@ -565,7 +830,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/drink_schweppes.jpg" alt="Швепс Сода" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Швепс Сода</h3><span class="price">2.91 лв <em>1.49€</em></span></div>
+            <div class="card-top"><h3>Швепс Сода</h3><span class="price">1.49 €</span></div>
             <button type="button" class="btn-cart" data-id="shveps-soda-36" data-name="Швепс Сода" data-price="1.49" data-img="assets/img/drink_schweppes.jpg">Добави в количката</button>
             <p class="weight">500мл</p>
           </div>
@@ -575,11 +840,12 @@
 
     <!-- SAUCES -->
     <div class="menu-panel" id="sauces">
+      <h3 class="panel-heading">Сосове</h3>
       <div class="card-grid">
         <article class="card">
           <div class="card-img"><img src="assets/img/sauce_ketchup.jpg" alt="Кетчуп" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Кетчуп</h3><span class="price">1.96 лв <em>1.00€</em></span></div>
+            <div class="card-top"><h3>Кетчуп</h3><span class="price">1.00 €</span></div>
             <button type="button" class="btn-cart" data-id="ketchup-37" data-name="Кетчуп" data-price="1.00" data-img="assets/img/sauce_ketchup.jpg">Добави в количката</button>
             <p class="weight">50мл</p>
           </div>
@@ -587,7 +853,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/sauce_mayo.jpg" alt="Майонеза" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Майонеза</h3><span class="price">1.96 лв <em>1.00€</em></span></div>
+            <div class="card-top"><h3>Майонеза</h3><span class="price">1.00 €</span></div>
             <button type="button" class="btn-cart" data-id="mayoneza-38" data-name="Майонеза" data-price="1.00" data-img="assets/img/sauce_mayo.jpg">Добави в количката</button>
             <p class="weight">50мл</p>
           </div>
@@ -595,7 +861,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/sauce_garlic.jpg" alt="Домашен чеснов сос" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Домашен чеснов сос</h3><span class="price">1.96 лв <em>1.00€</em></span></div>
+            <div class="card-top"><h3>Домашен чеснов сос</h3><span class="price">1.00 €</span></div>
             <button type="button" class="btn-cart" data-id="domashen-chesnov-sos-39" data-name="Домашен чеснов сос" data-price="1.00" data-img="assets/img/sauce_garlic.jpg">Добави в количката</button>
             <p class="weight">50мл</p>
           </div>
@@ -603,7 +869,7 @@
         <article class="card">
           <div class="card-img"><img src="assets/img/sauce_chili.jpg" alt="Лют сос" loading="lazy"></div>
           <div class="card-body">
-            <div class="card-top"><h3>Лют сос</h3><span class="price">1.96 лв <em>1.00€</em></span></div>
+            <div class="card-top"><h3>Лют сос</h3><span class="price">1.00 €</span></div>
             <button type="button" class="btn-cart" data-id="lyut-sos-40" data-name="Лют сос" data-price="1.00" data-img="assets/img/sauce_chili.jpg">Добави в количката</button>
             <p class="weight">50мл</p>
           </div>
@@ -611,57 +877,6 @@
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- ===== COMBO ===== -->
-<section class="combo-section" id="combo">
-  <div class="container">
-    <h2 class="section-title light">Комбо <span class="text-red">Менюта</span></h2>
-    <p class="section-sub light">Повече вкус на по-добра цена</p>
-
-    <div class="combo-grid">
-      <article class="combo-card">
-        <img src="assets/img/combo_2pizza_donuts_cola.jpg" alt="Комбо 2 пици + донъти + кола">
-        <div class="combo-body">
-          <h3>2 ПИЦИ + ДОНЪТИ + КОЛА</h3>
-          <p>2 стандартни пици по избор + 2 донъта с шоколад + Кока Кола 1л</p>
-          <span class="price">46.92 лв <em>23.99€</em></span>
-          <button type="button" class="btn-cart" data-id="2-pitsi-donati-kola-41" data-name="2 ПИЦИ + ДОНЪТИ + КОЛА" data-price="23.99" data-img="assets/img/combo_2pizza_donuts_cola.jpg">Добави в количката</button>
-        </div>
-      </article>
-      <article class="combo-card">
-        <img src="assets/img/combo_2pizza_ayran.jpg" alt="Комбо 2 пици + айрян">
-        <div class="combo-body">
-          <h3>2 ПИЦИ + АЙРЯН</h3>
-          <p>2 стандартни пици по избор + 2 малки айряна</p>
-          <span class="price">39.10 лв <em>19.99€</em></span>
-          <button type="button" class="btn-cart" data-id="2-pitsi-ayryan-42" data-name="2 ПИЦИ + АЙРЯН" data-price="19.99" data-img="assets/img/combo_2pizza_ayran.jpg">Добави в количката</button>
-        </div>
-      </article>
-      <article class="combo-card">
-        <img src="assets/img/combo_2pizza_cola.jpg" alt="Комбо 2 пици + кола">
-        <div class="combo-body">
-          <h3>2 ПИЦИ + КОЛА</h3>
-          <p>2 стандартни пици по избор + Кока Кола 1л</p>
-          <span class="price">39.10 лв <em>19.99€</em></span>
-          <button type="button" class="btn-cart" data-id="2-pitsi-kola-43" data-name="2 ПИЦИ + КОЛА" data-price="19.99" data-img="assets/img/combo_2pizza_cola.jpg">Добави в количката</button>
-        </div>
-      </article>
-      <article class="combo-card">
-        <img src="assets/img/donutbox.jpg" alt="Промо бокс донъти">
-        <div class="combo-body">
-          <h3>ПРОМО БОКС ДОНЪТИ</h3>
-          <p>Кутия с 6 донята с богат пълнеж</p>
-          <span class="price">27.36 лв <em>13.99€</em></span>
-          <button type="button" class="btn-cart" data-id="promo-boks-donati-44" data-name="ПРОМО БОКС ДОНЪТИ" data-price="13.99" data-img="assets/img/donutbox.jpg">Добави в количката</button>
-        </div>
-      </article>
-    </div>
-
-    <div class="promo-banner">
-      <p>При поръчка направена по телефона над <strong>19.99€ / 39.09лв</strong> получавате <strong>Кока Кола 1л. ПОДАРЪК</strong></p>
-      <a class="btn btn-primary" href="tel:+359895069669"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a>
     </div>
   </div>
 </section>
@@ -674,12 +889,12 @@
     </div>
     <div class="about-text">
       <h2 class="section-title">За <span class="text-red">Нас</span></h2>
-      <p>Пицария "На Ъгъла" е любимото място на квартал Хладилника за истинска улична пица — домашно тесто, замесвано всеки ден, щедри порции и вкус, на който се връщаме отново и отново. Намираме се на две крачки от Южен парк — вземете парче и се насладете навън, или си поръчайте директно у дома.</p>
+      <p>Пицария "На Ъгъла" е любимото място за истинска улична пица в София — домашно тесто, замесвано всеки ден, щедри порции и вкус, на който се връщаме отново и отново. Вземете парче и се насладете навън, или си поръчайте директно у дома.</p>
       <ul class="about-points">
         <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Прясно тесто, приготвяно всеки ден на място</li>
         <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Пици на парче и цели — за всеки повод</li>
         <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Хот-дог, сандвичи, салати и комбо менюта</li>
-        <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Бърза доставка чрез Glovo</li>
+        <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Поръчка онлайн с количка или по телефона</li>
       </ul>
       <a class="btn btn-primary" href="https://www.facebook.com/naugula/" target="_blank" rel="noopener">Последвайте ни във Facebook</a>
     </div>
@@ -700,7 +915,7 @@
         <cite>— Google отзив</cite>
       </blockquote>
       <blockquote class="review-card">
-        <p>"Много вкусна пица на парче и айряна от промоцията е приличен. Мястото е малко, но можете да си изядете храната на близките пейки в Южния парк."</p>
+        <p>"Много вкусна пица на парче и айряна от промоцията е приличен. Мястото е малко, но можете да си изядете храната на близките пейки наблизо."</p>
         <cite>— Местен гид, Google Maps</cite>
       </blockquote>
     </div>
@@ -713,7 +928,7 @@
     <div class="contact-info">
       <h2 class="section-title light">Намерете <span class="text-red">Ни</span></h2>
       <ul class="info-list">
-        <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg></span><div><strong>Адрес</strong><small>Хладилника, ул. „Козяк“ 21, 1407 София</small></div></li>
+        <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg></span><div><strong>Адрес</strong><small>Ул. „Козяк“ 21, 1407 София</small></div></li>
         <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg></span><div><strong>Телефон</strong><small><a href="tel:+359895069669">0895 069 669</a></small></div></li>
         <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><div><strong>Работно време</strong><small>Отворено всеки ден · Затваря в 22:30 ч.</small></div></li>
         <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg></span><div><strong>Рейтинг</strong><small>4.7 / 5 в Google (232 отзива)</small></div></li>
@@ -721,7 +936,7 @@
       <div class="social-row">
         <a href="https://www.facebook.com/naugula/" target="_blank" rel="noopener" class="btn btn-ghost light">Facebook</a>
         <a href="https://www.google.com/maps/place/%D0%9F%D0%B8%D1%86%D0%B0%D1%80%D0%B8%D1%8F+%22%D0%9D%D0%B0+%D0%AA%D0%B3%D1%8A%D0%BB%D0%B0%22/@42.661177,23.3109613,17z/data=!3m1!4b1!4m6!3m5!1s0x40aa85b5c42a3fbb:0x3dc3a8534eed1159!8m2!3d42.6611731!4d23.3135362" target="_blank" rel="noopener" class="btn btn-ghost light">Google Maps</a>
-        <a href="https://glovoapp.com/en/bg/sofia/stores/na-ugula-sof" target="_blank" rel="noopener" class="btn btn-primary">Поръчай в Glovo</a>
+        <a href="tel:+359895069669" class="btn btn-primary">Обади се</a>
       </div>
     </div>
     <div class="contact-map">
@@ -750,7 +965,6 @@
     </nav>
     <div class="footer-social">
       <a href="https://www.facebook.com/naugula/" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://glovoapp.com/en/bg/sofia/stores/na-ugula-sof" target="_blank" rel="noopener">Glovo</a>
       <a href="tel:+359895069669">0895 069 669</a>
     </div>
   </div>
@@ -762,7 +976,7 @@
       <a href="returns.html">Връщане и рекламации</a>
     </nav>
     <p class="footer-business">
-      Пицария "На Ъгъла" · [Юридическо лице, ЕИК] · Хладилника, ул. „Козяк“ 21, 1407 София, България · [имейл за контакт]
+      Пицария "На Ъгъла" · [Юридическо лице, ЕИК] · Ул. „Козяк“ 21, 1407 София, България · [имейл за контакт]
     </p>
   </div>
   <p class="footer-copy">© <span id="year"></span> Пицария "На Ъгъла". Всички права запазени.</p>
