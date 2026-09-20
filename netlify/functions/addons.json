@@ -1,49 +1,238 @@
 {
   "pizza30": {
-    "oshte-motsarela": { "name": "Още моцарела", "price": 1.99 },
-    "svinska-shunka": { "name": "Свинска шунка", "price": 1.99 },
-    "bekon": { "name": "Бекон", "price": 1.99 },
-    "pueshko-file": { "name": "Пуешко филе", "price": 1.99 },
-    "peperoni": { "name": "Пеперони", "price": 1.99 },
-    "topeno-sirene": { "name": "Топено сирене", "price": 0.99 },
-    "sinyo-sirene": { "name": "Синьо сирене", "price": 1.99 },
-    "krave-sirene": { "name": "Краве сирене", "price": 1.99 },
-    "kiseli-krastavichki": { "name": "Кисели краставички", "price": 0.99 },
-    "tsarevitsa": { "name": "Царевица", "price": 0.99 },
-    "presna-chushka": { "name": "Прясна чушка", "price": 0.99 },
-    "gabi": { "name": "Гъби", "price": 0.99 },
-    "maslini": { "name": "Маслини", "price": 0.99 },
-    "luk": { "name": "Лук", "price": 0.99 }
+    "oshte-motsarela": {
+      "name": "Още моцарела",
+      "price": 1.99
+    },
+    "svinska-shunka": {
+      "name": "Свинска шунка",
+      "price": 1.99
+    },
+    "bekon": {
+      "name": "Бекон",
+      "price": 1.99
+    },
+    "pueshko-file": {
+      "name": "Пуешко филе",
+      "price": 1.99
+    },
+    "peperoni": {
+      "name": "Пеперони",
+      "price": 1.99
+    },
+    "topeno-sirene": {
+      "name": "Топено сирене",
+      "price": 0.99
+    },
+    "sinyo-sirene": {
+      "name": "Синьо сирене",
+      "price": 1.99
+    },
+    "krave-sirene": {
+      "name": "Краве сирене",
+      "price": 1.99
+    },
+    "kiseli-krastavichki": {
+      "name": "Кисели краставички",
+      "price": 0.99
+    },
+    "tsarevitsa": {
+      "name": "Царевица",
+      "price": 0.99
+    },
+    "presna-chushka": {
+      "name": "Прясна чушка",
+      "price": 0.99
+    },
+    "gabi": {
+      "name": "Гъби",
+      "price": 0.99
+    },
+    "maslini": {
+      "name": "Маслини",
+      "price": 0.99
+    },
+    "luk": {
+      "name": "Лук",
+      "price": 0.99
+    }
   },
   "pizza60": {
-    "oshte-motsarela": { "name": "Още моцарела", "price": 2.99 },
-    "pueshko-file": { "name": "Пуешко филе", "price": 2.99 },
-    "bekon": { "name": "Бекон", "price": 2.99 },
-    "peperoni": { "name": "Пеперони", "price": 3.99 },
-    "topeno-sirene": { "name": "Топено сирене", "price": 2.99 },
-    "halapenyo": { "name": "Халапеньо", "price": 1.99 },
-    "gabi": { "name": "Гъби", "price": 1.99 },
-    "tsarevitsa": { "name": "Царевица", "price": 1.99 },
-    "kiseli-krastavichki": { "name": "Кисели краставички", "price": 1.99 },
-    "luk": { "name": "Лук", "price": 1.99 },
-    "maslini": { "name": "Маслини", "price": 1.99 },
-    "presni-chushki": { "name": "Пресни чушки", "price": 1.99 },
-    "krave-sirene": { "name": "Краве сирене", "price": 1.99 },
-    "sinyo-sirene": { "name": "Синьо сирене", "price": 2.99 }
+    "oshte-motsarela": {
+      "name": "Още моцарела",
+      "price": 2.99
+    },
+    "pueshko-file": {
+      "name": "Пуешко филе",
+      "price": 2.99
+    },
+    "bekon": {
+      "name": "Бекон",
+      "price": 2.99
+    },
+    "peperoni": {
+      "name": "Пеперони",
+      "price": 3.99
+    },
+    "topeno-sirene": {
+      "name": "Топено сирене",
+      "price": 2.99
+    },
+    "halapenyo": {
+      "name": "Халапеньо",
+      "price": 1.99
+    },
+    "gabi": {
+      "name": "Гъби",
+      "price": 1.99
+    },
+    "tsarevitsa": {
+      "name": "Царевица",
+      "price": 1.99
+    },
+    "kiseli-krastavichki": {
+      "name": "Кисели краставички",
+      "price": 1.99
+    },
+    "luk": {
+      "name": "Лук",
+      "price": 1.99
+    },
+    "maslini": {
+      "name": "Маслини",
+      "price": 1.99
+    },
+    "presni-chushki": {
+      "name": "Пресни чушки",
+      "price": 1.99
+    },
+    "krave-sirene": {
+      "name": "Краве сирене",
+      "price": 1.99
+    },
+    "sinyo-sirene": {
+      "name": "Синьо сирене",
+      "price": 2.99
+    }
   },
   "hotdog": {
-    "domashen-chesnov-sos": { "name": "Домашен чеснов сос", "price": 0 },
-    "ketchup": { "name": "Кетчуп", "price": 0 },
-    "mayoneza": { "name": "Майонеза", "price": 0 },
-    "gorchitsa": { "name": "Горчица", "price": 0 },
-    "chili-sos": { "name": "Чили сос", "price": 0 }
+    "domashen-chesnov-sos": {
+      "name": "Домашен чеснов сос",
+      "price": 0
+    },
+    "ketchup": {
+      "name": "Кетчуп",
+      "price": 0
+    },
+    "mayoneza": {
+      "name": "Майонеза",
+      "price": 0
+    },
+    "gorchitsa": {
+      "name": "Горчица",
+      "price": 0
+    },
+    "chili-sos": {
+      "name": "Чили сос",
+      "price": 0
+    }
   },
   "sandwich": {
-    "domati": { "name": "Домати", "price": 0 },
-    "krastavitsi": { "name": "Краставици", "price": 0 },
-    "maslini-s": { "name": "Маслини", "price": 0 },
-    "salata-po-izbor": { "name": "Салата по избор", "price": 0 },
-    "luk-s": { "name": "Лук", "price": 0 },
-    "chushki-s": { "name": "Чушки", "price": 0 }
-  }
+    "domati": {
+      "name": "Домати",
+      "price": 0
+    },
+    "krastavitsi": {
+      "name": "Краставици",
+      "price": 0
+    },
+    "maslini-s": {
+      "name": "Маслини",
+      "price": 0
+    },
+    "salata-po-izbor": {
+      "name": "Салата по избор",
+      "price": 0
+    },
+    "luk-s": {
+      "name": "Лук",
+      "price": 0
+    },
+    "chushki-s": {
+      "name": "Чушки",
+      "price": 0
+    }
+  },
+  "combo": {
+    "sinyo-sirene": {
+      "name": "Синьо сирене",
+      "price": 1.99
+    },
+    "krave-sirene": {
+      "name": "Краве сирене",
+      "price": 1.99
+    },
+    "kiseli-krastavichki": {
+      "name": "Кисели краставички",
+      "price": 0.99
+    },
+    "tsarevitsa": {
+      "name": "Царевица",
+      "price": 0.99
+    },
+    "gabi": {
+      "name": "Гъби",
+      "price": 0.99
+    },
+    "maslini": {
+      "name": "Маслини",
+      "price": 0.99
+    },
+    "presna-chushka": {
+      "name": "Прясна чушка",
+      "price": 0.99
+    },
+    "luk": {
+      "name": "Лук",
+      "price": 0.99
+    },
+    "topeno-sirene": {
+      "name": "Топено сирене",
+      "price": 1.99
+    },
+    "peperoni": {
+      "name": "Пеперони",
+      "price": 1.99
+    },
+    "pueshko-file": {
+      "name": "Пуешко филе",
+      "price": 1.99
+    },
+    "bekon": {
+      "name": "Бекон",
+      "price": 1.99
+    },
+    "svinska-shunka": {
+      "name": "Свинска шунка",
+      "price": 1.99
+    },
+    "oshte-motsarela": {
+      "name": "Още моцарела",
+      "price": 1.99
+    }
+  },
+  "comboPizzas": [
+    "bianka-std",
+    "kornichoza-std",
+    "avtorska-std",
+    "margarita-1",
+    "kaprichoza-2",
+    "kremoza-3",
+    "peperoni-4",
+    "polo-5",
+    "4-sirena-7",
+    "retro-6",
+    "spetsialna-8",
+    "kremperoni-std"
+  ]
 }

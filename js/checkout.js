@@ -12,8 +12,10 @@ function renderSummary() {
   }
 
   itemsEl.innerHTML = cart.map(i => {
-    const addonsLine = (i.addons || []).length
-      ? `<small>${i.addons.map(a => '+ ' + a.name).join(', ')} · × ${i.qty}</small>`
+    const detail = (i.choices || []).map((c, n) => `Пица ${n + 1}: ${c.name}`)
+      .concat((i.addons || []).map(a => '+ ' + a.name));
+    const addonsLine = detail.length
+      ? `<small>${detail.join(', ')} · × ${i.qty}</small>`
       : `<small>× ${i.qty}</small>`;
     return `
     <div class="summary-item">
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key) })),
+            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key), choices: (i.choices || []).map(c => c.key) })),
             customer: { name, phone, email, address, notes }
           })
         });
@@ -108,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key) })),
+            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key), choices: (i.choices || []).map(c => c.key) })),
             customer: { name, phone, email, address, notes }
           })
         });
@@ -123,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Best-effort: also submit to Netlify Forms so an email notification
         // can be enabled later with zero extra code. Never blocks the order.
         const orderItems = cart.map(i => {
-          const addonsTxt = (i.addons || []).length ? ` (${i.addons.map(a => a.name).join(', ')})` : '';
+          const extraTxt = (i.choices || []).map(c => c.name).concat((i.addons || []).map(a => a.name));
+          const addonsTxt = extraTxt.length ? ` (${extraTxt.join(', ')})` : '';
           return `${i.name}${addonsTxt} × ${i.qty} — ${fmt(lineUnitPrice(i) * i.qty)}`;
         }).join('\n');
         fetch('/', {

@@ -319,15 +319,21 @@
   },
   "2-pitsi-donati-kola-41": {
     "name": "2 ПИЦИ + ДОНЪТИ + КОЛА",
-    "price": 23.99
+    "price": 23.99,
+    "pizzaChoices": 2,
+    "addonGroup": "combo"
   },
   "2-pitsi-ayryan-42": {
     "name": "2 ПИЦИ + АЙРЯН",
-    "price": 19.99
+    "price": 19.99,
+    "pizzaChoices": 2,
+    "addonGroup": "combo"
   },
   "2-pitsi-kola-43": {
     "name": "2 ПИЦИ + КОЛА",
-    "price": 19.99
+    "price": 19.99,
+    "pizzaChoices": 2,
+    "addonGroup": "combo"
   },
   "promo-boks-donati-44": {
     "name": "ПРОМО БОКС ДОНЪТИ",

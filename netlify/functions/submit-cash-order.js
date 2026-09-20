@@ -76,9 +76,31 @@ exports.handler = async (event) => {
       addons.push({ name: addon.name, price: addon.price });
     }
 
+    // Combos: the customer picks which standard pizzas are inside. Each
+    // chosen id must be a real 30см pizza in our own catalog.
+    const requestedChoices = Array.isArray(it.choices) ? it.choices : [];
+    const choices = [];
+    if (product.pizzaChoices) {
+      if (requestedChoices.length !== product.pizzaChoices) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Моля, изберете пиците за комбото.' }) };
+      }
+      if (new Set(requestedChoices).size !== requestedChoices.length) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Изберете две различни пици.' }) };
+      }
+      for (const cid of requestedChoices) {
+        const pizza = typeof cid === 'string' && addonGroups.comboPizzas.includes(cid) ? products[cid] : null;
+        if (!pizza) {
+          return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна пица в комбото. Презаредете страницата.' }) };
+        }
+        choices.push(pizza.name);
+      }
+    } else if (requestedChoices.length) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна заявка.' }) };
+    }
+
     const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);
     total += unitPrice * qty;
-    lineItems.push({ name: product.name, price: product.price, addons, qty });
+    lineItems.push({ name: product.name, price: product.price, addons, choices, qty });
   }
 
   const order = {

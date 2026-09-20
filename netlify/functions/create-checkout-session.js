@@ -85,8 +85,31 @@ exports.handler = async (event) => {
       addons.push(addon);
     }
 
+    // Combos: the customer picks which standard pizzas are inside. Each
+    // chosen id must be a real 30см pizza in our own catalog.
+    const requestedChoices = Array.isArray(it.choices) ? it.choices : [];
+    const choices = [];
+    if (product.pizzaChoices) {
+      if (requestedChoices.length !== product.pizzaChoices) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Моля, изберете пиците за комбото.' }) };
+      }
+      if (new Set(requestedChoices).size !== requestedChoices.length) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Изберете две различни пици.' }) };
+      }
+      for (const cid of requestedChoices) {
+        const pizza = typeof cid === 'string' && addonGroups.comboPizzas.includes(cid) ? products[cid] : null;
+        if (!pizza) {
+          return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна пица в комбото. Презаредете страницата.' }) };
+        }
+        choices.push(pizza.name);
+      }
+    } else if (requestedChoices.length) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна заявка.' }) };
+    }
+
     const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);
-    const name = addons.length ? `${product.name} (${addons.map(a => a.name).join(', ')})` : product.name;
+    const extras = choices.concat(addons.map(a => '+ ' + a.name));
+    const name = extras.length ? `${product.name} (${extras.join(', ')})` : product.name;
     line_items.push({
       price_data: {
         currency: 'eur',

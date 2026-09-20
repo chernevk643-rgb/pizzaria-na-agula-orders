@@ -1078,3 +1078,11 @@ ul{list-style:none;}
   .tracker-label{font-size:.66rem;}
   .tracker-dot{width:30px; height:30px; font-size:.8rem;}
 }
+
+/* ===================== COMBO PIZZA PICKER ===================== */
+.addon-group-head{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:22px 0 4px;}
+.addon-group-head .addon-modal-question{margin:0;}
+.addon-required{background:var(--red); color:var(--white); font-size:.68rem; font-weight:700; padding:3px 8px; border-radius:6px; white-space:nowrap;}
+.addon-group-hint{color:var(--gray); font-size:.8rem; margin-bottom:6px;}
+.addon-row input:disabled + span{color:var(--gray);}
+.combo-error{color:var(--red-dark); font-size:.82rem; font-weight:600; margin-top:10px;}

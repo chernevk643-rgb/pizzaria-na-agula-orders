@@ -20,7 +20,8 @@ function saveCart(cart) {
 // Маргарита so the kitchen can see exactly what each one needs.
 function itemKey(item) {
   const addonKey = (item.addons || []).map(a => a.key).sort().join(',');
-  return item.id + '::' + addonKey;
+  const choiceKey = (item.choices || []).map(c => c.key).sort().join(',');
+  return item.id + '::' + addonKey + '::' + choiceKey;
 }
 
 function lineUnitPrice(item) {
@@ -93,9 +94,12 @@ function renderCart() {
 
   itemsEl.innerHTML = cart.map(i => {
     const key = itemKey(i);
-    const addonsHtml = (i.addons || []).length
-      ? `<div class="cart-item-addons">${i.addons.map(a => `+ ${a.name}`).join(', ')}</div>`
+    const choicesHtml = (i.choices || []).length
+      ? `<div class="cart-item-addons">${i.choices.map((c, n) => `Пица ${n + 1}: ${c.name}`).join(' · ')}</div>`
       : '';
+    const addonsHtml = choicesHtml + ((i.addons || []).length
+      ? `<div class="cart-item-addons">${i.addons.map(a => `+ ${a.name}`).join(', ')}</div>`
+      : '');
     return `
     <div class="cart-item" data-id="${key}">
       <img src="${i.img || 'assets/img/logo.png'}" alt="${i.name}">
@@ -156,6 +160,7 @@ function openAddonModal(btn) {
   };
 
   document.getElementById('addonModalTitle').textContent = addonState.name;
+  document.getElementById('addonModalQuestion').textContent = 'Да сложим ли още нещо?';
   const listEl = document.getElementById('addonModalList');
   if (list.length === 0) {
     listEl.innerHTML = '<p class="addon-modal-empty">Няма налични добавки за този артикул.</p>';
@@ -175,6 +180,50 @@ function openAddonModal(btn) {
   const overlay = document.getElementById('addonOverlay');
   const modal = document.getElementById('addonModal');
   overlay.classList.add('open');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function openComboModal(btn) {
+  const count = parseInt(btn.dataset.comboPizzas, 10) || 2;
+  addonState = {
+    id: btn.dataset.id,
+    name: btn.dataset.name,
+    price: parseFloat(btn.dataset.price),
+    img: btn.dataset.img || '',
+    group: btn.dataset.addonGroup || 'combo',
+    combo: count,
+    selected: new Set(),
+    pizzas: new Set(),
+    qty: 1
+  };
+  document.getElementById('addonModalTitle').textContent = addonState.name;
+  document.getElementById('addonModalQuestion').textContent = 'Да сложим ли още нещо на пицата?';
+  const addonRows = (ADDON_GROUPS[addonState.group] || []).map(a => `
+      <label class="addon-row">
+        <input type="checkbox" data-kind="addon" value="${a.key}">
+        <span>${a.name}</span>
+        <span class="addon-row-price">+${a.price.toFixed(2)} €</span>
+      </label>`).join('');
+  const pizzaRows = COMBO_PIZZAS.map(p => `
+      <label class="addon-row">
+        <input type="checkbox" data-kind="pizza" value="${p.key}">
+        <span>${p.name}</span>
+        <span class="addon-row-price">+0.00 €</span>
+      </label>`).join('');
+  document.getElementById('addonModalList').innerHTML = addonRows +
+    `<div class="addon-group-head"><p class="addon-modal-question">Изберете ${count === 2 ? 'две пици' : count + ' пици'} за комбото</p><span class="addon-required">Задължително</span></div>
+     <p class="addon-group-hint">Изберете ${count}</p>` + pizzaRows +
+    '<p class="combo-error" id="comboError" hidden>Моля, изберете точно ' + count + ' пици.</p>';
+  document.getElementById('addonQtyVal').textContent = '1';
+  updateAddonTotal();
+  showAddonModal();
+}
+
+function showAddonModal() {
+  document.getElementById('addonOverlay').classList.add('open');
+  const modal = document.getElementById('addonModal');
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -211,6 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-cart');
     if (btn) {
+      if (btn.dataset.comboPizzas) {
+        openComboModal(btn);
+        return;
+      }
       if (btn.dataset.addonGroup) {
         openAddonModal(btn);
         return;
@@ -271,6 +324,15 @@ document.addEventListener('DOMContentLoaded', () => {
     addonModalList.addEventListener('change', (e) => {
       const cb = e.target.closest('input[type="checkbox"]');
       if (!cb || !addonState) return;
+      if (cb.dataset.kind === 'pizza') {
+        if (cb.checked) addonState.pizzas.add(cb.value);
+        else addonState.pizzas.delete(cb.value);
+        const full = addonState.pizzas.size >= addonState.combo;
+        addonModalList.querySelectorAll('input[data-kind="pizza"]').forEach(x => { x.disabled = full && !x.checked; });
+        const err = document.getElementById('comboError');
+        if (err) err.hidden = true;
+        return;
+      }
       if (cb.checked) addonState.selected.add(cb.value);
       else addonState.selected.delete(cb.value);
       updateAddonTotal();
@@ -292,6 +354,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (addonAddBtn) addonAddBtn.addEventListener('click', () => {
     if (!addonState) return;
+    let choices;
+    if (addonState.combo) {
+      if (addonState.pizzas.size !== addonState.combo) {
+        document.getElementById('comboError').hidden = false;
+        return;
+      }
+      choices = [...addonState.pizzas].map(k => COMBO_PIZZAS.find(p => p.key === k)).map(p => ({ key: p.key, name: p.name }));
+    }
     const list = (typeof ADDON_GROUPS !== 'undefined' && ADDON_GROUPS[addonState.group]) || [];
     const addons = [...addonState.selected]
       .map(key => list.find(a => a.key === key))
@@ -304,6 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
       price: addonState.price,
       img: addonState.img,
       addons,
+      choices,
       qty: addonState.qty
     });
     closeAddonModal();
