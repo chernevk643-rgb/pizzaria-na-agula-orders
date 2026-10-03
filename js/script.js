@@ -1,34 +1,6 @@
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Page "views" — clicking Меню / За нас / Отзиви / Контакти in the nav shows
-// only that section (header and footer stay put); the site opens on Начало
-// (hero + the four highlight tiles). This matches what was asked: being in
-// the menu should not keep scrolling into About/Reviews below it.
-const viewSections = document.querySelectorAll('[data-view]');
-const HASH_TO_VIEW = { '#top': 'home', '#menu': 'menu', '#about': 'about', '#reviews': 'reviews', '#contact': 'contact' };
-
-function showView(view) {
-  viewSections.forEach(s => { s.style.display = s.dataset.view === view ? '' : 'none'; });
-}
-
-function goToHash(hash) {
-  showView(HASH_TO_VIEW[hash] || 'home');
-  window.scrollTo({ top: 0 });
-  history.replaceState(null, '', hash);
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  const hash = a.getAttribute('href');
-  if (!(hash in HASH_TO_VIEW)) return;
-  a.addEventListener('click', (e) => {
-    e.preventDefault();
-    goToHash(hash);
-  });
-});
-
-showView(HASH_TO_VIEW[location.hash] || 'home');
-
 // Header scroll state
 const header = document.getElementById('siteHeader');
 const onScroll = () => {
