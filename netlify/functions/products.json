@@ -225,30 +225,6 @@
     "name": "Донът Баварски крем",
     "price": 2.5
   },
-  "magnum-vaniliya-28": {
-    "name": "Магнум Ванилия",
-    "price": 3.99
-  },
-  "magnum-shokolad-29": {
-    "name": "Магнум Шоколад",
-    "price": 3.99
-  },
-  "nirvana-malina-30": {
-    "name": "Нирвана Малина",
-    "price": 3.99
-  },
-  "sandvich-magnum-31": {
-    "name": "Сандвич Магнум",
-    "price": 2.99
-  },
-  "galaksi-vaniliya-32": {
-    "name": "Галакси Ванилия",
-    "price": 2.49
-  },
-  "galaksi-shokolad-33": {
-    "name": "Галакси Шоколад",
-    "price": 2.49
-  },
   "beer-330": {
     "name": "Бира Хайникен 330мл",
     "price": 1.99
@@ -338,5 +314,17 @@
   "promo-boks-donati-44": {
     "name": "ПРОМО БОКС ДОНЪТИ",
     "price": 13.99
+  },
+  "kombo-femili-45": {
+    "name": "КОМБО ФЕМИЛИ",
+    "price": 29.99,
+    "pizzaChoices": 1,
+    "comboList": "family"
+  },
+  "kombo-maks-family-46": {
+    "name": "КОМБО МАКС (СЕМЕЙНО)",
+    "price": 33.99,
+    "pizzaChoices": 1,
+    "comboList": "family"
   }
 }

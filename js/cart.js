@@ -192,30 +192,31 @@ function openComboModal(btn) {
     name: btn.dataset.name,
     price: parseFloat(btn.dataset.price),
     img: btn.dataset.img || '',
-    group: btn.dataset.addonGroup || 'combo',
+    group: btn.dataset.comboList === 'family' ? 'none' : (btn.dataset.addonGroup || 'combo'),
+    comboPizzaList: btn.dataset.comboList === 'family' ? COMBO_PIZZAS_FAMILY : COMBO_PIZZAS,
     combo: count,
     selected: new Set(),
     pizzas: new Set(),
     qty: 1
   };
   document.getElementById('addonModalTitle').textContent = addonState.name;
-  document.getElementById('addonModalQuestion').textContent = 'Да сложим ли още нещо на пицата?';
+  document.getElementById('addonModalQuestion').textContent = addonState.group === 'none' ? '' : 'Да сложим ли още нещо на пицата?';
   const addonRows = (ADDON_GROUPS[addonState.group] || []).map(a => `
       <label class="addon-row">
         <input type="checkbox" data-kind="addon" value="${a.key}">
         <span>${a.name}</span>
         <span class="addon-row-price">+${a.price.toFixed(2)} €</span>
       </label>`).join('');
-  const pizzaRows = COMBO_PIZZAS.map(p => `
+  const pizzaRows = addonState.comboPizzaList.map(p => `
       <label class="addon-row">
         <input type="checkbox" data-kind="pizza" value="${p.key}">
         <span>${p.name}</span>
         <span class="addon-row-price">+0.00 €</span>
       </label>`).join('');
   document.getElementById('addonModalList').innerHTML = addonRows +
-    `<div class="addon-group-head"><p class="addon-modal-question">Изберете ${count === 2 ? 'две пици' : count + ' пици'} за комбото</p><span class="addon-required">Задължително</span></div>
+    `<div class="addon-group-head"><p class="addon-modal-question">Изберете ${count === 1 ? 'пица' : count === 2 ? 'две пици' : count + ' пици'} за комбото</p><span class="addon-required">Задължително</span></div>
      <p class="addon-group-hint">Изберете ${count}</p>` + pizzaRows +
-    '<p class="combo-error" id="comboError" hidden>Моля, изберете точно ' + count + ' пици.</p>';
+    '<p class="combo-error" id="comboError" hidden>Моля, изберете точно ' + count + (count === 1 ? ' пица.' : ' пици.') + '</p>';
   document.getElementById('addonQtyVal').textContent = '1';
   updateAddonTotal();
   showAddonModal();
@@ -360,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('comboError').hidden = false;
         return;
       }
-      choices = [...addonState.pizzas].map(k => COMBO_PIZZAS.find(p => p.key === k)).map(p => ({ key: p.key, name: p.name }));
+      choices = [...addonState.pizzas].map(k => addonState.comboPizzaList.find(p => p.key === k)).map(p => ({ key: p.key, name: p.name }));
     }
     const list = (typeof ADDON_GROUPS !== 'undefined' && ADDON_GROUPS[addonState.group]) || [];
     const addons = [...addonState.selected]

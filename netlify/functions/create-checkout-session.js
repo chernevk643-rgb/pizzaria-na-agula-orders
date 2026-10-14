@@ -97,7 +97,7 @@ exports.handler = async (event) => {
         return { statusCode: 400, body: JSON.stringify({ error: 'Изберете две различни пици.' }) };
       }
       for (const cid of requestedChoices) {
-        const pizza = typeof cid === 'string' && addonGroups.comboPizzas.includes(cid) ? products[cid] : null;
+        const pizza = typeof cid === 'string' && (product.comboList === 'family' ? addonGroups.comboPizzasFamily : addonGroups.comboPizzas).includes(cid) ? products[cid] : null;
         if (!pizza) {
           return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна пица в комбото. Презаредете страницата.' }) };
         }

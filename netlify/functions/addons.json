@@ -234,5 +234,19 @@
     "retro-6",
     "spetsialna-8",
     "kremperoni-std"
+  ],
+  "comboPizzasFamily": [
+    "margarita-9",
+    "kaprichoza-10",
+    "kremoza-11",
+    "peperoni-12",
+    "polo-13",
+    "retro-14",
+    "4-sirena-15",
+    "spetsialna-16",
+    "bianka-fam",
+    "kornichoza-fam",
+    "avtorska-fam",
+    "kremperoni-fam"
   ]
 }

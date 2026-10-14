@@ -23,6 +23,7 @@
       <a href="#menu">Меню</a>
       <a href="#about">За нас</a>
       <a href="#reviews">Отзиви</a>
+      <a href="#franchise">Франчайз</a>
       <a href="#contact">Контакти</a>
     </nav>
 
@@ -82,10 +83,9 @@
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
-    <p class="eyebrow">Улична пица · София</p>
-    <h1 class="hero-logo-wrap"><img src="assets/img/logo.png" alt="Пицария На Ъгъла" class="hero-logo"></h1>
-    <p class="hero-sub">The Best Street Pizza in Sofia</p>
-    <div class="stars" aria-label="4.7 от 5 звезди">★★★★★ <span>4.7 / 5 · 232 отзива в Google</span></div>
+    <h1 class="hero-logo-wrap"><img src="assets/img/logo_lockup.png" alt="Пицария На Ъгъла" class="hero-logo"></h1>
+    <p class="hero-sub">The best street pizza in Sofia</p>
+    <div class="stars" aria-label="5 звезди">★★★★★</div>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#menu">Виж менюто</a>
       <a class="btn btn-ghost" href="tel:+359895069669"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a>
@@ -131,7 +131,6 @@
       <button class="tab" data-target="sandwich">Сандвич-Тост</button>
       <button class="tab" data-target="salads">Салати и разядки</button>
       <button class="tab" data-target="donuts">Донъти</button>
-      <button class="tab" data-target="icecream">Сладолед</button>
       <button class="tab" data-target="drinks">Напитки</button>
       <button class="tab" data-target="sauces">Сосове</button>
     </div>
@@ -508,6 +507,24 @@
           </div>
         </article>
         <article class="combo-card">
+          <img src="assets/img/combo_family_cola_donuts.jpg" alt="Комбо Фемили">
+          <div class="combo-body">
+            <h3>КОМБО ФЕМИЛИ</h3>
+            <p>Семейна пица по избор + 4 шоколадови донъта + Кока Кола 1л</p>
+            <span class="price">29.99 €</span>
+            <button type="button" class="btn-cart" data-id="kombo-femili-45" data-combo-pizzas="1" data-combo-list="family" data-name="КОМБО ФЕМИЛИ" data-price="29.99" data-img="assets/img/combo_family_cola_donuts.jpg">Добави в количката</button>
+          </div>
+        </article>
+        <article class="combo-card">
+          <img src="assets/img/combo_family_donuts_ayran.jpg" alt="Комбо Макс">
+          <div class="combo-body">
+            <h3>КОМБО МАКС</h3>
+            <p>Семейна пица по избор + 4 шоколадови донъта + 4 големи айряна</p>
+            <span class="price">33.99 €</span>
+            <button type="button" class="btn-cart" data-id="kombo-maks-family-46" data-combo-pizzas="1" data-combo-list="family" data-name="КОМБО МАКС (СЕМЕЙНО)" data-price="33.99" data-img="assets/img/combo_family_donuts_ayran.jpg">Добави в количката</button>
+          </div>
+        </article>
+        <article class="combo-card">
           <img src="assets/img/donutbox.jpg" alt="Промо бокс донъти">
           <div class="combo-body">
             <h3>ПРОМО БОКС ДОНЪТИ</h3>
@@ -516,11 +533,6 @@
             <button type="button" class="btn-cart" data-id="promo-boks-donati-44" data-name="ПРОМО БОКС ДОНЪТИ" data-price="13.99" data-img="assets/img/donutbox.jpg">Добави в количката</button>
           </div>
         </article>
-      </div>
-
-      <div class="promo-banner">
-        <p>При поръчка направена по телефона или през сайта над <strong>19.99€</strong> получавате <strong>Кока Кола 1л. ПОДАРЪК</strong></p>
-        <a class="btn btn-primary" href="tel:+359895069669"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a>
       </div>
     </div>
 
@@ -678,58 +690,6 @@
       </div>
     </div>
 
-    <!-- ICE CREAM -->
-    <div class="menu-panel" id="icecream">
-      <h3 class="panel-heading">Сладолед</h3>
-      <div class="card-grid">
-        <article class="card">
-          <div class="card-img"><img src="assets/img/icecream_magnum_vanilla.jpg" alt="Магнум ванилия" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Магнум Ванилия</h3><span class="price">3.99 €</span></div>
-            <button type="button" class="btn-cart" data-id="magnum-vaniliya-28" data-name="Магнум Ванилия" data-price="3.99" data-img="assets/img/icecream_magnum_vanilla.jpg">Добави в количката</button>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/icecream_magnum_choco.jpg" alt="Магнум шоколад" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Магнум Шоколад</h3><span class="price">3.99 €</span></div>
-            <button type="button" class="btn-cart" data-id="magnum-shokolad-29" data-name="Магнум Шоколад" data-price="3.99" data-img="assets/img/icecream_magnum_choco.jpg">Добави в количката</button>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/icecream_nirvana.jpg" alt="Нирвана малина" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Нирвана Малина</h3><span class="price">3.99 €</span></div>
-            <button type="button" class="btn-cart" data-id="nirvana-malina-30" data-name="Нирвана Малина" data-price="3.99" data-img="assets/img/icecream_nirvana.jpg">Добави в количката</button>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/icecream_sandwich_magnum.jpg" alt="Сандвич Магнум" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Сандвич Магнум</h3><span class="price">2.99 €</span></div>
-            <button type="button" class="btn-cart" data-id="sandvich-magnum-31" data-name="Сандвич Магнум" data-price="2.99" data-img="assets/img/icecream_sandwich_magnum.jpg">Добави в количката</button>
-            <p class="desc">Сандвич с пълнеж ванилия и шоколадови топченца</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/icecream_galaxy_vanilla.jpg" alt="Галакси ванилия" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Галакси Ванилия</h3><span class="price">2.49 €</span></div>
-            <button type="button" class="btn-cart" data-id="galaksi-vaniliya-32" data-name="Галакси Ванилия" data-price="2.49" data-img="assets/img/icecream_galaxy_vanilla.jpg">Добави в количката</button>
-            <p class="desc">Шоколадова фунийка с ванилов сладолед</p>
-          </div>
-        </article>
-        <article class="card">
-          <div class="card-img"><img src="assets/img/icecream_galaxy_choco.jpg" alt="Галакси шоколад" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Галакси Шоколад</h3><span class="price">2.49 €</span></div>
-            <button type="button" class="btn-cart" data-id="galaksi-shokolad-33" data-name="Галакси Шоколад" data-price="2.49" data-img="assets/img/icecream_galaxy_choco.jpg">Добави в количката</button>
-            <p class="desc">Шоколадова фунийка с шоколадов сладолед</p>
-          </div>
-        </article>
-      </div>
-    </div>
-
     <!-- DRINKS -->
     <div class="menu-panel" id="drinks">
       <h3 class="panel-heading">Напитки</h3>
@@ -863,11 +823,13 @@
 <section class="about" id="about">
   <div class="container about-grid">
     <div class="about-media">
-      <img src="assets/img/mega_pizza.jpg" alt="Пица на Ъгъла" loading="lazy">
+      <img src="assets/img/logo_lockup.png" alt="Пицария На Ъгъла" loading="lazy">
     </div>
     <div class="about-text">
       <h2 class="section-title">За <span class="text-red">Нас</span></h2>
       <p>Пицария „На Ъгъла“ започна преди 5 години с една проста идея — да създадем място за автентична и различна пица в София. Пица, която да е вкусна, богата и на добра цена.</p>
+      <p>През годините опитахме, променихме и усъвършенствахме много неща. Едно обаче остана непроменено — стремежът ни да правим вкусна пица, която кара хората да се връщат отново.</p>
+      <p>Днес продължаваме да развиваме „На Ъгъла“ всеки ден, но не забравяме откъде започнахме — от една малка идея и много желание да направим добра пица за добри хора.</p>
       <ul class="about-points">
         <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Прясно тесто, приготвяно всеки ден на място</li>
         <li><svg class="ico-svg" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg> Пици на парче и цели — за всеки повод</li>
@@ -897,6 +859,15 @@
         <cite>— Местен гид, Google Maps</cite>
       </blockquote>
     </div>
+  </div>
+</section>
+
+<!-- ===== FRANCHISE ===== -->
+<section class="franchise" id="franchise">
+  <div class="container franchise-inner">
+    <h2 class="section-title light">Франчайз <span class="text-red">„На Ъгъла“</span></h2>
+    <p>Скоро: подробности за възможностите за франчайз партньорство.</p>
+    <a class="btn btn-primary" href="tel:+359895069669">Свържете се с нас</a>
   </div>
 </section>
 
@@ -938,6 +909,7 @@
       <a href="#menu">Меню</a>
       <a href="#about">За нас</a>
       <a href="#reviews">Отзиви</a>
+      <a href="#franchise">Франчайз</a>
       <a href="#contact">Контакти</a>
     </nav>
     <div class="footer-social">
