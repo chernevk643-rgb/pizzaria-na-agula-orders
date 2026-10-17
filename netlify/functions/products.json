@@ -313,7 +313,9 @@
   },
   "promo-boks-donati-44": {
     "name": "ПРОМО БОКС ДОНЪТИ",
-    "price": 13.99
+    "price": 13.99,
+    "pizzaChoices": 6,
+    "comboList": "donuts"
   },
   "kombo-femili-45": {
     "name": "КОМБО ФЕМИЛИ",

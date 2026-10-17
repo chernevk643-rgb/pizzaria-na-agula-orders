@@ -82,13 +82,10 @@ exports.handler = async (event) => {
     const choices = [];
     if (product.pizzaChoices) {
       if (requestedChoices.length !== product.pizzaChoices) {
-        return { statusCode: 400, body: JSON.stringify({ error: 'Моля, изберете пиците за комбото.' }) };
-      }
-      if (new Set(requestedChoices).size !== requestedChoices.length) {
-        return { statusCode: 400, body: JSON.stringify({ error: 'Изберете две различни пици.' }) };
+        return { statusCode: 400, body: JSON.stringify({ error: 'Моля, направете избора си за артикула.' }) };
       }
       for (const cid of requestedChoices) {
-        const pizza = typeof cid === 'string' && (product.comboList === 'family' ? addonGroups.comboPizzasFamily : addonGroups.comboPizzas).includes(cid) ? products[cid] : null;
+        const pizza = typeof cid === 'string' && ({ family: addonGroups.comboPizzasFamily, donuts: addonGroups.promoDonuts }[product.comboList] || addonGroups.comboPizzas).includes(cid) ? products[cid] : null;
         if (!pizza) {
           return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна пица в комбото. Презаредете страницата.' }) };
         }

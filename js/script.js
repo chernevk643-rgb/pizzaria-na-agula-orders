@@ -45,3 +45,56 @@ const panelObserver = new IntersectionObserver((entries) => {
 }, { rootMargin: '-160px 0px -70% 0px', threshold: 0 });
 
 panels.forEach(p => panelObserver.observe(p));
+
+// Reviews carousel — drifts sideways on its own in a seamless loop; pauses while
+// the visitor hovers or touches it, and the arrows still step one card at a time.
+const reviewTrack = document.getElementById('reviewTrack');
+if (reviewTrack) {
+  [...reviewTrack.children].forEach(c => {
+    const clone = c.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    reviewTrack.appendChild(clone);
+  });
+  const half = () => reviewTrack.scrollWidth / 2;
+  const step = () => reviewTrack.children[0].offsetWidth + 24;
+  const SPEED = 0.04; // px per ms
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pos = 0, last = performance.now(), paused = false, resumeTimer;
+
+  const normalize = () => {
+    const h = half();
+    pos = reviewTrack.scrollLeft;
+    if (pos >= h) { pos -= h; reviewTrack.scrollLeft = pos; }
+  };
+  const pause = () => { paused = true; clearTimeout(resumeTimer); };
+  const resumeSoon = (ms) => {
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { normalize(); paused = false; last = performance.now(); }, ms);
+  };
+
+  const tick = (now) => {
+    if (!paused && !reduced) {
+      pos += (now - last) * SPEED;
+      if (pos >= half()) pos -= half();
+      reviewTrack.scrollLeft = pos;
+    }
+    last = now;
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+
+  reviewTrack.addEventListener('mouseenter', pause);
+  reviewTrack.addEventListener('mouseleave', () => resumeSoon(800));
+  reviewTrack.addEventListener('touchstart', pause, { passive: true });
+  reviewTrack.addEventListener('touchend', () => resumeSoon(2500), { passive: true });
+
+  const nudge = (dir) => {
+    pause();
+    normalize();
+    if (dir < 0 && pos < step()) { pos += half(); reviewTrack.scrollLeft = pos; }
+    reviewTrack.scrollBy({ left: dir * step(), behavior: 'smooth' });
+    resumeSoon(3500);
+  };
+  document.getElementById('reviewPrev').addEventListener('click', () => nudge(-1));
+  document.getElementById('reviewNext').addEventListener('click', () => nudge(1));
+}

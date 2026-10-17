@@ -18,6 +18,12 @@ function saveCart(cart) {
 // Two cart lines are the same product only if they also have the same
 // addons — a Маргарита with bacon must stay a separate line from a plain
 // Маргарита so the kitchen can see exactly what each one needs.
+function fmtChoices(names) {
+  const counts = new Map();
+  names.forEach(n => counts.set(n, (counts.get(n) || 0) + 1));
+  return [...counts].map(([n, c]) => c > 1 ? n + ' ×' + c : n).join(' · ');
+}
+
 function itemKey(item) {
   const addonKey = (item.addons || []).map(a => a.key).sort().join(',');
   const choiceKey = (item.choices || []).map(c => c.key).sort().join(',');
@@ -95,7 +101,7 @@ function renderCart() {
   itemsEl.innerHTML = cart.map(i => {
     const key = itemKey(i);
     const choicesHtml = (i.choices || []).length
-      ? `<div class="cart-item-addons">${i.choices.map((c, n) => `Пица ${n + 1}: ${c.name}`).join(' · ')}</div>`
+      ? `<div class="cart-item-addons">${fmtChoices(i.choices.map(c => c.name))}</div>`
       : '';
     const addonsHtml = choicesHtml + ((i.addons || []).length
       ? `<div class="cart-item-addons">${i.addons.map(a => `+ ${a.name}`).join(', ')}</div>`
@@ -192,11 +198,11 @@ function openComboModal(btn) {
     name: btn.dataset.name,
     price: parseFloat(btn.dataset.price),
     img: btn.dataset.img || '',
-    group: btn.dataset.comboList === 'family' ? 'none' : (btn.dataset.addonGroup || 'combo'),
-    comboPizzaList: btn.dataset.comboList === 'family' ? COMBO_PIZZAS_FAMILY : COMBO_PIZZAS,
+    group: btn.dataset.comboList ? 'none' : (btn.dataset.addonGroup || 'combo'),
+    pickMeta: PICK_LISTS[btn.dataset.comboList] || PICK_LISTS.std,
     combo: count,
     selected: new Set(),
-    pizzas: new Set(),
+    pizzas: new Map(),
     qty: 1
   };
   document.getElementById('addonModalTitle').textContent = addonState.name;
@@ -207,16 +213,20 @@ function openComboModal(btn) {
         <span>${a.name}</span>
         <span class="addon-row-price">+${a.price.toFixed(2)} €</span>
       </label>`).join('');
-  const pizzaRows = addonState.comboPizzaList.map(p => `
-      <label class="addon-row">
-        <input type="checkbox" data-kind="pizza" value="${p.key}">
+  const meta = addonState.pickMeta;
+  const pizzaRows = meta.items.map(p => `
+      <div class="addon-row pick-row">
         <span>${p.name}</span>
-        <span class="addon-row-price">+0.00 €</span>
-      </label>`).join('');
+        <span class="pick-stepper">
+          <button type="button" class="pick-btn" data-pick="${p.key}" data-delta="-1" aria-label="Намали">&minus;</button>
+          <span class="pick-count" data-count="${p.key}">0</span>
+          <button type="button" class="pick-btn" data-pick="${p.key}" data-delta="1" aria-label="Увеличи">&plus;</button>
+        </span>
+      </div>`).join('');
   document.getElementById('addonModalList').innerHTML = addonRows +
-    `<div class="addon-group-head"><p class="addon-modal-question">Изберете ${count === 1 ? 'пица' : count === 2 ? 'две пици' : count + ' пици'} за комбото</p><span class="addon-required">Задължително</span></div>
-     <p class="addon-group-hint">Изберете ${count}</p>` + pizzaRows +
-    '<p class="combo-error" id="comboError" hidden>Моля, изберете точно ' + count + (count === 1 ? ' пица.' : ' пици.') + '</p>';
+    `<div class="addon-group-head"><p class="addon-modal-question">${meta.title(count)}</p><span class="addon-required">Задължително</span></div>
+     <p class="addon-group-hint" id="pickHint">Избрани: 0 от ${count}. Можете да изберете един и същ повече от веднъж.</p>` + pizzaRows +
+    '<p class="combo-error" id="comboError" hidden>Моля, изберете точно ' + count + ' ' + (count === 1 ? meta.pick : meta.picks) + '.</p>';
   document.getElementById('addonQtyVal').textContent = '1';
   updateAddonTotal();
   showAddonModal();
@@ -322,18 +332,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (addonModalClose) addonModalClose.addEventListener('click', closeAddonModal);
 
   if (addonModalList) {
+    addonModalList.addEventListener('click', (e) => {
+      const pb = e.target.closest('.pick-btn');
+      if (!pb || !addonState || !addonState.combo) return;
+      const key = pb.dataset.pick;
+      const total = [...addonState.pizzas.values()].reduce((x, y) => x + y, 0);
+      const cur = addonState.pizzas.get(key) || 0;
+      const next = cur + parseInt(pb.dataset.delta, 10);
+      if (next < 0 || (next > cur && total >= addonState.combo)) return;
+      if (next === 0) addonState.pizzas.delete(key); else addonState.pizzas.set(key, next);
+      addonModalList.querySelector(`[data-count="${key}"]`).textContent = next;
+      const sum = total - cur + next;
+      document.getElementById('pickHint').textContent = 'Избрани: ' + sum + ' от ' + addonState.combo + '. Можете да изберете един и същ повече от веднъж.';
+      const err = document.getElementById('comboError');
+      if (err) err.hidden = true;
+    });
     addonModalList.addEventListener('change', (e) => {
       const cb = e.target.closest('input[type="checkbox"]');
       if (!cb || !addonState) return;
-      if (cb.dataset.kind === 'pizza') {
-        if (cb.checked) addonState.pizzas.add(cb.value);
-        else addonState.pizzas.delete(cb.value);
-        const full = addonState.pizzas.size >= addonState.combo;
-        addonModalList.querySelectorAll('input[data-kind="pizza"]').forEach(x => { x.disabled = full && !x.checked; });
-        const err = document.getElementById('comboError');
-        if (err) err.hidden = true;
-        return;
-      }
       if (cb.checked) addonState.selected.add(cb.value);
       else addonState.selected.delete(cb.value);
       updateAddonTotal();
@@ -357,11 +373,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!addonState) return;
     let choices;
     if (addonState.combo) {
-      if (addonState.pizzas.size !== addonState.combo) {
+      if ([...addonState.pizzas.values()].reduce((x, y) => x + y, 0) !== addonState.combo) {
         document.getElementById('comboError').hidden = false;
         return;
       }
-      choices = [...addonState.pizzas].map(k => addonState.comboPizzaList.find(p => p.key === k)).map(p => ({ key: p.key, name: p.name }));
+      choices = [];
+      addonState.pizzas.forEach((n, k) => {
+        const p = addonState.pickMeta.items.find(x => x.key === k);
+        for (let i = 0; i < n; i++) choices.push({ key: p.key, name: p.name });
+      });
     }
     const list = (typeof ADDON_GROUPS !== 'undefined' && ADDON_GROUPS[addonState.group]) || [];
     const addons = [...addonState.selected]

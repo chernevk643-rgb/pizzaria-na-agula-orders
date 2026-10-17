@@ -119,7 +119,7 @@ function renderOrders(orders) {
     const itemsHtml = o.items.map(i => {
       const unitPrice = i.price + (i.addons || []).reduce((s, a) => s + a.price, 0);
       const choicesHtml = (i.choices || []).length
-        ? `<div class="row-addons">${i.choices.map((c, n) => 'Пица ' + (n + 1) + ': ' + escapeHtml(c)).join(' · ')}</div>`
+        ? `<div class="row-addons">${fmtChoicesHtml(i.choices)}</div>`
         : '';
       const addonsHtml = choicesHtml + ((i.addons || []).length
         ? `<div class="row-addons">${i.addons.map(a => '+ ' + escapeHtml(a.name)).join(', ')}</div>`
@@ -168,6 +168,12 @@ function renderOrders(orders) {
       </article>
     `;
   }).join('');
+}
+
+function fmtChoicesHtml(names) {
+  const counts = new Map();
+  names.forEach(n => counts.set(n, (counts.get(n) || 0) + 1));
+  return [...counts].map(([n, c]) => escapeHtml(c > 1 ? n + ' ×' + c : n)).join(' · ');
 }
 
 function escapeHtml(s) {

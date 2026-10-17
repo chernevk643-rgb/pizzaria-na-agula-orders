@@ -12,8 +12,8 @@ function renderSummary() {
   }
 
   itemsEl.innerHTML = cart.map(i => {
-    const detail = (i.choices || []).map((c, n) => `Пица ${n + 1}: ${c.name}`)
-      .concat((i.addons || []).map(a => '+ ' + a.name));
+    const detail = (i.choices || []).length ? [fmtChoices(i.choices.map(c => c.name))] : [];
+    detail.push(...(i.addons || []).map(a => '+ ' + a.name));
     const addonsLine = detail.length
       ? `<small>${detail.join(', ')} · × ${i.qty}</small>`
       : `<small>× ${i.qty}</small>`;
