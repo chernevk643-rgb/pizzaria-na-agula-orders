@@ -25,9 +25,8 @@ function renderSummary() {
   `;
   }).join('');
 
-  const total = cartTotal();
-  subtotalEl.textContent = fmt(total);
-  totalEl.textContent = fmt(total);
+  subtotalEl.textContent = fmt(cartTotal());
+  totalEl.textContent = fmt(orderTotal());
 }
 
 function isValidEmail(v) {
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'form-name': 'cash-order',
             name, phone, email, address, notes,
             order_items: orderItems,
-            total: fmt(cartTotal())
+            total: fmt(orderTotal())
           })
         }).catch(() => {});
 

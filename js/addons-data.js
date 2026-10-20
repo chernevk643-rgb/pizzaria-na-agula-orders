@@ -61,11 +61,14 @@ const ADDON_GROUPS = {
     { key: 'domati', name: 'Домати', price: 0 },
     { key: 'krastavitsi', name: 'Краставици', price: 0 },
     { key: 'maslini-s', name: 'Маслини', price: 0 },
-    { key: 'salata-po-izbor', name: 'Салата по избор', price: 0 },
-    { key: 'luk-s', name: 'Лук', price: 0 },
-    { key: 'chushki-s', name: 'Чушки', price: 0 }
-  ]
-};
+    { key: 'razyadka-snezhanka', name: 'Разядка Снежанка', price: 0 },
+    { key: 'razyadka-tiro-kafteri', name: 'Разядка Тиро кафтери', price: 0 },
+    { key: 'ketchup-s', name: 'Кетчуп', price: 0 },
+    { key: 'mayoneza-s', name: 'Майонеза', price: 0 },
+    { key: 'gorchitsa-s', name: 'Горчица', price: 0 },
+    { key: 'chili-s', name: 'Чили', price: 0 },
+    { key: 'chesnov-sos-s', name: 'Чеснов сос', price: 0 }
+  ]};
 
 // The 12 pizzas Bolt Food lets you pick for a combo (ids = our 30см pizzas).
 const COMBO_PIZZAS = [

@@ -21,6 +21,8 @@ function cleanText(v, max) {
   return v.replace(/[<>]/g, '').trim().slice(0, max);
 }
 
+const DELIVERY_FEE = 1.99;
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -116,6 +118,11 @@ exports.handler = async (event) => {
       quantity: qty
     });
   }
+
+  line_items.push({
+    price_data: { currency: 'eur', product_data: { name: 'Доставка' }, unit_amount: Math.round(DELIVERY_FEE * 100) },
+    quantity: 1
+  });
 
   const host = event.headers && (event.headers.host || event.headers.Host);
   const siteUrl = process.env.URL || (host ? `https://${host}` : null);

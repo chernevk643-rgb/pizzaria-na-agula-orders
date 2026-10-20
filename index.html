@@ -50,6 +50,10 @@
     <p class="cart-empty" id="cartEmpty">Количката е празна.</p>
   </div>
   <div class="cart-drawer-foot">
+    <div class="cart-total-row cart-delivery-row">
+      <span>Доставка</span>
+      <span>1.99€</span>
+    </div>
     <div class="cart-total-row">
       <span>Общо</span>
       <span id="cartTotal">0.00€</span>
@@ -122,6 +126,7 @@
   <div class="container">
     <h2 class="section-title">Нашето <span class="text-red">Меню</span></h2>
     <p class="section-sub">Всичко прясно, всеки ден. Изберете категория или превъртете надолу.</p>
+    <p class="delivery-note">Цена на доставка — <strong>1.99&nbsp;€</strong>. Добавя се автоматично към поръчката.</p>
 
     <div class="tabs" id="menuTabs">
       <button class="tab active" data-target="standard">Стандартни пици 30см</button>
@@ -509,6 +514,14 @@
             <p class="weight">50мл</p>
           </div>
         </article>
+        <article class="card">
+          <div class="card-img"><img src="assets/img/placeholder_logo.jpg" alt="Горчица" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Горчица</h3><span class="price">1.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="gorchitsa-47" data-name="Горчица" data-price="1.00" data-img="assets/img/placeholder_logo.jpg">Добави в количката</button>
+            <p class="weight">50мл</p>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -637,7 +650,7 @@
             <div class="card-top"><h3>Деликат</h3><span class="price">6.00 €</span></div>
             <button type="button" class="btn-cart" data-id="delikat" data-addon-group="sandwich" data-name="Сандвич Деликат" data-price="6.00" data-img="assets/img/s_delikat.jpg">Добави в количката</button>
             <p class="weight">400 гр</p>
-            <p class="desc">Меко хлебче, пуешко филе, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
+            <p class="desc">Меко хлебче, пуешко филе, кашкавал, салата по избор, домати, краставици, маслини</p>
           </div>
         </article>
         <article class="card">
@@ -646,7 +659,7 @@
             <div class="card-top"><h3>Класико</h3><span class="price">6.00 €</span></div>
             <button type="button" class="btn-cart" data-id="klasiko" data-addon-group="sandwich" data-name="Сандвич Класико" data-price="6.00" data-img="assets/img/s_klasiko.jpg">Добави в количката</button>
             <p class="weight">400 гр</p>
-            <p class="desc">Меко хлебче, шунка, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
+            <p class="desc">Меко хлебче, шунка, кашкавал, салата по избор, домати, краставици, маслини</p>
           </div>
         </article>
         <article class="card">
@@ -655,7 +668,7 @@
             <div class="card-top"><h3>Милано</h3><span class="price">6.00 €</span></div>
             <button type="button" class="btn-cart" data-id="milano" data-addon-group="sandwich" data-name="Сандвич Милано" data-price="6.00" data-img="assets/img/s_milano.jpg">Добави в количката</button>
             <p class="weight">400 гр</p>
-            <p class="desc">Меко хлебче, пеперони, кашкавал, салата по избор, айсберг, домати, маслини</p>
+            <p class="desc">Меко хлебче, пеперони, кашкавал, салата по избор, домати, маслини</p>
           </div>
         </article>
         <article class="card">
@@ -664,7 +677,7 @@
             <div class="card-top"><h3>Трипъл</h3><span class="price">7.50 €</span></div>
             <button type="button" class="btn-cart" data-id="tripal" data-addon-group="sandwich" data-name="Сандвич Трипъл" data-price="7.50" data-img="assets/img/s_tripal.jpg">Добави в количката</button>
             <p class="weight">500 гр</p>
-            <p class="desc">Меко хлебче, шунка, пеперони, пуешко филе, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
+            <p class="desc">Меко хлебче, шунка, пеперони, пуешко филе, кашкавал, салата по избор, домати, краставици, маслини</p>
           </div>
         </article>
         <article class="card">
@@ -673,11 +686,11 @@
             <div class="card-top"><h3>Веги</h3><span class="price">5.00 €</span></div>
             <button type="button" class="btn-cart" data-id="vegi" data-addon-group="sandwich" data-name="Сандвич Веги" data-price="5.00" data-img="assets/img/s_vegi.jpg">Добави в количката</button>
             <p class="weight">350 гр</p>
-            <p class="desc">Меко хлебче, кашкавал, салата по избор, айсберг, домати, краставици, маслини</p>
+            <p class="desc">Меко хлебче, кашкавал, салата по избор, домати, краставици, маслини</p>
           </div>
         </article>
       </div>
-      <p class="panel-note">Салата по избор, айсберг, домати, краставици и маслини — безплатни във всеки сандвич. Изберете кои от бутона "Добави в количката".</p>
+      <p class="panel-note">Добавките към сандвичите са безплатни — изберете кои желаете от бутона „Добави в количката“.</p>
     </div>
 
     <!-- SALADS & SNACKS -->

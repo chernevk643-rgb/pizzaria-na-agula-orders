@@ -20,6 +20,8 @@ function cleanText(v, max) {
   return v.replace(/[<>]/g, '').trim().slice(0, max);
 }
 
+const DELIVERY_FEE = 1.99;
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -99,6 +101,9 @@ exports.handler = async (event) => {
     total += unitPrice * qty;
     lineItems.push({ name: product.name, price: product.price, addons, choices, qty });
   }
+
+  lineItems.push({ name: 'Доставка', price: DELIVERY_FEE, addons: [], choices: [], qty: 1 });
+  total += DELIVERY_FEE;
 
   const order = {
     id: crypto.randomUUID(),

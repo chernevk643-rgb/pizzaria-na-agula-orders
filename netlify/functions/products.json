@@ -328,5 +328,9 @@
     "price": 33.99,
     "pizzaChoices": 1,
     "comboList": "family"
+  },
+  "gorchitsa-47": {
+    "name": "Горчица",
+    "price": 1.0
   }
 }

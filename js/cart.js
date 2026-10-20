@@ -64,6 +64,12 @@ function clearCart() {
   saveCart([]);
 }
 
+const DELIVERY_FEE = 1.99;
+
+function orderTotal() {
+  return Math.round((cartTotal() + DELIVERY_FEE) * 100) / 100;
+}
+
 function cartTotal() {
   return getCart().reduce((sum, i) => sum + lineUnitPrice(i) * i.qty, 0);
 }
@@ -124,7 +130,7 @@ function renderCart() {
   `;
   }).join('');
 
-  if (totalEl) totalEl.textContent = fmtEUR(cartTotal());
+  if (totalEl) totalEl.textContent = fmtEUR(cart.length ? orderTotal() : 0);
 }
 
 /* ===================== DRAWER ===================== */

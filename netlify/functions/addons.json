@@ -150,16 +150,32 @@
       "name": "Маслини",
       "price": 0
     },
-    "salata-po-izbor": {
-      "name": "Салата по избор",
+    "razyadka-snezhanka": {
+      "name": "Разядка Снежанка",
       "price": 0
     },
-    "luk-s": {
-      "name": "Лук",
+    "razyadka-tiro-kafteri": {
+      "name": "Разядка Тиро кафтери",
       "price": 0
     },
-    "chushki-s": {
-      "name": "Чушки",
+    "ketchup-s": {
+      "name": "Кетчуп",
+      "price": 0
+    },
+    "mayoneza-s": {
+      "name": "Майонеза",
+      "price": 0
+    },
+    "gorchitsa-s": {
+      "name": "Горчица",
+      "price": 0
+    },
+    "chili-s": {
+      "name": "Чили",
+      "price": 0
+    },
+    "chesnov-sos-s": {
+      "name": "Чеснов сос",
       "price": 0
     }
   },
