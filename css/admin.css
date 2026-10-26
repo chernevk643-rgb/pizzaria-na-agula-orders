@@ -31,3 +31,6 @@ body.admin-body{background:var(--off-white); min-height:100vh;}
 .admin-msg{font-size:.82rem; color:var(--gray);}
 .admin-empty{text-align:center; color:var(--gray); padding:30px 0;}
 @media (max-width:520px){ .admin-thumb{width:56px; height:56px;} .admin-row{padding:10px; gap:10px;} }
+
+.admin-title{flex:1; min-width:180px; padding:8px 10px; border:2px solid var(--gray-light); border-radius:8px; font:inherit; font-weight:700;}
+.admin-pick{padding:8px 14px !important;}

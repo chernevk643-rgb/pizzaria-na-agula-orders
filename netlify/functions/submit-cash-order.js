@@ -66,7 +66,7 @@ exports.handler = async (event) => {
     if (base && ov.available === false) {
       return { statusCode: 400, body: JSON.stringify({ error: `„${base.name}“ в момента не е наличен. Моля, премахнете го от количката.` }) };
     }
-    const product = base ? { ...base, price: ov.price !== undefined ? ov.price : base.price } : undefined;
+    const product = base ? { ...base, name: ov.name || base.name, price: ov.price !== undefined ? ov.price : base.price } : undefined;
     if (!product || qty < 1 || qty > MAX_QTY_PER_ITEM) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Артикул от количката вече не е наличен. Презаредете страницата.' }) };
     }

@@ -4,6 +4,35 @@ let adminKey = null;
 let items = [];
 let overrides = {};
 
+const imageUrl = (key) => '/.netlify/functions/product-image?k=' + encodeURIComponent(key);
+
+// Shrinks the chosen photo to a 900x900 JPEG on black (same look as the menu photos).
+// Read via FileReader (data: URL) because the site's CSP does not allow blob: images.
+function fileToJpeg(file) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onerror = () => reject(new Error('Невалидна снимка.'));
+    fr.onload = () => {
+      const im = new Image();
+      im.onerror = () => reject(new Error('Невалидна снимка. Използвайте JPG или PNG.'));
+      im.onload = () => {
+        const S = 900;
+        const c = document.createElement('canvas');
+        c.width = S; c.height = S;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, S, S);
+        const r = Math.min(S / im.width, S / im.height);
+        const w = im.width * r, h = im.height * r;
+        ctx.drawImage(im, (S - w) / 2, (S - h) / 2, w, h);
+        resolve(c.toDataURL('image/jpeg', 0.85));
+      };
+      im.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
 async function api(method, body) {
   const res = await fetch('/.netlify/functions/admin-catalog', {
     method,
@@ -77,14 +106,17 @@ function row(it) {
   el.className = 'admin-row' + (overrides[it.id] ? ' changed' : '') + (available ? '' : ' off');
 
   const img = document.createElement('img');
-  img.src = it.img; img.alt = ''; img.className = 'admin-thumb'; img.loading = 'lazy';
+  img.src = ov.image ? imageUrl(ov.image) : it.img; img.alt = ''; img.className = 'admin-thumb'; img.loading = 'lazy';
 
   const name = document.createElement('div');
   name.className = 'admin-name';
-  const strong = document.createElement('strong'); strong.textContent = it.name;
+  const nameIn = document.createElement('input');
+  nameIn.type = 'text'; nameIn.maxLength = 80; nameIn.className = 'admin-title';
+  nameIn.value = ov.name !== undefined ? ov.name : it.name;
+  nameIn.setAttribute('aria-label', 'Заглавие');
   const badge = document.createElement('span');
   badge.className = 'admin-badge'; badge.textContent = 'променен'; badge.hidden = !overrides[it.id];
-  name.append(strong, badge);
+  name.append(nameIn, badge);
 
   const priceIn = document.createElement('input');
   priceIn.type = 'number'; priceIn.step = '0.01'; priceIn.min = '0'; priceIn.value = Number(price).toFixed(2);
@@ -103,6 +135,33 @@ function row(it) {
   availWrap.className = 'admin-avail';
   availWrap.append(availIn, ' Наличен');
 
+  let pendingImage = null;
+  let imageRemoved = false;
+  const fileIn = document.createElement('input');
+  fileIn.type = 'file'; fileIn.accept = 'image/*'; fileIn.hidden = true;
+  const pick = document.createElement('button');
+  pick.type = 'button'; pick.className = 'btn btn-ghost admin-pick'; pick.textContent = 'Смени снимка';
+  const origImg = document.createElement('button');
+  origImg.type = 'button'; origImg.className = 'btn btn-ghost admin-pick'; origImg.textContent = 'Оригинална снимка';
+  origImg.hidden = !ov.image;
+  pick.addEventListener('click', () => fileIn.click());
+  fileIn.addEventListener('change', async () => {
+    const file = fileIn.files && fileIn.files[0];
+    if (!file) return;
+    try {
+      pendingImage = await fileToJpeg(file);
+      imageRemoved = false;
+      img.src = pendingImage;
+      origImg.hidden = false;
+      msg.textContent = 'Снимката е избрана — натиснете „Запази“.';
+    } catch (e) { msg.textContent = e.message; }
+    fileIn.value = '';
+  });
+  origImg.addEventListener('click', () => {
+    pendingImage = null; imageRemoved = true; img.src = it.img; origImg.hidden = true;
+    msg.textContent = 'Ще се върне оригиналната снимка — натиснете „Запази“.';
+  });
+
   const save = document.createElement('button');
   save.type = 'button'; save.className = 'btn btn-primary admin-save'; save.textContent = 'Запази';
   const reset = document.createElement('button');
@@ -113,11 +172,16 @@ function row(it) {
 
   save.addEventListener('click', async () => {
     const body = { id: it.id };
+    const newName = nameIn.value.trim();
+    if (!newName) { msg.textContent = 'Заглавието не може да е празно'; return; }
+    if (newName !== it.name) body.name = newName;
     const p = parseFloat(priceIn.value);
     if (!Number.isFinite(p) || p < 0) { msg.textContent = 'Невалидна цена'; return; }
     if (Math.abs(p - it.price) > 0.001) body.price = p;
     if (descIn.value.trim() !== it.description) body.description = descIn.value.trim();
     if (!availIn.checked) body.available = false;
+    if (pendingImage) body.imageData = pendingImage;
+    else if (ov.image && !imageRemoved) body.keepImage = true;
     save.disabled = true; msg.textContent = 'Запазване…';
     try {
       const res = await api('POST', Object.keys(body).length === 1 ? { id: it.id, reset: true } : body);
@@ -135,7 +199,7 @@ function row(it) {
 
   const actions = document.createElement('div');
   actions.className = 'admin-actions';
-  actions.append(save, reset, msg);
+  actions.append(save, pick, origImg, fileIn, reset, msg);
 
   const fields = document.createElement('div');
   fields.className = 'admin-fields';

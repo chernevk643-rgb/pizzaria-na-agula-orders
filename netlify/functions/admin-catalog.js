@@ -27,14 +27,15 @@ exports.handler = async (event) => {
       let body;
       try { body = JSON.parse(event.body || '{}'); } catch (e) { return json(400, { error: 'Невалидна заявка.' }); }
       if (typeof body.id !== 'string') return json(400, { error: 'Липсва артикул.' });
-      const patch = body.reset ? {} : { price: body.price, description: body.description, available: body.available };
+      const patch = body.reset ? {} : { name: body.name, price: body.price, description: body.description, available: body.available };
       Object.keys(patch).forEach(k => patch[k] === undefined && delete patch[k]);
-      const overrides = await saveOverride(body.id, patch);
+      const opts = body.reset ? {} : { imageData: body.imageData, keepImage: body.keepImage === true };
+      const overrides = await saveOverride(body.id, patch, opts);
       return json(200, { overrides });
     }
     return json(405, { error: 'Method Not Allowed' });
   } catch (err) {
-    if (/Невалид|Непознат/.test(err.message)) return json(400, { error: err.message });
+    if (/Невалид|Непознат|твърде голяма/.test(err.message)) return json(400, { error: err.message });
     console.error('admin-catalog error:', err.message);
     return json(500, { error: 'Грешка при запис. Опитайте отново.' });
   }

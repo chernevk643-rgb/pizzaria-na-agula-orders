@@ -6,6 +6,20 @@
   function applyToCard(btn, ov) {
     const card = btn.closest('.card, .combo-card');
     if (!card) return;
+    if (ov.name !== undefined) {
+      const h3 = card.querySelector('h3');
+      const origName = btn.dataset.name || '';
+      const origTitle = h3 ? h3.textContent.trim() : origName;
+      const suffix = origName.startsWith(origTitle) ? origName.slice(origTitle.length) : '';
+      btn.dataset.name = ov.name;
+      if (h3) h3.textContent = suffix && ov.name.endsWith(suffix) ? ov.name.slice(0, -suffix.length) : ov.name;
+    }
+    if (ov.image) {
+      const url = '/.netlify/functions/product-image?k=' + encodeURIComponent(ov.image);
+      const im = card.querySelector('img');
+      if (im) im.src = url;
+      btn.dataset.img = url;
+    }
     if (ov.price !== undefined) {
       btn.dataset.price = String(ov.price);
       const priceEl = card.querySelector('.price');
