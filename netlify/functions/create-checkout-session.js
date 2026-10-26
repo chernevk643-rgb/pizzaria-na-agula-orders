@@ -4,6 +4,7 @@
 const Stripe = require('stripe');
 const products = require('./products.json');
 const addonGroups = require('./addons.json');
+const { getOverridesSafe } = require('./_catalog-store.js');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -65,10 +66,16 @@ exports.handler = async (event) => {
   }
 
   const line_items = [];
+  const overrides = await getOverridesSafe();
   for (const it of items) {
     const id = typeof it.id === 'string' ? it.id : '';
     const qty = Number.isInteger(it.qty) ? it.qty : 0;
-    const product = products[id];
+    const base = products[id];
+    const ov = overrides[id] || {};
+    if (base && ov.available === false) {
+      return { statusCode: 400, body: JSON.stringify({ error: `„${base.name}“ в момента не е наличен. Моля, премахнете го от количката.` }) };
+    }
+    const product = base ? { ...base, price: ov.price !== undefined ? ov.price : base.price } : undefined;
     if (!product || qty < 1 || qty > MAX_QTY_PER_ITEM) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Артикул от количката вече не е наличен. Презаредете страницата.' }) };
     }
@@ -97,6 +104,9 @@ exports.handler = async (event) => {
       }
       for (const cid of requestedChoices) {
         const pizza = typeof cid === 'string' && ({ family: addonGroups.comboPizzasFamily, donuts: addonGroups.promoDonuts }[product.comboList] || addonGroups.comboPizzas).includes(cid) ? products[cid] : null;
+        if (pizza && (overrides[cid] || {}).available === false) {
+          return { statusCode: 400, body: JSON.stringify({ error: `„${pizza.name}“ в момента не е налична. Изберете друга.` }) };
+        }
         if (!pizza) {
           return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна пица в комбото. Презаредете страницата.' }) };
         }

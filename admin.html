@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Админ — Пицария "На Ъгъла"</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<header class="admin-header">
+  <img src="assets/img/logo_lockup.png" alt="На Ъгъла" class="admin-logo">
+  <h1>Управление на менюто</h1>
+  <button class="btn btn-ghost" id="adminLock" hidden>Изход</button>
+</header>
+
+<div class="admin-gate" id="adminGate">
+  <form class="admin-gate-card" id="adminLoginForm">
+    <h2>Вход за собственика</h2>
+    <p>Въведете паролата за администратор.</p>
+    <input type="password" id="adminPass" autocomplete="current-password" placeholder="Парола" required>
+    <p class="admin-error" id="adminLoginError" hidden></p>
+    <button type="submit" class="btn btn-primary">Вход</button>
+  </form>
+</div>
+
+<main class="admin-main" id="adminMain" hidden>
+  <div class="admin-toolbar">
+    <input type="search" id="adminSearch" placeholder="Търси артикул…">
+    <label class="admin-filter"><input type="checkbox" id="adminOnlyChanged"> Само променените</label>
+  </div>
+  <p class="admin-hint">Промяна на цена, описание или наличност се вижда веднага в сайта след „Запази“. „Върни оригинала“ връща първоначалните данни.</p>
+  <div id="adminList"></div>
+</main>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1122,3 +1122,6 @@ ul{list-style:none;}
 
 .delivery-note{text-align:center; margin:-4px 0 22px; font-size:.95rem; color:var(--black);}
 .delivery-note strong{color:var(--red);}
+
+.sold-out .card-img img, .sold-out.combo-card img{filter:grayscale(1); opacity:.5;}
+.sold-out .btn-cart{opacity:.6; cursor:not-allowed; pointer-events:none;}

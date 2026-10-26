@@ -268,8 +268,37 @@ function updateAddonTotal() {
 }
 
 /* ===================== EVENTS ===================== */
+// Keep what is already in the cart in step with the owner's latest prices /
+// availability (the server re-prices on order anyway).
+function syncCartWithCatalog() {
+  fetch('/.netlify/functions/get-catalog')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data) return;
+      const ov = data.overrides || {};
+      let cart = getCart();
+      const before = JSON.stringify(cart);
+      const removed = [];
+      cart = cart.filter(i => {
+        if ((ov[i.id] || {}).available === false) { removed.push(i.name); return false; }
+        return true;
+      });
+      cart.forEach(i => {
+        const o = ov[i.id];
+        if (o && o.price !== undefined) i.price = o.price;
+      });
+      if (JSON.stringify(cart) !== before) {
+        saveCart(cart);
+        renderCart();
+        if (removed.length) alert('Следните артикули вече не са налични и бяха премахнати от количката: ' + removed.join(', '));
+      }
+    })
+    .catch(() => {});
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderCart();
+  syncCartWithCatalog();
 
   // Add-to-cart buttons (event delegation, works for all injected buttons).
   // Items with an addon group open the customization modal instead of
