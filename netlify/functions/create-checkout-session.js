@@ -5,6 +5,7 @@ const Stripe = require('stripe');
 const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
+const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -27,6 +28,9 @@ const DELIVERY_FEE = 1.99;
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+  if (!isOpen()) {
+    return { statusCode: 403, body: JSON.stringify({ error: CLOSED_MESSAGE, closed: true }) };
   }
 
   let payload;

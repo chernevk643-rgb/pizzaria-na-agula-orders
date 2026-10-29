@@ -1125,3 +1125,8 @@ ul{list-style:none;}
 
 .sold-out .card-img img, .sold-out.combo-card img{filter:grayscale(1); opacity:.5;}
 .sold-out .btn-cart{opacity:.6; cursor:not-allowed; pointer-events:none;}
+
+.closed-banner{position:fixed; top:0; left:0; right:0; height:38px; display:flex; align-items:center; justify-content:center; background:var(--red); color:var(--white); text-align:center; padding:0 12px; font-weight:600; font-size:.85rem; z-index:1100;}
+body.shop-closed{padding-top:38px;}
+body.shop-closed .site-header{top:38px;}
+.cart-checkout-btn.is-disabled{opacity:.5; cursor:not-allowed;}

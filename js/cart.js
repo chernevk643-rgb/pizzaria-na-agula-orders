@@ -270,11 +270,35 @@ function updateAddonTotal() {
 /* ===================== EVENTS ===================== */
 // Keep what is already in the cart in step with the owner's latest prices /
 // availability (the server re-prices on order anyway).
+function showClosedNotice(hours) {
+  document.body.classList.add('shop-closed');
+  const msg = 'В момента сме затворени. Приемаме поръчки всеки ден от ' + hours.open + ':00 до ' + hours.close + ':00 ч.';
+  if (!document.getElementById('closedBanner')) {
+    const b = document.createElement('div');
+    b.id = 'closedBanner';
+    b.className = 'closed-banner';
+    b.textContent = msg;
+    document.body.prepend(b);
+  }
+  const btn = document.getElementById('cartCheckoutBtn');
+  if (btn) {
+    btn.classList.add('is-disabled');
+    btn.setAttribute('aria-disabled', 'true');
+    btn.addEventListener('click', (e) => { e.preventDefault(); alert(msg); });
+  }
+  const submit = document.getElementById('submitBtn');
+  if (submit) {
+    submit.disabled = true;
+    submit.textContent = 'Затворено до ' + hours.open + ':00';
+  }
+}
+
 function syncCartWithCatalog() {
   fetch('/.netlify/functions/get-catalog')
     .then(r => r.ok ? r.json() : null)
     .then(data => {
       if (!data) return;
+      if (data.open === false && data.hours) showClosedNotice(data.hours);
       const ov = data.overrides || {};
       let cart = getCart();
       const before = JSON.stringify(cart);

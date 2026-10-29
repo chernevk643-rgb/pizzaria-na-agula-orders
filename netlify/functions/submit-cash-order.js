@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
+const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
 const { saveOrder } = require('./_orders-store.js');
 
 const MAX_QTY_PER_ITEM = 20;
@@ -26,6 +27,9 @@ const DELIVERY_FEE = 1.99;
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+  if (!isOpen()) {
+    return { statusCode: 403, body: JSON.stringify({ error: CLOSED_MESSAGE, closed: true }) };
   }
 
   let payload;
