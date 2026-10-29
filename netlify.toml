@@ -5,6 +5,19 @@
 [functions]
   node_bundler = "esbuild"
 
+# One canonical host: the netlify.app address redirects to the real domain (no duplicate content for Google).
+[[redirects]]
+  from = "https://pizzaria-na-agula-orders.netlify.app/*"
+  to = "https://naugula.bg/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.naugula.bg/*"
+  to = "https://naugula.bg/:splat"
+  status = 301
+  force = true
+
 # Force HTTPS (Netlify already redirects http->https by default, this is explicit belt-and-braces)
 [[redirects]]
   from = "http://*"
@@ -37,3 +50,14 @@
   for = "/.netlify/functions/*"
   [headers.values]
     Cache-Control = "no-store"
+
+# Private pages: keep them out of Google without advertising their paths in robots.txt.
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/orders.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
