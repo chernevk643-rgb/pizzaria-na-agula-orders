@@ -1,12 +1,18 @@
 const DASHBOARD_KEY_STORAGE = 'naugula_dashboard_key';
 const SOUND_PREF_STORAGE = 'naugula_dashboard_sound';
-const POLL_MS = 8000;
+const POLL_MS = 6000;
+const FETCH_TIMEOUT_MS = 12000;
+const RELOAD_AFTER_MS = 4 * 60 * 1000; // no successful refresh this long while visible -> reload the page
 
 let currentKey = null;
 let currentFilter = 'active';
-let knownIds = new Set();
 let firstLoad = true;
-let pollTimer = null;
+let tickTimer = null;
+let ticker = null;
+let pollSeq = 0;
+let lastPollAt = 0;
+let lastOk = Date.now();
+let wakeLock = null;
 
 function fmtEUR(n) { return n.toFixed(2) + '€'; }
 
@@ -52,39 +58,60 @@ function startAudioKeepAlive() {
   } catch (e) { /* ignore */ }
 }
 
-// Loud, alarm-like pattern (square wave cuts through kitchen noise far better
-// than a soft sine chime) plus a vibration pulse for phones/tablets.
-async function beep() {
+// Loud alarm: two stacked oscillators (square + saw) through a compressor so it
+// stays as loud as the device allows without clipping, ~2.4s per ring.
+function ringOnce() {
   if (localStorage.getItem(SOUND_PREF_STORAGE) === 'off') return;
   try {
     const ctx = getAudioCtx();
-    if (ctx.state !== 'running') {
-      await ctx.resume();
-    }
-    const pattern = [988, 740, 988, 740, 988, 740];
+    if (ctx.state !== 'running') ctx.resume();
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -10;
+    comp.ratio.value = 12;
+    comp.connect(ctx.destination);
+    const pattern = [988, 740, 988, 740, 988, 740, 988, 740];
     pattern.forEach((freq, i) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'square';
-      osc.frequency.value = freq;
-      const t = ctx.currentTime + i * 0.24;
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.9, t + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start(t);
-      osc.stop(t + 0.22);
+      const t = ctx.currentTime + i * 0.3;
+      [['square', freq, 0.8], ['sawtooth', freq * 2, 0.5]].forEach(([type, f, peak]) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.value = f;
+        gain.gain.setValueAtTime(0.0001, t);
+        gain.gain.exponentialRampToValueAtTime(peak, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+        osc.connect(gain).connect(comp);
+        osc.start(t);
+        osc.stop(t + 0.3);
+      });
     });
   } catch (e) { /* audio not available, ignore */ }
   if (navigator.vibrate) {
-    try { navigator.vibrate([350, 120, 350, 120, 350]); } catch (e) { /* ignore */ }
+    try { navigator.vibrate([400, 150, 400, 150, 400]); } catch (e) { /* ignore */ }
+  }
+}
+
+// The alarm keeps ringing (a ring every 3.2s) for as long as any order is still
+// "Нова", i.e. until the kitchen presses "Приемам поръчката", so a missed
+// first ring doesn't mean a missed order.
+let alarmTimer = null;
+function setAlarm(on) {
+  document.body.classList.toggle('alarm', on);
+  if (on && !alarmTimer) {
+    ringOnce();
+    alarmTimer = setInterval(ringOnce, 3200);
+  } else if (!on && alarmTimer) {
+    clearInterval(alarmTimer);
+    alarmTimer = null;
   }
 }
 
 /* ===== API ===== */
-async function fetchOrders() {
-  const res = await fetch('/.netlify/functions/list-orders', {
-    headers: { 'x-dashboard-key': currentKey }
+async function fetchOrders(signal) {
+  const res = await fetch('/.netlify/functions/list-orders?t=' + Date.now(), {
+    headers: { 'x-dashboard-key': currentKey },
+    cache: 'no-store',
+    signal
   });
   if (res.status === 401) throw new Error('unauthorized');
   if (!res.ok) throw new Error('server');
@@ -98,7 +125,7 @@ async function setStatus(id, status) {
     headers: { 'Content-Type': 'application/json', 'x-dashboard-key': currentKey },
     body: JSON.stringify({ id, status })
   });
-  poll();
+  poll(true);
 }
 
 /* ===== Render ===== */
@@ -183,29 +210,53 @@ function escapeHtml(s) {
 }
 
 /* ===== Polling ===== */
-async function poll() {
+async function poll(force) {
+  if (!currentKey) return;
   const statusEl = document.getElementById('connStatus');
+  const mine = ++pollSeq; // only the newest request may update the screen
+  lastPollAt = Date.now();
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
   try {
-    const orders = await fetchOrders();
+    const orders = await fetchOrders(ctrl.signal);
+    if (mine !== pollSeq) return;
+    lastOk = Date.now();
     statusEl.classList.remove('offline');
+    const upd = document.getElementById('lastUpdate');
+    if (upd) upd.textContent = 'Обновено ' + new Date().toLocaleTimeString('bg-BG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-    const hasUnacknowledged = orders.some(o => o.status === 'new');
-    if (!firstLoad && hasUnacknowledged) {
-      // Keep alerting every poll cycle (not just once) until someone presses
-      // "Приемам поръчката" — a kitchen can easily miss a single chime.
-      beep();
-    }
+    setAlarm(orders.some(o => o.status === 'new'));
     firstLoad = false;
-    knownIds = new Set(orders.map(o => o.id));
-
     renderOrders(orders);
   } catch (err) {
+    if (mine !== pollSeq) return;
     if (err.message === 'unauthorized') {
       lock();
       return;
     }
     statusEl.classList.add('offline');
+  } finally {
+    clearTimeout(timeout);
   }
+}
+
+// Called every few seconds from a Web Worker (not throttled like page timers)
+// and from a normal interval as a backup.
+function tick() {
+  if (!currentKey) return;
+  const now = Date.now();
+  if (now - lastPollAt >= POLL_MS - 500) poll();
+  if (now - lastOk > 20000) document.getElementById('connStatus').classList.add('offline');
+  if (!document.hidden && now - lastOk > RELOAD_AFTER_MS) location.reload();
+}
+
+async function keepAwake() {
+  try {
+    if ('wakeLock' in navigator && !wakeLock) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => { wakeLock = null; });
+    }
+  } catch (e) { /* not supported or denied */ }
 }
 
 /* ===== Gate / auth ===== */
@@ -215,14 +266,20 @@ function unlock(key) {
   document.getElementById('ordersGate').hidden = true;
   document.getElementById('ordersMain').hidden = false;
   firstLoad = true;
-  poll();
-  if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(poll, POLL_MS);
+  lastOk = Date.now();
+  poll(true);
+  if (tickTimer) clearInterval(tickTimer);
+  tickTimer = setInterval(tick, 4000);
+  if (!ticker && window.Worker) {
+    try {
+      ticker = new Worker('js/orders-ticker.js');
+      ticker.onmessage = tick;
+    } catch (e) { ticker = null; }
+  }
+  keepAwake();
 
-  // If we got here via the auto-login path (saved password, page just
-  // reloaded) there was no click involved, so audio was never unlocked —
-  // show a banner asking for one tap. If unlock() ran from the actual login
-  // click, keepAliveNode is already running and this stays hidden.
+  // Auto-login has no click, so audio can't be unlocked yet; the banner asks
+  // for one tap (any tap on the page also unlocks it, see below).
   const unlockBtn = document.getElementById('soundUnlockBtn');
   if (unlockBtn) unlockBtn.hidden = !!keepAliveNode || localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
 }
@@ -230,7 +287,8 @@ function unlock(key) {
 function lock() {
   currentKey = null;
   localStorage.removeItem(DASHBOARD_KEY_STORAGE);
-  if (pollTimer) clearInterval(pollTimer);
+  if (tickTimer) clearInterval(tickTimer);
+  setAlarm(false);
   document.getElementById('ordersGate').hidden = false;
   document.getElementById('ordersMain').hidden = true;
   document.getElementById('gateKeyInput').value = '';
@@ -240,7 +298,7 @@ async function tryKey(key) {
   const errEl = document.getElementById('gateError');
   errEl.hidden = true;
   try {
-    const res = await fetch('/.netlify/functions/list-orders', { headers: { 'x-dashboard-key': key } });
+    const res = await fetch('/.netlify/functions/list-orders', { headers: { 'x-dashboard-key': key }, cache: 'no-store' });
     if (res.ok) {
       unlock(key);
     } else {
@@ -252,10 +310,34 @@ async function tryKey(key) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const savedKey = localStorage.getItem(DASHBOARD_KEY_STORAGE);
-  if (savedKey) {
-    tryKey(savedKey);
+  // A bookmarked link like orders.html#key=PAROLA signs in without typing a
+  // password (the part after # is never sent to the server).
+  const fromLink = /[#&]key=([^&]+)/.exec(location.hash);
+  if (fromLink) {
+    const k = decodeURIComponent(fromLink[1]);
+    history.replaceState(null, '', location.pathname);
+    unlock(k);
+  } else {
+    const savedKey = localStorage.getItem(DASHBOARD_KEY_STORAGE);
+    // Saved key: go straight in; a wrong/changed key is caught by the first poll (401).
+    if (savedKey) unlock(savedKey);
   }
+
+  // Any first tap/click on the page unlocks sound (browsers block audio until then).
+  const firstGesture = () => {
+    startAudioKeepAlive();
+    keepAwake();
+    const b = document.getElementById('soundUnlockBtn');
+    if (b) b.hidden = true;
+  };
+  document.addEventListener('pointerdown', firstGesture, { once: true });
+  document.addEventListener('keydown', firstGesture, { once: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) { keepAwake(); poll(true); }
+  });
+  window.addEventListener('online', () => poll(true));
+  window.addEventListener('focus', () => poll());
 
   document.getElementById('soundUnlockBtn').addEventListener('click', () => {
     startAudioKeepAlive();
@@ -277,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.orders-tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       currentFilter = tab.dataset.filter;
-      poll();
+      poll(true);
     });
   });
 
@@ -298,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('soundUnlockBtn').hidden = true;
     const wasOff = localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
     if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'on'); // test should play even if muted
-    beep();
+    ringOnce();
     if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'off');
   });
 

@@ -199,3 +199,7 @@
   animation:pulseNew 1.4s ease infinite;
 }
 .sound-unlock-banner[hidden]{display:none;}
+
+.orders-last-update{font-size:.8rem; opacity:.75; margin-right:8px;}
+@keyframes alarmFlash{0%,100%{background:#0b0b0c;} 50%{background:#7a0c14;}}
+body.alarm .orders-header{animation:alarmFlash .8s infinite;}
