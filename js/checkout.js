@@ -57,6 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const form = document.getElementById('checkoutForm');
   const submitBtn = document.getElementById('submitBtn');
+  const lockForMinimum = () => {
+    if (belowMinOrder() && !submitBtn.dataset.closed) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Минимална поръчка ' + MIN_ORDER.toFixed(2) + '€';
+      showError(minOrderText());
+    }
+  };
+  lockForMinimum();
+  setTimeout(lockForMinimum, 800); // MIN_ORDER may be refreshed from the server shortly after load
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

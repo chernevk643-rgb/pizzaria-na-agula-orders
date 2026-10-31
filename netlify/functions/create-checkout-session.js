@@ -6,6 +6,7 @@ const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
 const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
+const { MIN_ORDER, minOrderMessage } = require('./_rules.js');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -71,6 +72,7 @@ exports.handler = async (event) => {
 
   const line_items = [];
   const overrides = await getOverridesSafe();
+  let subtotal = 0;
   for (const it of items) {
     const id = typeof it.id === 'string' ? it.id : '';
     const qty = Number.isInteger(it.qty) ? it.qty : 0;
@@ -123,6 +125,7 @@ exports.handler = async (event) => {
     const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);
     const extras = choices.concat(addons.map(a => '+ ' + a.name));
     const name = extras.length ? `${product.name} (${extras.join(', ')})` : product.name;
+    subtotal += unitPrice * qty;
     line_items.push({
       price_data: {
         currency: 'eur',
@@ -131,6 +134,10 @@ exports.handler = async (event) => {
       },
       quantity: qty
     });
+  }
+
+  if (subtotal < MIN_ORDER - 0.001) {
+    return { statusCode: 400, body: JSON.stringify({ error: minOrderMessage(subtotal), minOrder: MIN_ORDER }) };
   }
 
   line_items.push({

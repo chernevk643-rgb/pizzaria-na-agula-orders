@@ -6,6 +6,7 @@ const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
 const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
+const { MIN_ORDER, minOrderMessage } = require('./_rules.js');
 const { saveOrder } = require('./_orders-store.js');
 
 const MAX_QTY_PER_ITEM = 20;
@@ -114,6 +115,10 @@ exports.handler = async (event) => {
     const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);
     total += unitPrice * qty;
     lineItems.push({ name: product.name, price: product.price, addons, choices, qty });
+  }
+
+  if (total < MIN_ORDER - 0.001) {
+    return { statusCode: 400, body: JSON.stringify({ error: minOrderMessage(total), minOrder: MIN_ORDER }) };
   }
 
   lineItems.push({ name: 'Доставка', price: DELIVERY_FEE, addons: [], choices: [], qty: 1 });

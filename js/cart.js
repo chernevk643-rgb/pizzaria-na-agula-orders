@@ -65,6 +65,15 @@ function clearCart() {
 }
 
 const DELIVERY_FEE = 1.99;
+let MIN_ORDER = 15; // food subtotal without delivery; the server enforces it too
+
+function belowMinOrder() {
+  const t = cartTotal();
+  return t > 0 && t < MIN_ORDER - 0.001;
+}
+function minOrderText() {
+  return 'Минимална поръчка ' + MIN_ORDER.toFixed(2) + '€ (без доставка). Добавете още ' + (MIN_ORDER - cartTotal()).toFixed(2) + '€.';
+}
 
 function orderTotal() {
   return Math.round((cartTotal() + DELIVERY_FEE) * 100) / 100;
@@ -100,6 +109,8 @@ function renderCart() {
     itemsEl.innerHTML = '<p class="cart-empty">Количката е празна.</p>';
     if (checkoutBtn) checkoutBtn.classList.add('disabled');
     if (totalEl) totalEl.textContent = fmtEUR(0);
+    const noteEmpty = document.getElementById('cartMinNote');
+    if (noteEmpty) noteEmpty.hidden = true;
     return;
   }
   if (checkoutBtn) checkoutBtn.classList.remove('disabled');
@@ -131,6 +142,14 @@ function renderCart() {
   }).join('');
 
   if (totalEl) totalEl.textContent = fmtEUR(cart.length ? orderTotal() : 0);
+
+  const note = document.getElementById('cartMinNote');
+  const below = belowMinOrder();
+  if (note) {
+    note.hidden = !below;
+    if (below) note.textContent = minOrderText();
+  }
+  if (checkoutBtn) checkoutBtn.classList.toggle('is-disabled', below || document.body.classList.contains('shop-closed'));
 }
 
 /* ===================== DRAWER ===================== */
@@ -288,6 +307,7 @@ function showClosedNotice(hours) {
   }
   const submit = document.getElementById('submitBtn');
   if (submit) {
+    submit.dataset.closed = '1';
     submit.disabled = true;
     submit.textContent = 'Затворено до ' + hours.open + ':00';
   }
@@ -299,6 +319,7 @@ function syncCartWithCatalog() {
     .then(data => {
       if (!data) return;
       if (data.open === false && data.hours) showClosedNotice(data.hours);
+      if (typeof data.minOrder === 'number') { MIN_ORDER = data.minOrder; renderCart(); }
       const ov = data.overrides || {};
       let cart = getCart();
       const before = JSON.stringify(cart);
@@ -323,6 +344,13 @@ function syncCartWithCatalog() {
 document.addEventListener('DOMContentLoaded', () => {
   renderCart();
   syncCartWithCatalog();
+
+  const checkoutLink = document.getElementById('cartCheckoutBtn');
+  if (checkoutLink) {
+    checkoutLink.addEventListener('click', (e) => {
+      if (belowMinOrder()) { e.preventDefault(); alert(minOrderText()); }
+    });
+  }
 
   // Add-to-cart buttons (event delegation, works for all injected buttons).
   // Items with an addon group open the customization modal instead of

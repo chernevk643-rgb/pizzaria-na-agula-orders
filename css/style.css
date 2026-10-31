@@ -1130,3 +1130,5 @@ ul{list-style:none;}
 body.shop-closed{padding-top:38px;}
 body.shop-closed .site-header{top:38px;}
 .cart-checkout-btn.is-disabled{opacity:.5; cursor:not-allowed;}
+
+.cart-min-note{background:#fff3cd; color:#664d03; font-size:.85rem; font-weight:600; padding:8px 12px; border-radius:8px; margin-bottom:10px; text-align:center;}
