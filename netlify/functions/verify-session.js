@@ -1,6 +1,6 @@
 // Confirms a Stripe Checkout Session actually completed payment before we
 // show a "thank you" screen or treat the order as paid. Never trust the
-// success_url redirect alone — it can be reached without a real payment.
+// success_url redirect alone - it can be reached without a real payment.
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const { saveOrder, getOrder } = require('./_orders-store.js');
@@ -49,7 +49,7 @@ exports.handler = async (event) => {
       }
     } catch (storeErr) {
       // Don't fail the customer's confirmation screen if the dashboard
-      // write hiccups — the payment itself already succeeded with Stripe.
+      // write hiccups - the payment itself already succeeded with Stripe.
       console.error('Order store error (payment still succeeded):', storeErr.message);
     }
 

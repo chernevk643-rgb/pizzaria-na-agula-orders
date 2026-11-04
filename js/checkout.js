@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderItems = cart.map(i => {
           const extraTxt = (i.choices || []).map(c => c.name).concat((i.addons || []).map(a => a.name));
           const addonsTxt = extraTxt.length ? ` (${extraTxt.join(', ')})` : '';
-          return `${i.name}${addonsTxt} × ${i.qty} — ${fmt(lineUnitPrice(i) * i.qty)}`;
+          return `${i.name}${addonsTxt} × ${i.qty} - ${fmt(lineUnitPrice(i) * i.qty)}`;
         }).join('\n');
         fetch('/', {
           method: 'POST',

@@ -153,13 +153,13 @@ function row(it) {
       imageRemoved = false;
       img.src = pendingImage;
       origImg.hidden = false;
-      msg.textContent = 'Снимката е избрана — натиснете „Запази“.';
+      msg.textContent = 'Снимката е избрана - натиснете „Запази“.';
     } catch (e) { msg.textContent = e.message; }
     fileIn.value = '';
   });
   origImg.addEventListener('click', () => {
     pendingImage = null; imageRemoved = true; img.src = it.img; origImg.hidden = true;
-    msg.textContent = 'Ще се върне оригиналната снимка — натиснете „Запази“.';
+    msg.textContent = 'Ще се върне оригиналната снимка - натиснете „Запази“.';
   });
 
   const save = document.createElement('button');

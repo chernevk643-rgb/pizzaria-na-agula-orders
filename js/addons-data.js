@@ -1,5 +1,5 @@
 // Mirrors netlify/functions/addons.json for instant client-side rendering.
-// The server re-validates every price from its own copy — this file only
+// The server re-validates every price from its own copy - this file only
 // drives the UI, it is never trusted for totals.
 const ADDON_GROUPS = {
   combo: [
@@ -86,7 +86,7 @@ const COMBO_PIZZAS = [
   { key: 'kremperoni-std', name: 'Кремперони' }
 ];
 
-// Family (60см) pizzas allowed in the family combos — the same 12 as above.
+// Family (60см) pizzas allowed in the family combos - the same 12 as above.
 const COMBO_PIZZAS_FAMILY = [
   { key: 'margarita-9', name: 'Маргарита' },
   { key: 'kaprichoza-10', name: 'Капричоза' },

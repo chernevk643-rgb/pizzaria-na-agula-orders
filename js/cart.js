@@ -16,7 +16,7 @@ function saveCart(cart) {
 }
 
 // Two cart lines are the same product only if they also have the same
-// addons — a Маргарита with bacon must stay a separate line from a plain
+// addons - a Маргарита with bacon must stay a separate line from a plain
 // Маргарита so the kitchen can see exactly what each one needs.
 function fmtChoices(names) {
   const counts = new Map();

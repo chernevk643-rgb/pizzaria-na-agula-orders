@@ -1,5 +1,5 @@
 // Public endpoint so a customer can track their own order by its id
-// (a UUID or Stripe session id — unguessable, so no extra auth needed).
+// (a UUID or Stripe session id - unguessable, so no extra auth needed).
 // Deliberately returns only what the customer needs to see: status, items,
 // total. Never returns phone/email/address, even though it's their own data,
 // to keep the surface minimal in case a tracking link is ever forwarded.

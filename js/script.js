@@ -20,7 +20,7 @@ mainNav.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => mainNav.classList.remove('open'));
 });
 
-// Menu tabs — same pattern as Glovo/Bolt: the category bar sticks to the top,
+// Menu tabs - same pattern as Glovo/Bolt: the category bar sticks to the top,
 // every category is visible in one continuous scroll (nothing is hidden),
 // clicking a tab smooth-scrolls straight to that category, and the tab that
 // matches whatever category is currently under the sticky bar lights up as
@@ -46,7 +46,7 @@ const panelObserver = new IntersectionObserver((entries) => {
 
 panels.forEach(p => panelObserver.observe(p));
 
-// Reviews carousel — drifts sideways on its own in a seamless loop; pauses while
+// Reviews carousel - drifts sideways on its own in a seamless loop; pauses while
 // the visitor hovers or touches it, and the arrows still step one card at a time.
 const reviewTrack = document.getElementById('reviewTrack');
 if (reviewTrack) {

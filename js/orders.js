@@ -39,7 +39,7 @@ function getAudioCtx() {
 
 // Chrome/Safari auto-suspend an AudioContext after ~30s of silence to save
 // battery, and iOS Safari in particular often refuses ctx.resume() unless
-// it's called synchronously inside a real tap/click — a timer-driven alert
+// it's called synchronously inside a real tap/click - a timer-driven alert
 // (our poll loop) doesn't qualify, so resume() can silently never resolve.
 // The reliable fix is to never let the context go idle in the first place:
 // keep an inaudible (gain ~0) oscillator running continuously from the
@@ -58,36 +58,49 @@ function startAudioKeepAlive() {
   } catch (e) { /* ignore */ }
 }
 
-// Loud alarm: two stacked oscillators (square + saw) through a compressor so it
-// stays as loud as the device allows without clipping, ~2.4s per ring.
+// Loud siren: full-power square waves alternating every 0.15s between two high
+// tones (the 2-3 kHz range is where human hearing is most sensitive), with a
+// lower octave and a fifth stacked on top, pushed through a hard limiter so the
+// output sits at the maximum the device can play. ~3s per ring, no silent gaps.
 function ringOnce() {
   if (localStorage.getItem(SOUND_PREF_STORAGE) === 'off') return;
   try {
     const ctx = getAudioCtx();
     if (ctx.state !== 'running') ctx.resume();
-    const comp = ctx.createDynamicsCompressor();
-    comp.threshold.value = -10;
-    comp.ratio.value = 12;
-    comp.connect(ctx.destination);
-    const pattern = [988, 740, 988, 740, 988, 740, 988, 740];
-    pattern.forEach((freq, i) => {
-      const t = ctx.currentTime + i * 0.3;
-      [['square', freq, 0.8], ['sawtooth', freq * 2, 0.5]].forEach(([type, f, peak]) => {
+    const master = ctx.createGain();
+    master.gain.value = 1.8;
+    const limiter = ctx.createDynamicsCompressor();
+    limiter.threshold.value = -3;
+    limiter.knee.value = 0;
+    limiter.ratio.value = 20;
+    limiter.attack.value = 0.001;
+    limiter.release.value = 0.05;
+    master.connect(limiter);
+    limiter.connect(ctx.destination);
+
+    const SEG = 0.15;
+    const SEGMENTS = 20;
+    const start = ctx.currentTime + 0.02;
+    for (let i = 0; i < SEGMENTS; i++) {
+      const t = start + i * SEG;
+      const f = i % 2 === 0 ? 2093 : 2637;
+      [['square', f, 1.0], ['square', f / 2, 0.7], ['sawtooth', f * 1.5, 0.4]].forEach(([type, freq, peak]) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = type;
-        osc.frequency.value = f;
-        gain.gain.setValueAtTime(0.0001, t);
-        gain.gain.exponentialRampToValueAtTime(peak, t + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
-        osc.connect(gain).connect(comp);
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(peak, t + 0.004);
+        gain.gain.setValueAtTime(peak, t + SEG - 0.006);
+        gain.gain.linearRampToValueAtTime(0, t + SEG);
+        osc.connect(gain).connect(master);
         osc.start(t);
-        osc.stop(t + 0.3);
+        osc.stop(t + SEG);
       });
-    });
+    }
   } catch (e) { /* audio not available, ignore */ }
   if (navigator.vibrate) {
-    try { navigator.vibrate([400, 150, 400, 150, 400]); } catch (e) { /* ignore */ }
+    try { navigator.vibrate([500, 150, 500, 150, 500]); } catch (e) { /* ignore */ }
   }
 }
 

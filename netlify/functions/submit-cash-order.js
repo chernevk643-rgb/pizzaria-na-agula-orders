@@ -77,7 +77,7 @@ exports.handler = async (event) => {
     }
 
     // Add-ons are only valid if the product declares a matching group, and
-    // every requested add-on key must exist in that group — prices always
+    // every requested add-on key must exist in that group - prices always
     // come from our own catalog, never from the client.
     const group = product.addonGroup ? addonGroups[product.addonGroup] : null;
     const requestedAddons = Array.isArray(it.addons) ? it.addons : [];
