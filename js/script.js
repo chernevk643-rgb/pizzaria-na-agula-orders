@@ -42,7 +42,7 @@ const panelObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) setActiveTab(entry.target.id);
   });
-}, { rootMargin: '-160px 0px -70% 0px', threshold: 0 });
+}, { rootMargin: '-230px 0px -70% 0px', threshold: 0 });
 
 panels.forEach(p => panelObserver.observe(p));
 

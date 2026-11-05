@@ -65,6 +65,11 @@ function clearCart() {
 }
 
 const DELIVERY_FEE = 1.99;
+let FREE_DELIVERY_FROM = 40; // food subtotal from which delivery is free (server enforces too)
+
+function deliveryFee() {
+  return cartTotal() >= FREE_DELIVERY_FROM - 0.001 ? 0 : DELIVERY_FEE;
+}
 let MIN_ORDER = 15; // food subtotal without delivery; the server enforces it too
 
 function belowMinOrder() {
@@ -76,7 +81,7 @@ function minOrderText() {
 }
 
 function orderTotal() {
-  return Math.round((cartTotal() + DELIVERY_FEE) * 100) / 100;
+  return Math.round((cartTotal() + deliveryFee()) * 100) / 100;
 }
 
 function cartTotal() {
@@ -111,6 +116,8 @@ function renderCart() {
     if (totalEl) totalEl.textContent = fmtEUR(0);
     const noteEmpty = document.getElementById('cartMinNote');
     if (noteEmpty) noteEmpty.hidden = true;
+    const hintEmpty = document.getElementById('cartFreeHint');
+    if (hintEmpty) hintEmpty.hidden = true;
     return;
   }
   if (checkoutBtn) checkoutBtn.classList.remove('disabled');
@@ -142,6 +149,15 @@ function renderCart() {
   }).join('');
 
   if (totalEl) totalEl.textContent = fmtEUR(cart.length ? orderTotal() : 0);
+
+  const delVal = document.getElementById('cartDeliveryVal');
+  if (delVal) delVal.textContent = deliveryFee() === 0 ? 'Безплатна' : fmtEUR(deliveryFee());
+  const hint = document.getElementById('cartFreeHint');
+  if (hint) {
+    const left = FREE_DELIVERY_FROM - cartTotal();
+    hint.hidden = left <= 0.001;
+    if (left > 0.001) hint.textContent = 'Добавете още ' + left.toFixed(2) + '€ за безплатна доставка (над ' + FREE_DELIVERY_FROM + '€).';
+  }
 
   const note = document.getElementById('cartMinNote');
   const below = belowMinOrder();
@@ -319,7 +335,9 @@ function syncCartWithCatalog() {
     .then(data => {
       if (!data) return;
       if (data.open === false && data.hours) showClosedNotice(data.hours);
-      if (typeof data.minOrder === 'number') { MIN_ORDER = data.minOrder; renderCart(); }
+      if (typeof data.minOrder === 'number') { MIN_ORDER = data.minOrder; }
+      if (typeof data.freeDeliveryFrom === 'number') { FREE_DELIVERY_FROM = data.freeDeliveryFrom; }
+      renderCart();
       const ov = data.overrides || {};
       let cart = getCart();
       const before = JSON.stringify(cart);

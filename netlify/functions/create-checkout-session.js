@@ -6,7 +6,7 @@ const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
 const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
-const { MIN_ORDER, minOrderMessage } = require('./_rules.js');
+const { MIN_ORDER, deliveryFeeFor, minOrderMessage } = require('./_rules.js');
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -23,8 +23,6 @@ function cleanText(v, max) {
   if (typeof v !== 'string') return '';
   return v.replace(/[<>]/g, '').trim().slice(0, max);
 }
-
-const DELIVERY_FEE = 1.99;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -140,10 +138,13 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: minOrderMessage(subtotal), minOrder: MIN_ORDER }) };
   }
 
-  line_items.push({
-    price_data: { currency: 'eur', product_data: { name: 'Доставка' }, unit_amount: Math.round(DELIVERY_FEE * 100) },
-    quantity: 1
-  });
+  const delivery = deliveryFeeFor(subtotal);
+  if (delivery > 0) {
+    line_items.push({
+      price_data: { currency: 'eur', product_data: { name: 'Доставка' }, unit_amount: Math.round(delivery * 100) },
+      quantity: 1
+    });
+  }
 
   const host = event.headers && (event.headers.host || event.headers.Host);
   const siteUrl = process.env.URL || (host ? `https://${host}` : null);

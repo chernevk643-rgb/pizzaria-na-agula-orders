@@ -6,7 +6,7 @@ const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
 const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
-const { MIN_ORDER, minOrderMessage } = require('./_rules.js');
+const { MIN_ORDER, deliveryFeeFor, minOrderMessage } = require('./_rules.js');
 const { saveOrder } = require('./_orders-store.js');
 
 const MAX_QTY_PER_ITEM = 20;
@@ -22,8 +22,6 @@ function cleanText(v, max) {
   if (typeof v !== 'string') return '';
   return v.replace(/[<>]/g, '').trim().slice(0, max);
 }
-
-const DELIVERY_FEE = 1.99;
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -121,8 +119,11 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: minOrderMessage(total), minOrder: MIN_ORDER }) };
   }
 
-  lineItems.push({ name: 'Доставка', price: DELIVERY_FEE, addons: [], choices: [], qty: 1 });
-  total += DELIVERY_FEE;
+  const delivery = deliveryFeeFor(total);
+  if (delivery > 0) {
+    lineItems.push({ name: 'Доставка', price: delivery, addons: [], choices: [], qty: 1 });
+    total += delivery;
+  }
 
   const order = {
     id: crypto.randomUUID(),

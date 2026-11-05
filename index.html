@@ -3,25 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Пицария "На Ъгъла" - Най-добрата улична пица в София</title>
-<meta name="description" content="Пицария На Ъгъла - прясно домашно тесто, щедри съставки, пици на парче и семейни пици. Ул. „Козяк“ 21, София. Поръчай сега!">
+<title>Пицария "На Ъгъла" - Най-добрата стрийт пица в София</title>
+<meta name="description" content="Поръчай любимите пици от На Ъгъла бързо, лесно и удобно. Домашно тесто, качествени продукти и бърза доставка в цяла София. Виж менюто и избери.">
 <link rel="canonical" href="https://naugula.bg/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Пицария На Ъгъла">
-<meta property="og:title" content="Пицария &quot;На Ъгъла&quot; - Най-добрата улична пица в София">
-<meta property="og:description" content="Прясно домашно тесто, щедри съставки, пици на парче и семейни пици. Ул. „Козяк“ 21, София. Поръчай онлайн!">
+<meta property="og:title" content="Пицария &quot;На Ъгъла&quot; - Най-добрата стрийт пица в София">
+<meta property="og:description" content="Поръчай любимите пици от На Ъгъла бързо, лесно и удобно. Домашно тесто, качествени продукти и бърза доставка в цяла София. Виж менюто и избери.">
 <meta property="og:url" content="https://naugula.bg/">
 <meta property="og:image" content="https://naugula.bg/assets/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://naugula.bg/assets/img/og-image.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="has-topbar">
+
+<!-- ===== TOP INFO BAR ===== -->
+<div class="topbar" id="topbar">
+  <div class="topbar-track">
+    <div class="topbar-items"><a href="tel:+359895069669" class="tb-item"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a><span class="tb-item">Безплатна доставка над 40 евро</span><span class="tb-item">Доставка до 60 минути</span><span class="tb-item">4.6 ★ оценка в Google - над 320 отзива</span></div>
+    <div class="topbar-items" aria-hidden="true"><a href="tel:+359895069669" class="tb-item" tabindex="-1"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a><span class="tb-item">Безплатна доставка над 40 евро</span><span class="tb-item">Доставка до 60 минути</span><span class="tb-item">4.6 ★ оценка в Google - над 320 отзива</span></div>
+  </div>
+</div>
 
 <!-- ===== HEADER ===== -->
 <header class="site-header" id="siteHeader">
@@ -34,6 +45,7 @@
       <a href="#menu">Меню</a>
       <a href="#about">За нас</a>
       <a href="#reviews">Отзиви</a>
+      <a href="#catering">Кетъринг</a>
       <a href="#franchise">Франчайз</a>
       <a href="#contact">Контакти</a>
     </nav>
@@ -63,8 +75,9 @@
   <div class="cart-drawer-foot">
     <div class="cart-total-row cart-delivery-row">
       <span>Доставка</span>
-      <span>1.99€</span>
+      <span id="cartDeliveryVal">1.99€</span>
     </div>
+    <p class="cart-free-hint" id="cartFreeHint" hidden></p>
     <div class="cart-total-row">
       <span>Общо</span>
       <span id="cartTotal">0.00€</span>
@@ -128,7 +141,7 @@
     </div>
     <div class="usp-item">
       <span class="usp-ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg></span>
-      <div><strong>4.7★ в Google</strong><small>Оценка от стотици наши клиенти.</small></div>
+      <div><strong>4.6★ в Google</strong><small>Над 320 отзива от наши клиенти.</small></div>
     </div>
   </div>
 </section>
@@ -138,7 +151,7 @@
   <div class="container">
     <h2 class="section-title">Нашето <span class="text-red">Меню</span></h2>
     <p class="section-sub">Всичко прясно, всеки ден. Изберете категория или превъртете надолу.</p>
-    <p class="delivery-note">Цена на доставка - <strong>1.99&nbsp;€</strong>. Добавя се автоматично към поръчката.</p>
+    <p class="delivery-note">Цена на доставка - <strong>1.99&nbsp;€</strong>, <strong>безплатна над 40&nbsp;€</strong>. Добавя се автоматично към поръчката.</p>
 
     <div class="tabs" id="menuTabs">
       <button class="tab active" data-target="standard">Стандартни пици 30см</button>
@@ -884,7 +897,7 @@
     <h2 class="section-title">Какво казват <span class="text-red">клиентите</span></h2>
     <div class="rating-badge">
       <span class="big-star">★</span>
-      <div><strong>4.7 / 5</strong><small>311 отзива в Google</small></div>
+      <div><strong>4.6 / 5</strong><small>над 320 отзива в Google</small></div>
     </div>
     <div class="review-carousel">
       <button type="button" class="review-arrow prev" id="reviewPrev" aria-label="Предишен отзив">&#8249;</button>
@@ -925,6 +938,27 @@
   </div>
 </section>
 
+<!-- ===== CATERING ===== -->
+<section class="franchise catering" id="catering">
+  <div class="container franchise-inner">
+    <h2 class="section-title light">Ти събираш хората. <span class="text-red">Ние приготвяме пиците.</span></h2>
+    <span class="fr-underline" aria-hidden="true"></span>
+    <p class="cat-text">Да организираш храна за събитие звучи лесно... докато не се превърне в поредица от въпроси:</p>
+    <ul class="fr-list">
+      <li><span class="fr-ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 17h.01"/></svg></span><div><strong>Ще дойде ли навреме?</strong></div></li>
+      <li><span class="fr-ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 17h.01"/></svg></span><div><strong>Пак ли ще ядем едно и също?</strong></div></li>
+      <li><span class="fr-ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 17h.01"/></svg></span><div><strong>Колко души сме днес?</strong></div></li>
+      <li><span class="fr-ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 17h.01"/></svg></span><div><strong>Какво и колко да поръчам?</strong></div></li>
+      <li><span class="fr-ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.1.9-1.1 1.8M12 17h.01"/></svg></span><div><strong>Дали ще се хареса на всички?</strong></div></li>
+    </ul>
+    <p class="fr-big">С нас организацията е по-лесна, а събирането - по-вкусно.</p>
+    <p class="cat-text">За събиране в офиса, фирмено събитие, рожден ден или парти с приятели - приготвяме автентични пици с домашно приготвено тесто и качествени продукти. Разнообразни вкусове за различните предпочитания и големи семейни пици, идеални за споделяне.</p>
+    <p class="cat-text"><strong>Не знаеш колко да поръчаш? Ще ти помогнем.</strong> Обади ни се и заедно ще уточним количеството, видовете пица и часа на доставката, за да можеш спокойно да се погрижиш за гостите си.</p>
+    <p class="fr-brush">Пиците от нас, доброто настроение - от всички вас!</p>
+    <div class="cat-cta"><a class="btn btn-primary" href="tel:+359895069669"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg> 0895 069 669</a></div>
+  </div>
+</section>
+
 <!-- ===== FRANCHISE ===== -->
 <section class="franchise" id="franchise">
   <div class="container franchise-inner">
@@ -954,7 +988,7 @@
         <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg></span><div><strong>Адрес</strong><small>Ул. „Козяк“ 21, 1407 София</small></div></li>
         <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1z"/></svg></span><div><strong>Телефон</strong><small><a href="tel:+359895069669">0895 069 669</a></small></div></li>
         <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><div><strong>Работно време</strong><small>Отворено всеки ден · Затваря в 22:30 ч.</small></div></li>
-        <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg></span><div><strong>Рейтинг</strong><small>4.7 / 5 в Google (311 отзива)</small></div></li>
+        <li><span class="ico"><svg class="ico-svg" viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z"/></svg></span><div><strong>Рейтинг</strong><small>4.6 / 5 в Google (над 320 отзива)</small></div></li>
       </ul>
       <div class="social-row">
         <a href="https://www.facebook.com/naugula/" target="_blank" rel="noopener" class="btn btn-ghost light">Facebook</a>
@@ -983,6 +1017,7 @@
       <a href="#menu">Меню</a>
       <a href="#about">За нас</a>
       <a href="#reviews">Отзиви</a>
+      <a href="#catering">Кетъринг</a>
       <a href="#franchise">Франчайз</a>
       <a href="#contact">Контакти</a>
     </nav>

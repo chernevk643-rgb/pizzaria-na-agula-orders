@@ -26,6 +26,8 @@ function renderSummary() {
   }).join('');
 
   subtotalEl.textContent = fmt(cartTotal());
+  const delEl = document.getElementById('sumDelivery');
+  if (delEl) delEl.textContent = deliveryFee() === 0 ? 'Безплатна' : fmt(deliveryFee());
   totalEl.textContent = fmt(orderTotal());
 }
 
