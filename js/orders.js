@@ -58,46 +58,167 @@ function startAudioKeepAlive() {
   } catch (e) { /* ignore */ }
 }
 
-// Loud siren: full-power square waves alternating every 0.15s between two high
-// tones (the 2-3 kHz range is where human hearing is most sensitive), with a
-// lower octave and a fifth stacked on top, pushed through a hard limiter so the
-// output sits at the maximum the device can play. ~3s per ring, no silent gaps.
+// New-order sounds. Built to be heavy rather than thin: saw/square stacks with
+// bass, pushed through a saturator (so the sound is almost a full-scale square
+// wave, i.e. as much energy as a speaker can take) and then a hard limiter.
+// The kitchen picks one in the toolbar; each lasts ~2.5-3s and repeats (see
+// setAlarm) until the order is accepted.
+const SOUND_TYPE_STORAGE = 'naugula_dashboard_sound_type';
+const SOUND_LABELS = {
+  horn: 'Клаксон (мощен)',
+  wail: 'Вой на сирена (мощен)',
+  hit: 'Удар и камбана',
+  jingle: 'Мелодия',
+  phone: 'Звънец'
+};
+
+// One note: stacked waves, hard on/off with tiny ramps so there are no clicks.
+function tone(ctx, out, t, dur, freq, opts) {
+  const layers = (opts && opts.layers) || [['square', 1, 1.0], ['square', 0.5, 0.7], ['sawtooth', 1.003, 0.35]];
+  layers.forEach(([type, mult, peak]) => {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq * mult;
+    if (opts && opts.vibrato) {
+      const lfo = ctx.createOscillator();
+      const depth = ctx.createGain();
+      lfo.frequency.value = 7;
+      depth.gain.value = freq * mult * 0.012;
+      lfo.connect(depth).connect(osc.frequency);
+      lfo.start(t);
+      lfo.stop(t + dur);
+    }
+    const attack = (opts && opts.attack) || 0.004;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(peak, t + attack);
+    gain.gain.setValueAtTime(peak, t + Math.max(attack + 0.002, dur - 0.012));
+    gain.gain.linearRampToValueAtTime(0, t + dur);
+    osc.connect(gain).connect(out);
+    osc.start(t);
+    osc.stop(t + dur + 0.01);
+  });
+}
+
+// A single oscillator whose pitch glides (used for sirens and drum thumps).
+function glide(ctx, out, type, t, dur, f0, f1, peak) {
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(f0, t);
+  osc.frequency.exponentialRampToValueAtTime(f1, t + dur);
+  gain.gain.setValueAtTime(0, t);
+  gain.gain.linearRampToValueAtTime(peak, t + 0.004);
+  gain.gain.setValueAtTime(peak, t + Math.max(0.006, dur - 0.015));
+  gain.gain.linearRampToValueAtTime(0, t + dur);
+  osc.connect(gain).connect(out);
+  osc.start(t);
+  osc.stop(t + dur + 0.01);
+}
+
+const SOUNDS = {
+  // Truck/train-horn style: a heavy minor-third chord blasted twice, then two
+  // short honks. Hard to miss and does not sound like a phone or a beep.
+  horn: {
+    drive: true,
+    play(ctx, out, t0) {
+      const chord = { layers: [['sawtooth', 1, 1.0], ['sawtooth', 1.5, 0.8], ['square', 0.5, 0.9], ['sawtooth', 2, 0.5]], attack: 0.012 };
+      [[0.00, 0.85], [1.00, 0.85], [2.00, 0.28], [2.38, 0.42]].forEach(([t, d]) => {
+        tone(ctx, out, t0 + t, d, 233, chord);   // A#3 + fifth
+        tone(ctx, out, t0 + t, d, 277, chord);   // C#4 + fifth (gives the horn its beating "chord")
+      });
+    }
+  },
+  // Emergency-vehicle wail: pitch sweeps up and down two full cycles.
+  wail: {
+    drive: true,
+    play(ctx, out, t0) {
+      for (let c = 0; c < 2; c++) {
+        const t = t0 + c * 1.45;
+        [['sawtooth', 1, 1.0], ['square', 1.003, 0.9], ['sawtooth', 2, 0.55]].forEach(([type, mult, peak]) => {
+          glide(ctx, out, type, t, 0.72, 520 * mult, 1500 * mult, peak);
+          glide(ctx, out, type, t + 0.72, 0.72, 1500 * mult, 520 * mult, peak);
+        });
+      }
+    }
+  },
+  // Two drum thumps followed by three bell strikes: punchy rhythm + ring.
+  hit: {
+    drive: true,
+    play(ctx, out, t0) {
+      [0.0, 0.3].forEach(t => {
+        glide(ctx, out, 'sine', t0 + t, 0.22, 180, 45, 1.6);
+        glide(ctx, out, 'square', t0 + t, 0.22, 360, 90, 0.9);
+      });
+      [0.75, 1.2, 1.65].forEach((t, i) => {
+        const f = i === 2 ? 2093 : 1568;
+        [[1, 1.0], [2.76, 0.7], [5.4, 0.5], [8.93, 0.35]].forEach(([mult, peak]) => {
+          tone(ctx, out, t0 + t, 0.42, f * mult, { layers: [['square', 1, peak]] });
+        });
+      });
+      glide(ctx, out, 'sawtooth', t0 + 2.1, 0.5, 700, 700, 0.9);
+    }
+  },
+  jingle: {
+    play(ctx, out, t0) {
+      const N = { E6: 1319, G6: 1568, C7: 2093, D7: 2349 };
+      const seq = [
+        [0.00, 0.14, N.E6], [0.14, 0.14, N.G6], [0.28, 0.14, N.C7], [0.42, 0.14, N.G6],
+        [0.56, 0.14, N.E6], [0.70, 0.14, N.G6], [0.84, 0.56, N.C7, true],
+        [1.40, 0.14, N.D7], [1.54, 0.14, N.C7], [1.68, 0.14, N.G6], [1.82, 0.70, N.C7, true]
+      ];
+      seq.forEach(([t, d, fr, vib]) => tone(ctx, out, t0 + t, d, fr, { vibrato: !!vib }));
+    }
+  },
+  phone: {
+    play(ctx, out, t0) {
+      for (let r = 0; r < 4; r++) {
+        const start = t0 + r * 0.62;
+        for (let k = 0; k < 15; k++) {
+          tone(ctx, out, start + k * 0.035, 0.035, k % 2 === 0 ? 1760 : 1480,
+            { layers: [['square', 1, 1.0], ['square', 0.5, 0.8], ['sawtooth', 2, 0.3]] });
+        }
+      }
+    }
+  }
+};
+
+// master -> (saturator) -> hard limiter -> speakers
+function buildOutput(ctx, drive) {
+  const master = ctx.createGain();
+  master.gain.value = 3.0;
+  const limiter = ctx.createDynamicsCompressor();
+  limiter.threshold.value = -3;
+  limiter.knee.value = 0;
+  limiter.ratio.value = 20;
+  limiter.attack.value = 0.001;
+  limiter.release.value = 0.05;
+  if (drive) {
+    const shaper = ctx.createWaveShaper();
+    const n = 1024;
+    const curve = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const x = (i * 2) / (n - 1) - 1;
+      curve[i] = Math.tanh(x * 5) / Math.tanh(5);
+    }
+    shaper.curve = curve;
+    shaper.oversample = '2x';
+    master.connect(shaper);
+    shaper.connect(limiter);
+  } else {
+    master.connect(limiter);
+  }
+  limiter.connect(ctx.destination);
+  return master;
+}
+
 function ringOnce() {
   if (localStorage.getItem(SOUND_PREF_STORAGE) === 'off') return;
   try {
     const ctx = getAudioCtx();
     if (ctx.state !== 'running') ctx.resume();
-    const master = ctx.createGain();
-    master.gain.value = 1.8;
-    const limiter = ctx.createDynamicsCompressor();
-    limiter.threshold.value = -3;
-    limiter.knee.value = 0;
-    limiter.ratio.value = 20;
-    limiter.attack.value = 0.001;
-    limiter.release.value = 0.05;
-    master.connect(limiter);
-    limiter.connect(ctx.destination);
-
-    const SEG = 0.15;
-    const SEGMENTS = 20;
-    const start = ctx.currentTime + 0.02;
-    for (let i = 0; i < SEGMENTS; i++) {
-      const t = start + i * SEG;
-      const f = i % 2 === 0 ? 2093 : 2637;
-      [['square', f, 1.0], ['square', f / 2, 0.7], ['sawtooth', f * 1.5, 0.4]].forEach(([type, freq, peak]) => {
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = type;
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0, t);
-        gain.gain.linearRampToValueAtTime(peak, t + 0.004);
-        gain.gain.setValueAtTime(peak, t + SEG - 0.006);
-        gain.gain.linearRampToValueAtTime(0, t + SEG);
-        osc.connect(gain).connect(master);
-        osc.start(t);
-        osc.stop(t + SEG);
-      });
-    }
+    const def = SOUNDS[localStorage.getItem(SOUND_TYPE_STORAGE)] || SOUNDS.horn;
+    def.play(ctx, buildOutput(ctx, !!def.drive), ctx.currentTime + 0.02);
   } catch (e) { /* audio not available, ignore */ }
   if (navigator.vibrate) {
     try { navigator.vibrate([500, 150, 500, 150, 500]); } catch (e) { /* ignore */ }
@@ -387,6 +508,20 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(SOUND_PREF_STORAGE, off ? 'on' : 'off');
     refreshSoundLabel();
   });
+
+  const picker = document.getElementById('soundChoice');
+  if (picker) {
+    picker.innerHTML = Object.keys(SOUND_LABELS).map(k => '<option value="' + k + '">' + SOUND_LABELS[k] + '</option>').join('');
+    picker.value = SOUND_LABELS[localStorage.getItem(SOUND_TYPE_STORAGE)] ? localStorage.getItem(SOUND_TYPE_STORAGE) : 'horn';
+    picker.addEventListener('change', () => {
+      localStorage.setItem(SOUND_TYPE_STORAGE, picker.value);
+      startAudioKeepAlive();
+      const wasOff = localStorage.getItem(SOUND_PREF_STORAGE) === 'off';
+      if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'on');
+      ringOnce(); // preview the new choice
+      if (wasOff) localStorage.setItem(SOUND_PREF_STORAGE, 'off');
+    });
+  }
 
   document.getElementById('soundTestBtn').addEventListener('click', () => {
     startAudioKeepAlive();
