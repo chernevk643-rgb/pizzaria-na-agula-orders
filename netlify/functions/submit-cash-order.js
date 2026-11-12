@@ -6,7 +6,7 @@ const products = require('./products.json');
 const addonGroups = require('./addons.json');
 const { getOverridesSafe } = require('./_catalog-store.js');
 const { isOpen, CLOSED_MESSAGE } = require('./_hours.js');
-const { MIN_ORDER, deliveryFeeFor, minOrderMessage } = require('./_rules.js');
+const { MIN_ORDER, deliveryFeeFor, minOrderMessage, CUT_LABELS } = require('./_rules.js');
 const { saveOrder } = require('./_orders-store.js');
 
 const MAX_QTY_PER_ITEM = 20;
@@ -97,7 +97,7 @@ exports.handler = async (event) => {
         return { statusCode: 400, body: JSON.stringify({ error: 'Моля, направете избора си за артикула.' }) };
       }
       for (const cid of requestedChoices) {
-        const pizza = typeof cid === 'string' && ({ family: addonGroups.comboPizzasFamily, donuts: addonGroups.promoDonuts }[product.comboList] || addonGroups.comboPizzas).includes(cid) ? products[cid] : null;
+        const pizza = typeof cid === 'string' && ({ family: addonGroups.comboPizzasFamily, halves: addonGroups.comboPizzasFamily, donuts: addonGroups.promoDonuts }[product.comboList] || addonGroups.comboPizzas).includes(cid) ? products[cid] : null;
         if (pizza && (overrides[cid] || {}).available === false) {
           return { statusCode: 400, body: JSON.stringify({ error: `„${pizza.name}“ в момента не е налична. Изберете друга.` }) };
         }
@@ -108,6 +108,16 @@ exports.handler = async (event) => {
       }
     } else if (requestedChoices.length) {
       return { statusCode: 400, body: JSON.stringify({ error: 'Невалидна заявка.' }) };
+    }
+
+    // Family pizzas: how the kitchen should cut it. Missing = triangles
+    // (older carts), anything else is rejected.
+    if (product.cut) {
+      const cutKey = it.cut === undefined || it.cut === null ? 'triangles' : it.cut;
+      if (!CUT_LABELS[cutKey]) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Невалиден избор за нарязване.' }) };
+      }
+      choices.push('Нарязване: ' + CUT_LABELS[cutKey]);
     }
 
     const unitPrice = product.price + addons.reduce((s, a) => s + a.price, 0);

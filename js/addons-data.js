@@ -111,5 +111,11 @@ const DONUT_CHOICES = [
 const PICK_LISTS = {
   std:    { items: COMBO_PIZZAS,        title: n => 'Изберете ' + (n === 2 ? 'две пици' : n + ' пици') + ' за комбото', pick: 'пица', picks: 'пици' },
   family: { items: COMBO_PIZZAS_FAMILY, title: () => 'Изберете пица за комбото', pick: 'пица', picks: 'пици' },
+  halves: { items: COMBO_PIZZAS_FAMILY, title: () => 'Какви да бъдат двете половини?', pick: 'половина', picks: 'половини' },
   donuts: { items: DONUT_CHOICES,       title: n => 'Изберете ' + n + ' донъта по избор', pick: 'донът', picks: 'донъта' }
 };
+
+const CUT_OPTIONS = [
+  { key: 'squares', name: 'на малки квадратни хапки' },
+  { key: 'triangles', name: 'на триъгълни парчета' }
+];

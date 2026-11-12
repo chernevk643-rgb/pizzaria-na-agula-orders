@@ -24,10 +24,24 @@ function fmtChoices(names) {
   return [...counts].map(([n, c]) => c > 1 ? n + ' ×' + c : n).join(' · ');
 }
 
+function cutName(key) {
+  const o = (typeof CUT_OPTIONS !== 'undefined' ? CUT_OPTIONS : []).find(x => x.key === key);
+  return o ? o.name : '';
+}
+
+function cutRowsHtml() {
+  return '<div class="addon-group-head"><p class="addon-modal-question">Как желаете да я нарежем?</p></div>' +
+    CUT_OPTIONS.map(o => `
+      <label class="addon-row">
+        <input type="radio" name="cut" value="${o.key}"${o.key === 'triangles' ? ' checked' : ''}>
+        <span>${o.name}</span>
+      </label>`).join('');
+}
+
 function itemKey(item) {
   const addonKey = (item.addons || []).map(a => a.key).sort().join(',');
   const choiceKey = (item.choices || []).map(c => c.key).sort().join(',');
-  return item.id + '::' + addonKey + '::' + choiceKey;
+  return item.id + '::' + addonKey + '::' + choiceKey + '::' + (item.cut || '');
 }
 
 function lineUnitPrice(item) {
@@ -127,7 +141,8 @@ function renderCart() {
     const choicesHtml = (i.choices || []).length
       ? `<div class="cart-item-addons">${fmtChoices(i.choices.map(c => c.name))}</div>`
       : '';
-    const addonsHtml = choicesHtml + ((i.addons || []).length
+    const cutHtml = i.cut ? `<div class="cart-item-addons">Нарязване: ${cutName(i.cut)}</div>` : '';
+    const addonsHtml = choicesHtml + cutHtml + ((i.addons || []).length
       ? `<div class="cart-item-addons">${i.addons.map(a => `+ ${a.name}`).join(', ')}</div>`
       : '');
     return `
@@ -203,6 +218,7 @@ function openAddonModal(btn) {
     price: parseFloat(btn.dataset.price),
     img: btn.dataset.img || '',
     group,
+    cut: btn.dataset.cut ? 'triangles' : null,
     selected: new Set()
   };
 
@@ -219,6 +235,9 @@ function openAddonModal(btn) {
         <span class="addon-row-price">${a.price > 0 ? '+' + a.price.toFixed(2) + ' €' : 'безплатно'}</span>
       </label>
     `).join('');
+  }
+  if (addonState.cut) {
+    listEl.innerHTML = cutRowsHtml() + '<div class="addon-group-head"><p class="addon-modal-question">Да сложим ли още нещо?</p></div>' + listEl.innerHTML;
   }
   document.getElementById('addonQtyVal').textContent = '1';
   addonState.qty = 1;
@@ -239,7 +258,8 @@ function openComboModal(btn) {
     name: btn.dataset.name,
     price: parseFloat(btn.dataset.price),
     img: btn.dataset.img || '',
-    group: btn.dataset.comboList ? 'none' : (btn.dataset.addonGroup || 'combo'),
+    group: btn.dataset.addonGroup || (btn.dataset.comboList ? 'none' : 'combo'),
+    cut: btn.dataset.cut ? 'triangles' : null,
     pickMeta: PICK_LISTS[btn.dataset.comboList] || PICK_LISTS.std,
     combo: count,
     selected: new Set(),
@@ -264,7 +284,8 @@ function openComboModal(btn) {
           <button type="button" class="pick-btn" data-pick="${p.key}" data-delta="1" aria-label="Увеличи">&plus;</button>
         </span>
       </div>`).join('');
-  document.getElementById('addonModalList').innerHTML = addonRows +
+  document.getElementById('addonModalList').innerHTML = (addonState.cut ? cutRowsHtml() : '') +
+    (addonRows && addonState.cut ? '<div class="addon-group-head"><p class="addon-modal-question">Да сложим ли още нещо на пицата?</p></div>' : '') + addonRows +
     `<div class="addon-group-head"><p class="addon-modal-question">${meta.title(count)}</p><span class="addon-required">Задължително</span></div>
      <p class="addon-group-hint" id="pickHint">Избрани: 0 от ${count}. Можете да изберете един и същ повече от веднъж.</p>` + pizzaRows +
     '<p class="combo-error" id="comboError" hidden>Моля, изберете точно ' + count + ' ' + (count === 1 ? meta.pick : meta.picks) + '.</p>';
@@ -453,6 +474,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (err) err.hidden = true;
     });
     addonModalList.addEventListener('change', (e) => {
+      const rb = e.target.closest('input[name="cut"]');
+      if (rb && addonState) { addonState.cut = rb.value; return; }
       const cb = e.target.closest('input[type="checkbox"]');
       if (!cb || !addonState) return;
       if (cb.checked) addonState.selected.add(cb.value);
@@ -501,6 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img: addonState.img,
       addons,
       choices,
+      cut: addonState.cut || undefined,
       qty: addonState.qty
     });
     closeAddonModal();

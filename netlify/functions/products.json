@@ -79,85 +79,109 @@
     "price": 12.0,
     "addonGroup": "pizza30"
   },
+  "polovin-polovin-60": {
+    "name": "Половин/половин семейна пица 60см",
+    "price": 35.99,
+    "addonGroup": "pizza60",
+    "pizzaChoices": 2,
+    "comboList": "halves",
+    "cut": true
+  },
   "margarita-9": {
     "name": "Маргарита",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "peperoni-12": {
     "name": "Пеперони",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "kaprichoza-10": {
     "name": "Капричоза",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "kremperoni-fam": {
     "name": "Кремперони",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "kornichoza-fam": {
     "name": "Корничоза",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "diablo-fam": {
     "name": "Диабло",
     "price": 26.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "kremoza-11": {
     "name": "Кремоза",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "belisima-fam": {
     "name": "Белисима",
     "price": 26.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "bianka-fam": {
     "name": "Бианка",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "polo-13": {
     "name": "Поло",
     "price": 26.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "avtorska-fam": {
     "name": "Авторска",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "spetsialna-16": {
     "name": "Специална",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "retro-14": {
     "name": "Ретро",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "4-sirena-15": {
     "name": "4 Сирена",
     "price": 26.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "vegetariana-fam": {
     "name": "Вегетариана",
     "price": 24.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "mega-fam": {
     "name": "Мега",
     "price": 29.0,
-    "addonGroup": "pizza60"
+    "addonGroup": "pizza60",
+    "cut": true
   },
   "korner-dog": {
     "name": "Корнер Дог",

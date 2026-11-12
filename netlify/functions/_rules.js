@@ -10,4 +10,7 @@ const deliveryFeeFor = (subtotal) => (subtotal >= FREE_DELIVERY_FROM - 0.001 ? 0
 const minOrderMessage = (subtotal) =>
   `Минималната поръчка е ${MIN_ORDER.toFixed(2)} € (без доставката). Добавете още ${(MIN_ORDER - subtotal).toFixed(2)} €.`;
 
-module.exports = { MIN_ORDER, DELIVERY_FEE, FREE_DELIVERY_FROM, deliveryFeeFor, minOrderMessage };
+const CUT_LABELS = { squares: 'на малки квадратни хапки', triangles: 'на триъгълни парчета' };
+
+module.exports = {
+  CUT_LABELS, MIN_ORDER, DELIVERY_FEE, FREE_DELIVERY_FROM, deliveryFeeFor, minOrderMessage };

@@ -13,6 +13,7 @@ function renderSummary() {
 
   itemsEl.innerHTML = cart.map(i => {
     const detail = (i.choices || []).length ? [fmtChoices(i.choices.map(c => c.name))] : [];
+    if (i.cut) detail.push('Нарязване: ' + cutName(i.cut));
     detail.push(...(i.addons || []).map(a => '+ ' + a.name));
     const addonsLine = detail.length
       ? `<small>${detail.join(', ')} · × ${i.qty}</small>`
@@ -102,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key), choices: (i.choices || []).map(c => c.key) })),
+            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key), choices: (i.choices || []).map(c => c.key), cut: i.cut })),
             customer: { name, phone, email, address, notes }
           })
         });
@@ -120,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key), choices: (i.choices || []).map(c => c.key) })),
+            items: cart.map(i => ({ id: i.id, qty: i.qty, addons: (i.addons || []).map(a => a.key), choices: (i.choices || []).map(c => c.key), cut: i.cut })),
             customer: { name, phone, email, address, notes }
           })
         });
@@ -135,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Best-effort: also submit to Netlify Forms so an email notification
         // can be enabled later with zero extra code. Never blocks the order.
         const orderItems = cart.map(i => {
-          const extraTxt = (i.choices || []).map(c => c.name).concat((i.addons || []).map(a => a.name));
+          const extraTxt = (i.choices || []).map(c => c.name).concat(i.cut ? ['Нарязване: ' + cutName(i.cut)] : [], (i.addons || []).map(a => a.name));
           const addonsTxt = extraTxt.length ? ` (${extraTxt.join(', ')})` : '';
           return `${i.name}${addonsTxt} × ${i.qty} - ${fmt(lineUnitPrice(i) * i.qty)}`;
         }).join('\n');

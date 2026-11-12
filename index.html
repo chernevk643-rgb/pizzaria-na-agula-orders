@@ -154,8 +154,8 @@
     <p class="delivery-note">Цена на доставка - <strong>1.99&nbsp;€</strong>, <strong>безплатна над 40&nbsp;€</strong>. Добавя се автоматично към поръчката.</p>
 
     <div class="tabs" id="menuTabs">
-      <button class="tab active" data-target="standard">Стандартни пици 30см</button>
-      <button class="tab" data-target="family">Семейни пици 60см</button>
+      <button class="tab active" data-target="family">Семейни пици 60см</button>
+      <button class="tab" data-target="standard">Стандартни пици 30см</button>
       <button class="tab" data-target="sauces">Сосове</button>
       <button class="tab" data-target="combo">Комбо</button>
       <button class="tab" data-target="hotdog">Хот-Дог</button>
@@ -167,8 +167,186 @@
 
     <div class="menu-panels">
 
+    <!-- FAMILY PIZZA -->
+    <div class="menu-panel active" id="family">
+      <h3 class="panel-heading">Семейни пици <span class="text-red">60см</span></h3>
+      <div class="card-grid">
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_margarita.jpg" alt="Половин/половин семейна пица 60см" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Половин/половин</h3><span class="price">35.99 €</span></div>
+            <button type="button" class="btn-cart" data-id="polovin-polovin-60" data-combo-pizzas="2" data-combo-list="halves" data-addon-group="pizza60" data-cut="1" data-name="Половин/половин семейна пица 60см" data-price="35.99" data-img="assets/img/family_margarita.jpg">Добави в количката</button>
+            <p class="desc">Изберете какви да бъдат двете половини. Снимката е примерна.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_margarita.jpg" alt="Семейна пица Маргарита" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Маргарита</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="margarita-9" data-addon-group="pizza60" data-cut="1" data-name="Маргарита 60см" data-price="24.00" data-img="assets/img/family_margarita.jpg">Добави в количката</button>
+            <p class="weight">2500 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, краве сирене, моцарела, пресен домат</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_peperoni.jpg" alt="Семейна пица Пеперони" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Пеперони</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="peperoni-12" data-addon-group="pizza60" data-cut="1" data-name="Пеперони 60см" data-price="24.00" data-img="assets/img/family_peperoni.jpg">Добави в количката</button>
+            <p class="weight">2600 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, италиански колбас пеперони, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kaprichoza.jpg" alt="Семейна пица Капричоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Капричоза</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kaprichoza-10" data-addon-group="pizza60" data-cut="1" data-name="Капричоза 60см" data-price="24.00" data-img="assets/img/family_kaprichoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, гъби печурки, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/p60_kremperoni.jpg" alt="Семейна пица Кремперони" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Кремперони</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kremperoni-fam" data-addon-group="pizza60" data-cut="1" data-name="Кремперони 60см" data-price="24.00" data-img="assets/img/p60_kremperoni.jpg">Добави в количката</button>
+            <p class="weight">2600 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, пеперони, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/p60_kornichoza.jpg" alt="Семейна пица Корничоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Корничоза</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kornichoza-fam" data-addon-group="pizza60" data-cut="1" data-name="Корничоза 60см" data-price="24.00" data-img="assets/img/p60_kornichoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/p60_diablo.jpg" alt="Семейна пица Диабло" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Диабло</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="diablo-fam" data-addon-group="pizza60" data-cut="1" data-name="Диабло 60см" data-price="26.00" data-img="assets/img/p60_diablo.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, лют италиански колбас чоризо, халапеньо, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Кремоза" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Кремоза</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="kremoza-11" data-addon-group="pizza60" data-cut="1" data-name="Кремоза 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
+            <p class="weight">2900 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, бекон, гъби печурки, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/p60_belisima.jpg" alt="Семейна пица Белисима" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Белисима</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="belisima-fam" data-addon-group="pizza60" data-cut="1" data-name="Белисима 60см" data-price="26.00" data-img="assets/img/p60_belisima.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, шунка, топено сирене, кисели краставички, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Бианка" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Бианка</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="bianka-fam" data-addon-group="pizza60" data-cut="1" data-name="Бианка 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италианска сметана, бекон, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_polo.jpg" alt="Семейна пица Поло" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Поло</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="polo-13" data-addon-group="pizza60" data-cut="1" data-name="Поло 60см" data-price="26.00" data-img="assets/img/family_polo.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, пуешко филе, царевица, кисели краставички, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/p60_avtorska.jpg" alt="Семейна Авторска пица" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Авторска</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="avtorska-fam" data-addon-group="pizza60" data-cut="1" data-name="Авторска 60см" data-price="24.00" data-img="assets/img/p60_avtorska.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, бекон, лук, маслини, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_specialna.jpg" alt="Семейна специална пица" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Специална</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="spetsialna-16" data-addon-group="pizza60" data-cut="1" data-name="Специална 60см" data-price="24.00" data-img="assets/img/family_specialna.jpg">Добави в количката</button>
+            <p class="weight">2700 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, шунка, прясна зелена чушка, червен лук, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_retro.jpg" alt="Семейна пица Ретро" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Ретро</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="retro-14" data-addon-group="pizza60" data-cut="1" data-name="Ретро 60см" data-price="24.00" data-img="assets/img/family_retro.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, пилешки кренвирш, топено сирене, българско краве сирене, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/family_4sirena.jpg" alt="Семейна пица 4 Сирена" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>4 Сирена</h3><span class="price">26.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="4-sirena-15" data-addon-group="pizza60" data-cut="1" data-name="4 Сирена 60см" data-price="26.00" data-img="assets/img/family_4sirena.jpg">Добави в количката</button>
+            <p class="weight">2800 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, българско краве сирене, моцарела, топено сирене, френско синьо сирене</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/placeholder_logo.jpg" alt="Семейна пица Вегетариана" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Вегетариана</h3><span class="price">24.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="vegetariana-fam" data-addon-group="pizza60" data-cut="1" data-name="Вегетариана 60см" data-price="24.00" data-img="assets/img/placeholder_logo.jpg">Добави в количката</button>
+            <p class="weight">2600 гр</p>
+            <p class="desc">Домашно тесто, италиански доматен сос, гъби, лук, чушка, царевица, моцарела</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img"><img src="assets/img/placeholder_logo.jpg" alt="Семейна пица Мега" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-top"><h3>Мега</h3><span class="price">29.00 €</span></div>
+            <button type="button" class="btn-cart" data-id="mega-fam" data-addon-group="pizza60" data-cut="1" data-name="Мега 60см" data-price="29.00" data-img="assets/img/placeholder_logo.jpg">Добави в количката</button>
+            <p class="weight">3500 гр</p>
+            <p class="desc">Домашно тесто, доматен сос, шунка, бекон, пуешко филе, топено сирене, царевица, гъби, моцарела</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- SAUCES -->
     <!-- STANDARD PIZZA -->
-    <div class="menu-panel active" id="standard">
+    <div class="menu-panel" id="standard">
       <h3 class="panel-heading">Стандартни пици <span class="text-red">30см</span></h3>
       <div class="card-grid">
 
@@ -335,175 +513,6 @@
       </div>
     </div>
 
-    <!-- FAMILY PIZZA -->
-    <div class="menu-panel" id="family">
-      <h3 class="panel-heading">Семейни пици <span class="text-red">60см</span></h3>
-      <div class="card-grid">
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_margarita.jpg" alt="Семейна пица Маргарита" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Маргарита</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="margarita-9" data-addon-group="pizza60" data-name="Маргарита 60см" data-price="24.00" data-img="assets/img/family_margarita.jpg">Добави в количката</button>
-            <p class="weight">2500 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, краве сирене, моцарела, пресен домат</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_peperoni.jpg" alt="Семейна пица Пеперони" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Пеперони</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="peperoni-12" data-addon-group="pizza60" data-name="Пеперони 60см" data-price="24.00" data-img="assets/img/family_peperoni.jpg">Добави в количката</button>
-            <p class="weight">2600 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, италиански колбас пеперони, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_kaprichoza.jpg" alt="Семейна пица Капричоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Капричоза</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="kaprichoza-10" data-addon-group="pizza60" data-name="Капричоза 60см" data-price="24.00" data-img="assets/img/family_kaprichoza.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, шунка, гъби печурки, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/p60_kremperoni.jpg" alt="Семейна пица Кремперони" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Кремперони</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="kremperoni-fam" data-addon-group="pizza60" data-name="Кремперони 60см" data-price="24.00" data-img="assets/img/p60_kremperoni.jpg">Добави в количката</button>
-            <p class="weight">2600 гр</p>
-            <p class="desc">Домашно тесто, италианска сметана, пеперони, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/p60_kornichoza.jpg" alt="Семейна пица Корничоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Корничоза</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="kornichoza-fam" data-addon-group="pizza60" data-name="Корничоза 60см" data-price="24.00" data-img="assets/img/p60_kornichoza.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, шунка, царевица, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/p60_diablo.jpg" alt="Семейна пица Диабло" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Диабло</h3><span class="price">26.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="diablo-fam" data-addon-group="pizza60" data-name="Диабло 60см" data-price="26.00" data-img="assets/img/p60_diablo.jpg">Добави в количката</button>
-            <p class="weight">2700 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, лют италиански колбас чоризо, халапеньо, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Кремоза" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Кремоза</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="kremoza-11" data-addon-group="pizza60" data-name="Кремоза 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
-            <p class="weight">2900 гр</p>
-            <p class="desc">Домашно тесто, италианска сметана, бекон, гъби печурки, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/p60_belisima.jpg" alt="Семейна пица Белисима" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Белисима</h3><span class="price">26.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="belisima-fam" data-addon-group="pizza60" data-name="Белисима 60см" data-price="26.00" data-img="assets/img/p60_belisima.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Домашно тесто, италианска сметана, шунка, топено сирене, кисели краставички, царевица, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_kremoza.jpg" alt="Семейна пица Бианка" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Бианка</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="bianka-fam" data-addon-group="pizza60" data-name="Бианка 60см" data-price="24.00" data-img="assets/img/family_kremoza.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Домашно тесто, италианска сметана, бекон, царевица, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_polo.jpg" alt="Семейна пица Поло" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Поло</h3><span class="price">26.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="polo-13" data-addon-group="pizza60" data-name="Поло 60см" data-price="26.00" data-img="assets/img/family_polo.jpg">Добави в количката</button>
-            <p class="weight">2700 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, пуешко филе, царевица, кисели краставички, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/p60_avtorska.jpg" alt="Семейна Авторска пица" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Авторска</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="avtorska-fam" data-addon-group="pizza60" data-name="Авторска 60см" data-price="24.00" data-img="assets/img/p60_avtorska.jpg">Добави в количката</button>
-            <p class="weight">2700 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, бекон, лук, маслини, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_specialna.jpg" alt="Семейна специална пица" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Специална</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="spetsialna-16" data-addon-group="pizza60" data-name="Специална 60см" data-price="24.00" data-img="assets/img/family_specialna.jpg">Добави в количката</button>
-            <p class="weight">2700 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, шунка, прясна зелена чушка, червен лук, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_retro.jpg" alt="Семейна пица Ретро" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Ретро</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="retro-14" data-addon-group="pizza60" data-name="Ретро 60см" data-price="24.00" data-img="assets/img/family_retro.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, пилешки кренвирш, топено сирене, българско краве сирене, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/family_4sirena.jpg" alt="Семейна пица 4 Сирена" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>4 Сирена</h3><span class="price">26.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="4-sirena-15" data-addon-group="pizza60" data-name="4 Сирена 60см" data-price="26.00" data-img="assets/img/family_4sirena.jpg">Добави в количката</button>
-            <p class="weight">2800 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, българско краве сирене, моцарела, топено сирене, френско синьо сирене</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/placeholder_logo.jpg" alt="Семейна пица Вегетариана" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Вегетариана</h3><span class="price">24.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="vegetariana-fam" data-addon-group="pizza60" data-name="Вегетариана 60см" data-price="24.00" data-img="assets/img/placeholder_logo.jpg">Добави в количката</button>
-            <p class="weight">2600 гр</p>
-            <p class="desc">Домашно тесто, италиански доматен сос, гъби, лук, чушка, царевица, моцарела</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img"><img src="assets/img/placeholder_logo.jpg" alt="Семейна пица Мега" loading="lazy"></div>
-          <div class="card-body">
-            <div class="card-top"><h3>Мега</h3><span class="price">29.00 €</span></div>
-            <button type="button" class="btn-cart" data-id="mega-fam" data-addon-group="pizza60" data-name="Мега 60см" data-price="29.00" data-img="assets/img/placeholder_logo.jpg">Добави в количката</button>
-            <p class="weight">3500 гр</p>
-            <p class="desc">Домашно тесто, доматен сос, шунка, бекон, пуешко филе, топено сирене, царевица, гъби, моцарела</p>
-          </div>
-        </article>
-
-      </div>
-    </div>
-
-    <!-- SAUCES -->
     <div class="menu-panel" id="sauces">
       <h3 class="panel-heading">Сосове</h3>
       <div class="card-grid">
