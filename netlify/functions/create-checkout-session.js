@@ -165,6 +165,9 @@ exports.handler = async (event) => {
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
+      // Card only: Apple Pay and Google Pay are card wallets and still appear
+      // on the checkout page; this keeps Stripe Link (and other methods) off.
+      payment_method_types: ['card'],
       line_items,
       customer_email: email,
       success_url: `${siteUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
